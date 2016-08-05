@@ -1,6 +1,0 @@
-X:\G2O_Launcher\G2O_Launcher\PollTest\bin\Debug\PollTest.exe.config
-X:\G2O_Launcher\G2O_Launcher\PollTest\bin\Debug\PollTest.exe
-X:\G2O_Launcher\G2O_Launcher\PollTest\bin\Debug\PollTest.pdb
-X:\G2O_Launcher\G2O_Launcher\PollTest\obj\Debug\PollTest.csprojResolveAssemblyReference.cache
-X:\G2O_Launcher\G2O_Launcher\PollTest\obj\Debug\PollTest.exe
-X:\G2O_Launcher\G2O_Launcher\PollTest\obj\Debug\PollTest.pdb

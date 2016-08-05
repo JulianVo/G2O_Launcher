@@ -1,6 +1,0 @@
-X:\G2O_Launcher\G2O_Launcher\ServerRequests\obj\Debug\ServerRequests.csprojResolveAssemblyReference.cache
-X:\G2O_Launcher\G2O_Launcher\ServerRequests\bin\Debug\ServerRequests.dll
-X:\G2O_Launcher\G2O_Launcher\ServerRequests\bin\Debug\ServerRequests.pdb
-X:\G2O_Launcher\G2O_Launcher\ServerRequests\bin\Debug\System.Net.Http.dll
-X:\G2O_Launcher\G2O_Launcher\ServerRequests\obj\Debug\ServerRequests.dll
-X:\G2O_Launcher\G2O_Launcher\ServerRequests\obj\Debug\ServerRequests.pdb
