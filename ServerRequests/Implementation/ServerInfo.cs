@@ -2,10 +2,22 @@
 
 namespace G2O.Launcher.ServerRequests
 {
+    /// <summary>
+    ///     Provides information about a server.
+    /// </summary>
     public class ServerInfo : IServerInfo
     {
         #region constructors
 
+        /// <summary>
+        ///     Initializes a new instance of the <see cref="ServerInfo" />.
+        /// </summary>
+        /// <param name="major">The minor part of the server version.</param>
+        /// <param name="minor">The minor part of the server version.</param>
+        /// <param name="patch"> The patch part of the server version.</param>
+        /// <param name="players">The current count of players that are currently connected to the server.</param>
+        /// <param name="maxPlayers">The maximum of players that can join the server at the same time.</param>
+        /// <param name="hostName"> The host name of the server.</param>
         public ServerInfo(int major, int minor, int patch, int players, int maxPlayers, string hostName)
         {
             if (hostName == null)
@@ -25,6 +37,16 @@ namespace G2O.Launcher.ServerRequests
 
         #region public methods
 
+        /// <summary>
+        ///     Determines whether the specified <see cref="T:System.Object" /> is equal to the current
+        ///     <see cref="T:System.Object" />.
+        /// </summary>
+        /// <returns>
+        ///     true if the specified <see cref="T:System.Object" /> is equal to the current <see cref="T:System.Object" />;
+        ///     otherwise, false.
+        /// </returns>
+        /// <param name="obj">The object to compare with the current object. </param>
+        /// <filterpriority>2</filterpriority>
         public override bool Equals(object obj)
         {
             if (ReferenceEquals(null, obj))
@@ -42,6 +64,9 @@ namespace G2O.Launcher.ServerRequests
             return Equals((ServerInfo) obj);
         }
 
+        /// <summary>Serves as a hash function for a particular type. </summary>
+        /// <returns>A hash code for the current <see cref="T:System.Object" />.</returns>
+        /// <filterpriority>2</filterpriority>
         public override int GetHashCode()
         {
             unchecked
@@ -56,10 +81,21 @@ namespace G2O.Launcher.ServerRequests
             }
         }
 
+        /// <summary>Returns a string that represents the current object.</summary>
+        /// <returns>A string that represents the current object.</returns>
+        /// <filterpriority>2</filterpriority>
+        public override string ToString()
+        {
+            return $"{HostName}[{Players}/{MaxPlayers}]";
+        }
+
         #endregion
 
         #region private methods
 
+        /// <summary>Determines whether the specified <see cref="ServerInfo" /> is equal to the current <see cref="ServerInfo" />.</summary>
+        /// <param name="other"></param>
+        /// <returns>True if the objects are equal.</returns>
         protected bool Equals(ServerInfo other)
         {
             return Major == other.Major && Minor == other.Minor && Patch == other.Patch && Players == other.Players &&
@@ -68,19 +104,40 @@ namespace G2O.Launcher.ServerRequests
 
         #endregion
 
+        /// <summary>
+        ///     Gets the major part of the server version.
+        /// </summary>
         public int Major { get; }
+
+        /// <summary>
+        ///     Gets the minor part of the server version.
+        /// </summary>
         public int Minor { get; }
+
+        /// <summary>
+        ///     Gets the patch part of the server version.
+        /// </summary>
         public int Patch { get; }
+
+        /// <summary>
+        ///     Gets the current count of players that are currently connected to the server.
+        /// </summary>
         public int Players { get; }
+
+        /// <summary>
+        ///     Gets the maximum of players that can join the server at the same time.
+        /// </summary>
         public int MaxPlayers { get; }
+
+        /// <summary>
+        ///     Gets the host name of the server.
+        /// </summary>
         public string HostName { get; }
 
 
+        /// <summary>
+        ///     Gets the full server version string.
+        /// </summary>
         public string VersionString => $"{Major}.{Minor}.{Patch}";
-
-        public override string ToString()
-        {
-            return $"{HostName}[{Players}/{MaxPlayers}]";
-        }
     }
 }

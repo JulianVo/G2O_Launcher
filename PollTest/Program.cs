@@ -1,10 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Text;
-using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 using G2O.Launcher.ServerRequests;
 
 namespace PollTest
@@ -13,7 +7,9 @@ namespace PollTest
     {
         static void Main(string[] args)
         {
-            PollManager manager = new PollManager(28970,1000);
+            //Test for the ServerRequests library.
+
+            ServerWatcher manager = new ServerWatcher(28970, 100,1000,2000);
             manager.OnServerStatusChanged += Manager_OnServerStatusChanged;
             manager.AddServer("192.168.2.199");
             manager.Start();
@@ -22,8 +18,9 @@ namespace PollTest
 
         private static void Manager_OnServerStatusChanged(object sender, ServerStatusChangedEventArgs e)
         {
-           Console.WriteLine(e.ChangedStatus.Info);
-            Console.WriteLine(e.ChangedStatus.LastPing);
+            Console.Write(e.ChangedStatus.Info?.ToString() ?? "null");
+            Console.Write("   Ping:");
+            Console.WriteLine(e.ChangedStatus.LastPing +" "+e.ChangedStatus.PingSuccessfull);
         }
     }
 }

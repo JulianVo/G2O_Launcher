@@ -4,9 +4,9 @@ using System.Net;
 namespace G2O.Launcher.ServerRequests
 {
     /// <summary>
-    ///     Provides data about a poll to the server.
+    ///     Provides data about the status of a GO server.
     /// </summary>
-    public interface IServerPoll
+    public interface IServerState
     {
         /// <summary>
         ///     Gets the <see cref="ServerInfo" /> object for the target server, if available
@@ -21,14 +21,19 @@ namespace G2O.Launcher.ServerRequests
         int LastPing { get; }
 
         /// <summary>
-        ///     Gets the last time a poll was send to the server.
+        ///     Gets the last time a ping reply was received from the server.
         /// </summary>
-        DateTime LastPollTime { get; }
+        DateTime LastSuccessfullPingTime { get; }
+
+        /// <summary>
+        ///     Gets the last time a ping was send to the server.
+        /// </summary>
+        DateTime LastPingTime { get; }
 
         /// <summary>
         ///     Gets a value that indicates if a valid response was received from the server.
         /// </summary>
-        bool PollSuccessfull { get; }
+        bool PingSuccessfull { get; }
 
         /// <summary>
         ///     Get the <see cref="IPAddress" /> of the server host.
