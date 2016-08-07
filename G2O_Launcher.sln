@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServerRequests", "ServerReq
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PollTest", "PollTest\PollTest.csproj", "{D345F1D0-318B-442A-8441-88D5F81B0568}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "G2O_Launcher", "G2O_Launcher\G2O_Launcher.csproj", "{A6F290FE-9DAF-4E73-85FD-22C4613979C0}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -22,6 +24,10 @@ Global
 		{D345F1D0-318B-442A-8441-88D5F81B0568}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
 		{D345F1D0-318B-442A-8441-88D5F81B0568}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D345F1D0-318B-442A-8441-88D5F81B0568}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A6F290FE-9DAF-4E73-85FD-22C4613979C0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A6F290FE-9DAF-4E73-85FD-22C4613979C0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A6F290FE-9DAF-4E73-85FD-22C4613979C0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A6F290FE-9DAF-4E73-85FD-22C4613979C0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
