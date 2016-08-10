@@ -117,6 +117,15 @@ namespace G2O_Launcher.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to News.
+        /// </summary>
+        public static string resTabNews {
+            get {
+                return ResourceManager.GetString("resTabNews", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Servers.
         /// </summary>
         public static string resTabServers {

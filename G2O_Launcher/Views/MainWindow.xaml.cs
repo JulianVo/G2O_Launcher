@@ -1,7 +1,8 @@
 ﻿using System.Windows;
 using System.Windows.Input;
+using G2O_Launcher.ViewModels;
 
-namespace G2O_Launcher
+namespace G2O_Launcher.Views
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
@@ -11,6 +12,7 @@ namespace G2O_Launcher
         public MainWindow()
         {
             InitializeComponent();
+            DataContext= new MainWindowViewModel();
         }
 
         protected override void OnMouseLeftButtonDown(MouseButtonEventArgs e)

@@ -139,6 +139,10 @@
     <value>Favorites</value>
     <comment>Title of the Favorites tab</comment>
   </data>
+  <data name="resTabNews" xml:space="preserve">
+    <value>News</value>
+    <comment>Title of the News tab</comment>
+  </data>
   <data name="resTabServers" xml:space="preserve">
     <value>Servers</value>
     <comment>Title of the Servers tab</comment>
