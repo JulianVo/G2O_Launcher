@@ -11,3 +11,10 @@ X:\G2O_Launcher\G2O_Launcher\G2O_Launcher\obj\Debug\G2O_Launcher.csproj.Generate
 X:\G2O_Launcher\G2O_Launcher\G2O_Launcher\obj\Debug\G2O_Launcher.exe
 X:\G2O_Launcher\G2O_Launcher\G2O_Launcher\obj\Debug\G2O_Launcher.pdb
 X:\G2O_Launcher\G2O_Launcher\G2O_Launcher\obj\Debug\G2O_Launcher.csprojResolveAssemblyReference.cache
+X:\G2O_Launcher\G2O_Launcher\G2O_Launcher\obj\Debug\Views\NewsView.g.cs
+X:\G2O_Launcher\G2O_Launcher\G2O_Launcher\obj\Debug\Views\NewsView.baml
+X:\G2O_Launcher\G2O_Launcher\G2O_Launcher\obj\Debug\GeneratedInternalTypeHelper.g.cs
+X:\G2O_Launcher\G2O_Launcher\G2O_Launcher\obj\Debug\Views\ServersView.g.cs
+X:\G2O_Launcher\G2O_Launcher\G2O_Launcher\obj\Debug\Views\ServersView.baml
+X:\G2O_Launcher\G2O_Launcher\G2O_Launcher\obj\Debug\Views\FavoritesView.g.cs
+X:\G2O_Launcher\G2O_Launcher\G2O_Launcher\obj\Debug\Views\FavoritesView.baml

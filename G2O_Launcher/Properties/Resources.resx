@@ -121,8 +121,23 @@
   <data name="background" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\background.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="GII___Die_Nacht_des_Raben" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\GII_-_Die_Nacht_des_Raben.ttf;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
   <data name="logo" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\logo.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="resLanguageDE" xml:space="preserve">
+    <value>German</value>
+    <comment>Name of the german language</comment>
+  </data>
+  <data name="resLanguageEN" xml:space="preserve">
+    <value>English</value>
+    <comment>Name of the english language</comment>
+  </data>
+  <data name="resLanguagePL" xml:space="preserve">
+    <value>Polish</value>
+    <comment>Name of the polish language</comment>
   </data>
   <data name="resLanguageSelection" xml:space="preserve">
     <value>Language</value>
@@ -134,6 +149,27 @@
   <data name="resMainWindowTitle" xml:space="preserve">
     <value>Gothic 2 Online Launcher</value>
     <comment>Titel of the main window</comment>
+  </data>
+  <data name="resNewsNotLoaded" xml:space="preserve">
+    <value>The news could not be loaded.
+Please check you internet connection.</value>
+    <comment>Text that is displayed if the could not be loaded.</comment>
+  </data>
+  <data name="resReloadNews" xml:space="preserve">
+    <value>Reload</value>
+    <comment>Text for the reload news context menu item.</comment>
+  </data>
+  <data name="resServerAddress" xml:space="preserve">
+    <value>Server Address</value>
+  </data>
+  <data name="resServerHostName" xml:space="preserve">
+    <value>Host Name</value>
+  </data>
+  <data name="resServerPlayers" xml:space="preserve">
+    <value>Players</value>
+  </data>
+  <data name="resServerVersion" xml:space="preserve">
+    <value>Version</value>
   </data>
   <data name="resTabFavorites" xml:space="preserve">
     <value>Favorites</value>

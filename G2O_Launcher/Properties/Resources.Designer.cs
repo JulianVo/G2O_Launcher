@@ -71,12 +71,49 @@ namespace G2O_Launcher.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        public static byte[] GII___Die_Nacht_des_Raben {
+            get {
+                object obj = ResourceManager.GetObject("GII___Die_Nacht_des_Raben", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         public static System.Drawing.Bitmap logo {
             get {
                 object obj = ResourceManager.GetObject("logo", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to German.
+        /// </summary>
+        public static string resLanguageDE {
+            get {
+                return ResourceManager.GetString("resLanguageDE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to English.
+        /// </summary>
+        public static string resLanguageEN {
+            get {
+                return ResourceManager.GetString("resLanguageEN", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Polish.
+        /// </summary>
+        public static string resLanguagePL {
+            get {
+                return ResourceManager.GetString("resLanguagePL", resourceCulture);
             }
         }
         
@@ -104,6 +141,61 @@ namespace G2O_Launcher.Properties {
         public static string resMainWindowTitle {
             get {
                 return ResourceManager.GetString("resMainWindowTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The news could not be loaded.
+        ///Please check you internet connection..
+        /// </summary>
+        public static string resNewsNotLoaded {
+            get {
+                return ResourceManager.GetString("resNewsNotLoaded", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Reload.
+        /// </summary>
+        public static string resReloadNews {
+            get {
+                return ResourceManager.GetString("resReloadNews", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Server Address.
+        /// </summary>
+        public static string resServerAddress {
+            get {
+                return ResourceManager.GetString("resServerAddress", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Host Name.
+        /// </summary>
+        public static string resServerHostName {
+            get {
+                return ResourceManager.GetString("resServerHostName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Players.
+        /// </summary>
+        public static string resServerPlayers {
+            get {
+                return ResourceManager.GetString("resServerPlayers", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Version.
+        /// </summary>
+        public static string resServerVersion {
+            get {
+                return ResourceManager.GetString("resServerVersion", resourceCulture);
             }
         }
         
