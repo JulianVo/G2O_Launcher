@@ -9,7 +9,13 @@
                         d:DesignHeight="300" Width="500" BorderThickness="0">
     <Grid>
         <DataGrid  Margin="0" Background="{x:Null}" BorderBrush="{x:Null}" BorderThickness="0" >
-            <DataGrid.Columns>
+            <DataGrid.ContextMenu>
+                <ContextMenu>
+                    <MenuItem Header="{x:Static p:Resources.resTabFavoritesAddServer}"/>
+                    <MenuItem Header="{x:Static p:Resources.resTabFavoritesRemoveServer}"/>
+                </ContextMenu>
+            </DataGrid.ContextMenu>
+                <DataGrid.Columns>
                 <DataGridTextColumn Header="{x:Static p:Resources.resServerAddress}"/>
                 <DataGridTextColumn Header="{x:Static p:Resources.resServerHostName}"/>
                 <DataGridTextColumn Header="{x:Static p:Resources.resServerPlayers}"/>

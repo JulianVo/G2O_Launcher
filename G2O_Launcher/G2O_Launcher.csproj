@@ -56,6 +56,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="GothicProgressBar.xaml.cs">
+      <DependentUpon>GothicProgressBar.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ViewModels\NewsViewViewModel.cs" />
     <Compile Include="Views\FavoritesView.xaml.cs">
       <DependentUpon>FavoritesView.xaml</DependentUpon>
@@ -66,6 +69,10 @@
     <Compile Include="Views\ServersView.xaml.cs">
       <DependentUpon>ServersView.xaml</DependentUpon>
     </Compile>
+    <Page Include="GothicProgressBar.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\FavoritesView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -118,7 +125,7 @@
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
     <AppDesigner Include="Properties\" />
-      <Resource Include="Resources\GII_-_Die_Nacht_des_Raben.ttf" />
+    <Resource Include="Resources\GII_-_Die_Nacht_des_Raben.ttf" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\background.png" />
@@ -126,7 +133,12 @@
   <ItemGroup>
     <Resource Include="Resources\logo.png" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Resource Include="Resources\balken_bar.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\hintergrund_bar.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

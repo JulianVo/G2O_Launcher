@@ -183,4 +183,18 @@ Please check you internet connection.</value>
     <value>Servers</value>
     <comment>Title of the Servers tab</comment>
   </data>
+  <data name="balken_bar" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\balken_bar.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="hintergrund_bar" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\hintergrund_bar.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="resTabFavoritesAddServer" xml:space="preserve">
+    <value>Add server</value>
+    <comment>Text of the favorites tab context menu entry for adding a new server</comment>
+  </data>
+  <data name="resTabFavoritesRemoveServer" xml:space="preserve">
+    <value>Remove server</value>
+    <comment>Text of the favorites tab context menu entry for removing a server</comment>
+  </data>
 </root>
