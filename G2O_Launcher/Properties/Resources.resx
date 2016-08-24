@@ -197,4 +197,13 @@ Please check you internet connection.</value>
     <value>Remove server</value>
     <comment>Text of the favorites tab context menu entry for removing a server</comment>
   </data>
+  <data name="resServerAddBoxButtonAdd" xml:space="preserve">
+    <value>Add</value>
+  </data>
+  <data name="resServerAddBoxButtonChancel" xml:space="preserve">
+    <value>Chancel</value>
+  </data>
+  <data name="resServerAddBoxTitle" xml:space="preserve">
+    <value>Please enter the server address and port</value>
+  </data>
 </root>

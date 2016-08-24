@@ -184,6 +184,33 @@ namespace G2O_Launcher.Properties {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Add ähnelt.
+        /// </summary>
+        public static string resServerAddBoxButtonAdd {
+            get {
+                return ResourceManager.GetString("resServerAddBoxButtonAdd", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Chancel ähnelt.
+        /// </summary>
+        public static string resServerAddBoxButtonChancel {
+            get {
+                return ResourceManager.GetString("resServerAddBoxButtonChancel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Please enter the server address and port ähnelt.
+        /// </summary>
+        public static string resServerAddBoxTitle {
+            get {
+                return ResourceManager.GetString("resServerAddBoxTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Server Address ähnelt.
         /// </summary>
         public static string resServerAddress {

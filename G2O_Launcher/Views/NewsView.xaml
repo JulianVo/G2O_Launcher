@@ -7,11 +7,16 @@
              xmlns:p="clr-namespace:G2O_Launcher.Properties"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300" BorderThickness="0">
+    <UserControl.Resources>
+        <Style x:Key="Gothic2">
+            <Setter Property="TextElement.FontFamily" Value="/Resources/#Gothic II - Die Nacht des Raben" />
+        </Style>
+    </UserControl.Resources>
     <Grid>
         <TextBox Text="{Binding NewsText}" Margin="10" TextWrapping="Wrap" Background="{x:Null}" Foreground="White" BorderThickness="0">
-            <TextBox.ContextMenu>
+            <TextBox.ContextMenu >
                 <ContextMenu>
-                    <MenuItem Header="{x:Static p:Resources.resReloadNews}"/>
+                    <MenuItem Header="{x:Static p:Resources.resReloadNews}" Style="{DynamicResource Gothic2}"/>
                 </ContextMenu>
             </TextBox.ContextMenu>
         </TextBox>

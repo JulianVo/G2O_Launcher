@@ -8,8 +8,8 @@
              d:DesignHeight="50" d:DesignWidth="400" Width="400" Height="50">
     <Grid>
         <Grid.Background>
-            <ImageBrush ImageSource="Resources/hintergrund_bar.png"/>
+            <ImageBrush ImageSource="../Resources/hintergrund_bar.png"/>
         </Grid.Background>
-    <Image Name="imgBar" Source="Resources/balken_bar.png" Stretch="UniformToFill" HorizontalAlignment="Left" ></Image>
+        <Image Name="imgBar" Source="../Resources/balken_bar.png" Stretch="Uniform" Margin="0" HorizontalAlignment="Left" />
     </Grid>
 </UserControl>

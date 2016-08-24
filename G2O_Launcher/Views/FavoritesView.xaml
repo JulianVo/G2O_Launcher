@@ -7,20 +7,75 @@
              xmlns:p="clr-namespace:G2O_Launcher.Properties"
              mc:Ignorable="d" 
                         d:DesignHeight="300" Width="500" BorderThickness="0">
+    <UserControl.Resources>
+        <Style x:Key="Gothic2">
+            <Setter Property="TextElement.FontFamily" Value="/Resources/#Gothic II - Die Nacht des Raben" />
+        </Style>
+    </UserControl.Resources>
     <Grid>
         <DataGrid  Margin="0" Background="{x:Null}" BorderBrush="{x:Null}" BorderThickness="0" >
             <DataGrid.ContextMenu>
-                <ContextMenu>
-                    <MenuItem Header="{x:Static p:Resources.resTabFavoritesAddServer}"/>
+                <ContextMenu Style="{DynamicResource Gothic2}">
+                    <MenuItem Header="{x:Static p:Resources.resTabFavoritesAddServer}">
+                        <MenuItem.Triggers>
+                            <EventTrigger RoutedEvent="MenuItem.Click">
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.Target="{x:Reference gridAddBox}"
+                                                   Storyboard.TargetProperty="Visibility">
+                                            <DiscreteObjectKeyFrame KeyTime="0:0:0"
+                                                Value="{x:Static Visibility.Visible}"/>
+                                        </ObjectAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </EventTrigger>
+                        </MenuItem.Triggers>
+                    </MenuItem>
                     <MenuItem Header="{x:Static p:Resources.resTabFavoritesRemoveServer}"/>
                 </ContextMenu>
             </DataGrid.ContextMenu>
-                <DataGrid.Columns>
+            <DataGrid.Columns>
                 <DataGridTextColumn Header="{x:Static p:Resources.resServerAddress}"/>
                 <DataGridTextColumn Header="{x:Static p:Resources.resServerHostName}"/>
                 <DataGridTextColumn Header="{x:Static p:Resources.resServerPlayers}"/>
                 <DataGridTextColumn Header="{x:Static p:Resources.resServerVersion}"/>
             </DataGrid.Columns>
         </DataGrid>
+        <Border Name="gridAddBox" Visibility="Hidden" BorderThickness="2" Height="120" Margin="0" Width="480" VerticalAlignment="Center" HorizontalAlignment="Center" Background="#FF2E2D2D" BorderBrush="White">
+            <Grid >
+                <Button Content="{x:Static p:Resources.resServerAddBoxButtonChancel}" HorizontalAlignment="Right" Margin="0,0,20,5" VerticalAlignment="Bottom" Width="75">
+                    <Button.Triggers>
+                        <EventTrigger RoutedEvent="Button.Click">
+                            <BeginStoryboard>
+                                <Storyboard>
+                                    <ObjectAnimationUsingKeyFrames Storyboard.Target="{x:Reference gridAddBox}"
+                                                   Storyboard.TargetProperty="Visibility">
+                                        <DiscreteObjectKeyFrame KeyTime="0:0:0"
+                                                Value="{x:Static Visibility.Hidden}"/>
+                                    </ObjectAnimationUsingKeyFrames>
+                                </Storyboard>
+                            </BeginStoryboard>
+                        </EventTrigger>
+                    </Button.Triggers>
+                </Button>
+                <TextBox Name="txtAddress" Margin="20,60,20,0" TextWrapping="Wrap"  VerticalAlignment="Top"/>
+                <Label  Content="{x:Static p:Resources.resServerAddBoxTitle}" Margin="20,10,20,0" VerticalAlignment="Top" Foreground="White" Width="432" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
+                <Button  Content="{x:Static p:Resources.resServerAddBoxButtonAdd}" HorizontalAlignment="Left" Margin="20,0,0,5" VerticalAlignment="Bottom" Width="75" Command="{Binding AddServerCommand}" CommandParameter="{Binding ElementName=txtAddress, Path=Text}">
+                    <Button.Triggers>
+                        <EventTrigger RoutedEvent="Button.Click">
+                            <BeginStoryboard>
+                                <Storyboard>
+                                    <ObjectAnimationUsingKeyFrames Storyboard.Target="{x:Reference gridAddBox}"
+                                                   Storyboard.TargetProperty="Visibility">
+                                        <DiscreteObjectKeyFrame KeyTime="0:0:0"
+                                                Value="{x:Static Visibility.Hidden}"/>
+                                    </ObjectAnimationUsingKeyFrames>
+                                </Storyboard>
+                            </BeginStoryboard>
+                        </EventTrigger>
+                    </Button.Triggers>
+                </Button>
+            </Grid>
+        </Border>
     </Grid>
 </UserControl>

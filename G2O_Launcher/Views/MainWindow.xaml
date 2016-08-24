@@ -66,7 +66,6 @@
                 </TabItem>
             </TabControl>
 
-
         </Grid>
         <Grid Grid.Row="2" Grid.RowSpan="1">
             <local:GothicProgressBar Value="100" VerticalAlignment="Center" HorizontalAlignment="Center" Width="500" Height="50"/>

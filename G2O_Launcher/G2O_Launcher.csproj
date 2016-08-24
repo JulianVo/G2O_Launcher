@@ -56,9 +56,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="GothicProgressBar.xaml.cs">
+    <Compile Include="Controls\GothicProgressBar.xaml.cs">
       <DependentUpon>GothicProgressBar.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ViewModels\FavoritesViewViewModel.cs" />
     <Compile Include="ViewModels\NewsViewViewModel.cs" />
     <Compile Include="Views\FavoritesView.xaml.cs">
       <DependentUpon>FavoritesView.xaml</DependentUpon>
@@ -69,7 +70,7 @@
     <Compile Include="Views\ServersView.xaml.cs">
       <DependentUpon>ServersView.xaml</DependentUpon>
     </Compile>
-    <Page Include="GothicProgressBar.xaml">
+    <Page Include="Controls\GothicProgressBar.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

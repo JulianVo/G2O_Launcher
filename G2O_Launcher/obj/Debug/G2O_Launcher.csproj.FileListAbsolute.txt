@@ -38,5 +38,5 @@ E:\Develop\G2O\G2O_Launcher\G2O_Launcher\obj\Debug\G2O_Launcher.csproj.GenerateR
 E:\Develop\G2O\G2O_Launcher\G2O_Launcher\obj\Debug\G2O_Launcher.exe
 E:\Develop\G2O\G2O_Launcher\G2O_Launcher\obj\Debug\G2O_Launcher.pdb
 E:\Develop\G2O\G2O_Launcher\G2O_Launcher\obj\Debug\G2O_Launcher.csprojResolveAssemblyReference.cache
-E:\Develop\G2O\G2O_Launcher\G2O_Launcher\obj\Debug\GothicProgressBar.g.cs
-E:\Develop\G2O\G2O_Launcher\G2O_Launcher\obj\Debug\GothicProgressBar.baml
+E:\Develop\G2O\G2O_Launcher\G2O_Launcher\obj\Debug\Controls\GothicProgressBar.g.cs
+E:\Develop\G2O\G2O_Launcher\G2O_Launcher\obj\Debug\Controls\GothicProgressBar.baml
