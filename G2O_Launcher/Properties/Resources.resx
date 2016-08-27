@@ -162,7 +162,7 @@ Please check you internet connection.</value>
   <data name="resServerAddress" xml:space="preserve">
     <value>Server Address</value>
   </data>
-  <data name="resServerHostName" xml:space="preserve">
+  <data name="resServerName" xml:space="preserve">
     <value>Host Name</value>
   </data>
   <data name="resServerPlayers" xml:space="preserve">

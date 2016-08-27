@@ -1,63 +1,66 @@
-﻿using System;
-using System.Net;
-
+﻿// // --------------------------------------------------------------------------------------------------------------------
+// // <copyright file="ServerState.cs" company="Gothic Online Project">
+// //   
+// // </copyright>
+// // --------------------------------------------------------------------------------------------------------------------
 namespace G2O.Launcher.ServerRequests
 {
+    #region
+
+    using System;
+    using System.Net;
+
+    #endregion
+
     /// <summary>
     ///     Provides data about the status of a GO server.
     /// </summary>
     public class ServerState : IServerState
     {
-        #region fields
-
         /// <summary>
         ///     Lock object used for synchronizing the access to the object members.
         /// </summary>
-        private readonly object _Lock = new object();
+        private readonly object lockObject = new object();
 
         /// <summary>
-        ///     Backing field for the ServerIp property.
+        /// The server <see cref="IPAddress"/>.
         /// </summary>
-        private readonly IPAddress _ServerIp;
+        private readonly IPAddress serverIpAddress;
 
         /// <summary>
         ///     Backing field for the ServerPort property.
         /// </summary>
-        private readonly ushort _ServerPort;
+        private readonly ushort serverPort;
 
         /// <summary>
         ///     Backing field for the Info property.
         /// </summary>
-        private ServerInfo _Info;
+        private IServerInfo info;
 
         /// <summary>
         ///     Backing field for the LastPing property.
         /// </summary>
-        private int _LastPing;
+        private int lastPing;
 
         /// <summary>
         ///     Backing field for the LastPingTime property.
         /// </summary>
-        private DateTime _LastPingTime;
+        private DateTime lastPingTime;
 
         /// <summary>
-        ///     Backing field for the LastSuccessfullPingTime property.
+        /// The last successful ping time.
         /// </summary>
-        private DateTime _LastSuccessfullPingTime;
+        private DateTime lastSuccessfullPingTime;
 
         /// <summary>
-        ///     Backing field for the PingSuccessfull property.
+        /// The last ping was successful.
         /// </summary>
-        private bool _PingSuccessfull;
-
-        #endregion
-
-        #region constructors
+        private bool pingSuccessful;
 
         /// <summary>
-        ///     Initializes a new instance of the <see cref="ServerState" />.
+        ///     Initializes a new instance of the <see cref="ServerState" /> class.
         /// </summary>
-        /// <param name="serverIp">The ip the server which should be watched.</param>
+        /// <param name="serverIp">The <see cref="IPAddress"/> which should be watched.</param>
         /// <param name="serverPort">The port of the server that should be watched.</param>
         public ServerState(IPAddress serverIp, ushort serverPort)
         {
@@ -65,36 +68,30 @@ namespace G2O.Launcher.ServerRequests
             {
                 throw new ArgumentNullException(nameof(serverIp));
             }
-            _ServerIp = serverIp;
-            _ServerPort = serverPort;
+
+            this.serverIpAddress = serverIp;
+            this.serverPort = serverPort;
         }
 
-        #endregion
-
         /// <summary>
-        ///     Get the <see cref="IPAddress" /> of the server host.
+        ///     Gets the <see cref="ServerInfo" /> object for the target server, if available
+        ///     <remarks>Returns null if no response was received from the server.</remarks>
         /// </summary>
-        public IPAddress ServerIp
+        public IServerInfo Info
         {
             get
             {
-                lock (_Lock)
+                lock (this.lockObject)
                 {
-                    return _ServerIp;
+                    return this.info;
                 }
             }
-        }
 
-        /// <summary>
-        ///     Gets the server port.
-        /// </summary>
-        public ushort ServerPort
-        {
-            get
+            internal set
             {
-                lock (_Lock)
+                lock (this.lockObject)
                 {
-                    return _ServerPort;
+                    this.info = value;
                 }
             }
         }
@@ -107,37 +104,17 @@ namespace G2O.Launcher.ServerRequests
         {
             get
             {
-                lock (_Lock)
+                lock (this.lockObject)
                 {
-                    return _LastPing;
+                    return this.lastPing;
                 }
             }
-            internal set
-            {
-                lock (_Lock)
-                {
-                    _LastPing = value;
-                }
-            }
-        }
 
-        /// <summary>
-        ///     Gets a value that indicates if a valid response was received from the server.
-        /// </summary>
-        public bool PingSuccessfull
-        {
-            get
-            {
-                lock (_Lock)
-                {
-                    return _PingSuccessfull;
-                }
-            }
             internal set
             {
-                lock (_Lock)
+                lock (this.lockObject)
                 {
-                    _PingSuccessfull = value;
+                    this.lastPing = value;
                 }
             }
         }
@@ -149,16 +126,17 @@ namespace G2O.Launcher.ServerRequests
         {
             get
             {
-                lock (_Lock)
+                lock (this.lockObject)
                 {
-                    return _LastPingTime;
+                    return this.lastPingTime;
                 }
             }
+
             internal set
             {
-                lock (_Lock)
+                lock (this.lockObject)
                 {
-                    _LastPingTime = value;
+                    this.lastPingTime = value;
                 }
             }
         }
@@ -170,38 +148,67 @@ namespace G2O.Launcher.ServerRequests
         {
             get
             {
-                lock (_Lock)
+                lock (this.lockObject)
                 {
-                    return _LastSuccessfullPingTime;
+                    return this.lastSuccessfullPingTime;
                 }
             }
+
             internal set
             {
-                lock (_Lock)
+                lock (this.lockObject)
                 {
-                    _LastSuccessfullPingTime = value;
+                    this.lastSuccessfullPingTime = value;
                 }
             }
         }
 
         /// <summary>
-        ///     Gets the <see cref="ServerInfo" /> object for the target server, if available
-        ///     <remarks>Returns null if no response was received from the server.</remarks>
+        ///     Gets a value indicating whether a valid response was received from the server.
         /// </summary>
-        public ServerInfo Info
+        public bool PingSuccessfull
         {
             get
             {
-                lock (_Lock)
+                lock (this.lockObject)
                 {
-                    return _Info;
+                    return this.pingSuccessful;
                 }
             }
+
             internal set
             {
-                lock (_Lock)
+                lock (this.lockObject)
                 {
-                    _Info = value;
+                    this.pingSuccessful = value;
+                }
+            }
+        }
+
+        /// <summary>
+        ///     Gets the <see cref="IPAddress" /> of the server host.
+        /// </summary>
+        public IPAddress ServerIp
+        {
+            get
+            {
+                lock (this.lockObject)
+                {
+                    return this.serverIpAddress;
+                }
+            }
+        }
+
+        /// <summary>
+        ///     Gets the server port.
+        /// </summary>
+        public ushort ServerPort
+        {
+            get
+            {
+                lock (this.lockObject)
+                {
+                    return this.serverPort;
                 }
             }
         }

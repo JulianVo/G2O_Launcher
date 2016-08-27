@@ -222,9 +222,9 @@ namespace G2O_Launcher.Properties {
         /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Host Name ähnelt.
         /// </summary>
-        public static string resServerHostName {
+        public static string resServerName {
             get {
-                return ResourceManager.GetString("resServerHostName", resourceCulture);
+                return ResourceManager.GetString("resServerName", resourceCulture);
             }
         }
         

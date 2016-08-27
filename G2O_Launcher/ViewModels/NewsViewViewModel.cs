@@ -1,21 +1,43 @@
-﻿namespace G2O_Launcher.ViewModels
+﻿// // --------------------------------------------------------------------------------------------------------------------
+// // <copyright file="NewsViewViewModel.cs" company="Gothic Online Project">
+// //   
+// // </copyright>
+// // --------------------------------------------------------------------------------------------------------------------
+namespace G2O_Launcher.ViewModels
 {
-    internal class NewsViewViewModel:NotifyPropertyChangedBase
+    /// <summary>
+    ///     ViewModel for the news view.
+    /// </summary>
+    internal class NewsViewViewModel : NotifyPropertyChangedBase
     {
-        private string _NewsText;
+        /// <summary>
+        ///     The news text.
+        /// </summary>
+        private string newsText;
 
-        public NewsViewViewModel(string newsText)
+        /// <summary>
+        ///     Initializes a new instance of the <see cref="NewsViewViewModel" /> class.
+        /// </summary>
+        /// <param name="defaultNewsText">The default news text.</param>
+        public NewsViewViewModel(string defaultNewsText)
         {
-            _NewsText = newsText;
+            this.newsText = defaultNewsText;
         }
 
+        /// <summary>
+        ///     Gets or sets the news text.
+        /// </summary>
         public string NewsText
         {
-            get { return _NewsText; }
+            get
+            {
+                return this.newsText;
+            }
+
             set
             {
-                _NewsText = value; 
-                OnPropertyChanged();
+                this.newsText = value;
+                this.OnPropertyChanged(nameof(this.NewsText));
             }
         }
     }

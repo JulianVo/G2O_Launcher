@@ -1,4 +1,9 @@
-﻿namespace G2O.Launcher.ServerRequests
+﻿// // --------------------------------------------------------------------------------------------------------------------
+// // <copyright file="IServerInfo.cs" company="Gothic Online Project">
+// //   
+// // </copyright>
+// // --------------------------------------------------------------------------------------------------------------------
+namespace G2O.Launcher.ServerRequests
 {
     /// <summary>
     ///     Provides information about a server.
@@ -8,7 +13,7 @@
         /// <summary>
         ///     Gets the host name of the server.
         /// </summary>
-        string HostName { get; }
+        string ServerName { get; }
 
         /// <summary>
         ///     Gets the major part of the server version.
@@ -39,5 +44,10 @@
         ///     Gets the full server version string.
         /// </summary>
         string VersionString { get; }
+
+        /// <summary>
+        /// Gets the players count string.
+        /// </summary>
+        string PlayersString { get; }
     }
 }

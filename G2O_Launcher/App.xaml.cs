@@ -1,15 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Data;
-using System.Linq;
-using System.Threading.Tasks;
-using System.Windows;
-
+﻿// // --------------------------------------------------------------------------------------------------------------------
+// // <copyright file="App.xaml.cs" company="Gothic Online Project">
+// //   
+// // </copyright>
+// // --------------------------------------------------------------------------------------------------------------------
 namespace G2O_Launcher
 {
+    #region
+
+    using System.Windows;
+
+    #endregion
+
     /// <summary>
-    /// Interaction logic for App.xaml
+    ///     Interaction logic for App.xaml
     /// </summary>
     public partial class App : Application
     {

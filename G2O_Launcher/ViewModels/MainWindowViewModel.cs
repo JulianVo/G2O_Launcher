@@ -1,64 +1,114 @@
-﻿using System;
-using System.ComponentModel;
-using System.Windows;
-using G2O_Launcher.Commands;
-
+﻿// // --------------------------------------------------------------------------------------------------------------------
+// // <copyright file="MainWindowViewModel.cs" company="Gothic Online Project">
+// //   
+// // </copyright>
+// // --------------------------------------------------------------------------------------------------------------------
 namespace G2O_Launcher.ViewModels
 {
+    #region
+
+    using System;
+    using System.ComponentModel;
+    using System.Windows;
+
+    using G2O_Launcher.Commands;
+
+    #endregion
+
     internal class MainWindowViewModel : NotifyPropertyChangedBase
     {
-        private ProxyCommand _ExitCommand;
-        private ProxyCommand _MinimizeCommand;
-        private int _SelectedTabIndex;
-        private WindowState _WindowWindowState;
+        /// <summary>
+        ///     The exit command
+        /// </summary>
+        private ProxyCommand exitCommand;
 
-        public ProxyCommand ExitCommand
-        {
-            get { return _ExitCommand ?? (_ExitCommand = new ProxyCommand(ExecuteExitCommand)); }
-        }
+        /// <summary>
+        ///     The minimize command.
+        /// </summary>
+        private ProxyCommand minimizeCommand;
 
+        /// <summary>
+        ///     The selected tab index.
+        /// </summary>
+        private int selectedTabIndex;
+
+        /// <summary>
+        ///     The current window state.
+        /// </summary>
+        private WindowState windowState;
+
+        /// <summary>
+        ///     Gets the exit command.
+        /// </summary>
+        public ProxyCommand ExitCommand => this.exitCommand ?? (this.exitCommand = new ProxyCommand(ExecuteExitCommand))
+            ;
+
+        /// <summary>
+        ///     Gets the minimizes command.
+        /// </summary>
         public ProxyCommand MinimizeCommand
-        {
-            get { return _MinimizeCommand ?? (_MinimizeCommand = new ProxyCommand(ExecuteMinimizeCommand)); }
-        }
+            => this.minimizeCommand ?? (this.minimizeCommand = new ProxyCommand(this.ExecuteMinimizeCommand));
 
+        /// <summary>
+        ///     Gets or sets the selected tab index.
+        /// </summary>
         public int SelectedTabIndex
         {
-            get { return _SelectedTabIndex; }
+            get
+            {
+                return this.selectedTabIndex;
+            }
+
             set
             {
                 if (value < 0)
                 {
                     throw new ArgumentOutOfRangeException(nameof(value));
                 }
-                _SelectedTabIndex = value;
-                OnPropertyChanged();
+
+                this.selectedTabIndex = value;
+                this.OnPropertyChanged(nameof(this.SelectedTabIndex));
             }
         }
 
+        /// <summary>
+        ///     Gets or sets the current window state.
+        /// </summary>
         public WindowState WindowState
         {
-            get { return _WindowWindowState; }
+            get
+            {
+                return this.windowState;
+            }
+
             set
             {
                 if (!Enum.IsDefined(typeof(WindowState), value))
                 {
-                    throw new InvalidEnumArgumentException(nameof(value), (int) value, typeof(WindowState));
+                    throw new InvalidEnumArgumentException(nameof(value), (int)value, typeof(WindowState));
                 }
 
-                _WindowWindowState = value;
-                OnPropertyChanged();
+                this.windowState = value;
+                this.OnPropertyChanged(nameof(this.WindowState));
             }
         }
 
-        private void ExecuteExitCommand(object param)
+        /// <summary>
+        ///     Executes the exit command.
+        /// </summary>
+        /// <param name="param">not used</param>
+        private static void ExecuteExitCommand(object param)
         {
             Environment.Exit(0);
         }
 
+        /// <summary>
+        ///     Executes the minimize command.
+        /// </summary>
+        /// <param name="param">not used.</param>
         private void ExecuteMinimizeCommand(object param)
         {
-            WindowState = WindowState.Minimized;
+            this.WindowState = WindowState.Minimized;
         }
     }
 }

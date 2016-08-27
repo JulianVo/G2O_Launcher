@@ -6,6 +6,7 @@
         xmlns:local="clr-namespace:G2O_Launcher"
         xmlns:p="clr-namespace:G2O_Launcher.Properties"
         xmlns:views="clr-namespace:G2O_Launcher.Views"
+        xmlns:controls="clr-namespace:G2O_Launcher.Controls"
         x:Class="G2O_Launcher.Views.MainWindow"
         mc:Ignorable="d"
         Title="{x:Static p:Resources.resMainWindowTitle}" Height="500" Width="800" WindowStartupLocation="CenterScreen" WindowStyle="None" Background="#FF5F5D5D" ResizeMode="NoResize" BorderBrush="Black" BorderThickness="1,1,1,1" WindowState="{Binding WindowState}" Style="{DynamicResource Gothic2}" >
@@ -68,7 +69,7 @@
 
         </Grid>
         <Grid Grid.Row="2" Grid.RowSpan="1">
-            <local:GothicProgressBar Value="100" VerticalAlignment="Center" HorizontalAlignment="Center" Width="500" Height="50"/>
+            <controls:GothicProgressBar Value="100" VerticalAlignment="Center" HorizontalAlignment="Center" Width="500" Height="50"/>
         </Grid>
     </Grid>
 </Window>

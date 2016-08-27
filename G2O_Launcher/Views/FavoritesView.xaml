@@ -13,7 +13,7 @@
         </Style>
     </UserControl.Resources>
     <Grid>
-        <DataGrid  Margin="0" Background="{x:Null}" BorderBrush="{x:Null}" BorderThickness="0" >
+        <DataGrid  Margin="0" Background="{x:Null}" BorderBrush="{x:Null}" BorderThickness="0" ItemsSource="{Binding Servers}" AutoGenerateColumns="False" CanUserDeleteRows="False" IsReadOnly="True">
             <DataGrid.ContextMenu>
                 <ContextMenu Style="{DynamicResource Gothic2}">
                     <MenuItem Header="{x:Static p:Resources.resTabFavoritesAddServer}">
@@ -35,10 +35,10 @@
                 </ContextMenu>
             </DataGrid.ContextMenu>
             <DataGrid.Columns>
-                <DataGridTextColumn Header="{x:Static p:Resources.resServerAddress}"/>
-                <DataGridTextColumn Header="{x:Static p:Resources.resServerHostName}"/>
-                <DataGridTextColumn Header="{x:Static p:Resources.resServerPlayers}"/>
-                <DataGridTextColumn Header="{x:Static p:Resources.resServerVersion}"/>
+                <DataGridTextColumn Header="{x:Static p:Resources.resServerAddress}" Binding="{Binding HostName}"/>
+                <DataGridTextColumn Header="{x:Static p:Resources.resServerName}" Binding="{Binding ServerName}"/>
+                <DataGridTextColumn Header="{x:Static p:Resources.resServerPlayers}" Binding="{Binding PlayerCount}"/>
+                <DataGridTextColumn Header="{x:Static p:Resources.resServerVersion}" Binding="{Binding Version}"/>
             </DataGrid.Columns>
         </DataGrid>
         <Border Name="gridAddBox" Visibility="Hidden" BorderThickness="2" Height="120" Margin="0" Width="480" VerticalAlignment="Center" HorizontalAlignment="Center" Background="#FF2E2D2D" BorderBrush="White">
