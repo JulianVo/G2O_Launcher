@@ -93,14 +93,18 @@ namespace G2O_Launcher
                     MessageBoxImage.Warning);
             }
 
-            MainWindowViewModel mainWindowViewModel = new MainWindowViewModel(this.config,new RegistryConfig());
-            NewsViewViewModel newsViewViewModel = new NewsViewViewModel(G2O_Launcher.Properties.Resources.resNewsNotLoaded);
-            FavoritesViewViewModel favoritesViewViewModel = new FavoritesViewViewModel(this.favoritesServerWatcher);
-            this.ShutdownMode = ShutdownMode.OnExplicitShutdown;
-            while (true)
+            var registry = new RegistryConfig();
+            using (var starter = new G2OStarter(new G2OProxy(), registry))
             {
-                MainWindow window = new MainWindow(mainWindowViewModel, newsViewViewModel, favoritesViewViewModel);
-                window.ShowDialog();
+                MainWindowViewModel mainWindowViewModel = new MainWindowViewModel(this.config, registry);
+                NewsViewViewModel newsViewViewModel = new NewsViewViewModel(G2O_Launcher.Properties.Resources.resNewsNotLoaded);
+                FavoritesViewViewModel favoritesViewViewModel = new FavoritesViewViewModel(this.favoritesServerWatcher, starter);
+                this.ShutdownMode = ShutdownMode.OnExplicitShutdown;
+                while (true)
+                {
+                    MainWindow window = new MainWindow(mainWindowViewModel, newsViewViewModel, favoritesViewViewModel);
+                    window.ShowDialog();
+                }
             }
         }
 
@@ -119,7 +123,7 @@ namespace G2O_Launcher
             this.config.FavoriteServers.Clear();
             foreach (var watchedServer in this.favoritesServerWatcher.WatchedServers)
             {
-                this.config.FavoriteServers.Add($"{watchedServer.ServerIp}:{watchedServer.ServerPort}");
+                this.config.FavoriteServers.Add(watchedServer.OriginalAddress);
             }
 
             this.config.SaveConfig(this.configPath);
@@ -136,7 +140,7 @@ namespace G2O_Launcher
         {
             // Show a messagebox with the exception text and stacktrace.
             MessageBox.Show(
-                $"A unhandled error occured: {Environment.NewLine}{e.ExceptionObject}",
+                $"A unhandled error occured: {Environment.NewLine}{((Exception)e.ExceptionObject).Message}",
                 "Unhandled error",
                 MessageBoxButton.OK,
                 MessageBoxImage.Error);

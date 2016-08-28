@@ -36,7 +36,7 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
+    <OutputPath>C:\Program Files %28x86%29\Steam\steamapps\common\Gothic II\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -76,6 +76,8 @@
     </Compile>
     <Compile Include="Config\ILauncherConfig.cs" />
     <Compile Include="Config\LauncherConfig.cs" />
+    <Compile Include="G2O\G2OStarter.cs" />
+    <Compile Include="G2O\IG2OStarter.cs" />
     <Compile Include="G2O\RegistryConfig.cs" />
     <Compile Include="G2O\G2OProxy.cs" />
     <Compile Include="ViewModels\FavoritesViewViewModel.cs" />

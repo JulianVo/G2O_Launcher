@@ -317,7 +317,9 @@ namespace G2O.Launcher.ServerRequests
                 throw new IOException($"Can not resolve host name '{serverAddress}' to a IPv4 address.");
             }
 
-            return this.AddServer(new IPEndPoint(serverIp, port));
+            var state = this.AddServer(new IPEndPoint(serverIp, port));
+            ((ServerState)state).OriginalAddress = serverAddress;
+            return state;
         }
 
         /// <summary>
@@ -343,7 +345,7 @@ namespace G2O.Launcher.ServerRequests
 
             lock (this.instanceLock)
             {
-                var newServer = new ServerState(serverEndPoint.Address, (ushort)serverEndPoint.Port);
+                var newServer = new ServerState(serverEndPoint.Address, (ushort)serverEndPoint.Port, serverEndPoint.ToString());
                 this.watchedServers.Add(newServer);
                 return newServer;
             }
@@ -507,12 +509,12 @@ namespace G2O.Launcher.ServerRequests
                     this.InvokeOnServerStatusChanged(serverPoll);
                 }
 
-                    this.SendPing(new IPEndPoint(serverPoll.ServerIp, serverPoll.ServerPort), this.socket);
-                    serverPoll.LastPingTime = DateTime.Now;
-                    if (sendPoll)
-                    {
-                        this.SendPoll(new IPEndPoint(serverPoll.ServerIp, serverPoll.ServerPort), this.socket);
-                    }
+                this.SendPing(new IPEndPoint(serverPoll.ServerIp, serverPoll.ServerPort), this.socket);
+                serverPoll.LastPingTime = DateTime.Now;
+                if (sendPoll)
+                {
+                    this.SendPoll(new IPEndPoint(serverPoll.ServerIp, serverPoll.ServerPort), this.socket);
+                }
             }
 
             this.lastPingTime = DateTime.Now;

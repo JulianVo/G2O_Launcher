@@ -62,15 +62,22 @@ namespace G2O.Launcher.ServerRequests
         /// </summary>
         /// <param name="serverIp">The <see cref="IPAddress"/> which should be watched.</param>
         /// <param name="serverPort">The port of the server that should be watched.</param>
-        public ServerState(IPAddress serverIp, ushort serverPort)
+        /// <param name="originalAddress">The string that was used to add the server to the server watcher.</param>
+        public ServerState(IPAddress serverIp, ushort serverPort, string originalAddress)
         {
             if (serverIp == null)
             {
                 throw new ArgumentNullException(nameof(serverIp));
             }
 
+            if (string.IsNullOrEmpty(originalAddress))
+            {
+                throw new ArgumentException(@"Value cannot be null or empty.", nameof(originalAddress));
+            }
+
             this.serverIpAddress = serverIp;
             this.serverPort = serverPort;
+            this.OriginalAddress = originalAddress;
         }
 
         /// <summary>
@@ -212,5 +219,10 @@ namespace G2O.Launcher.ServerRequests
                 }
             }
         }
+
+        /// <summary>
+        /// Gets the string that was used to add the server to the server watcher.
+        /// </summary>
+        public string OriginalAddress { get; internal set; }
     }
 }

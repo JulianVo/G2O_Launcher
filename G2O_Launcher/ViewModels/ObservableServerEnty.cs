@@ -148,7 +148,7 @@ namespace G2O_Launcher.ViewModels
         /// </summary>
         public void UpdateFromState()
         {
-            this.HostName = $"{this.ServerState.ServerIp}:{this.ServerState.ServerPort}";
+            this.HostName = this.ServerState.OriginalAddress;
             this.ServerName = this.ServerState.Info?.ServerName ?? "-";
             this.Version = this.ServerState.Info?.VersionString ?? "-";
             this.PlayerCount = this.ServerState.Info?.PlayersString ?? "-";

@@ -43,3 +43,6 @@ E:\Develop\G2O\G2O_Launcher\G2O_Launcher\obj\Debug\G2O_Launcher.Properties.Resou
 E:\Develop\G2O\G2O_Launcher\G2O_Launcher\obj\Debug\G2O_Launcher.csproj.GenerateResource.Cache
 E:\Develop\G2O\G2O_Launcher\G2O_Launcher\obj\Debug\G2O_Launcher.exe
 E:\Develop\G2O\G2O_Launcher\G2O_Launcher\obj\Debug\G2O_Launcher.pdb
+C:\Program Files (x86)\Steam\steamapps\common\Gothic II\G2O_Launcher.exe.config
+C:\Program Files (x86)\Steam\steamapps\common\Gothic II\G2O_Launcher.exe
+C:\Program Files (x86)\Steam\steamapps\common\Gothic II\G2O_Launcher.pdb

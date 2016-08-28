@@ -8,6 +8,7 @@ namespace G2O_Launcher.G2O
     #region
 
     using System;
+    using System.IO;
     using System.Runtime.InteropServices;
 
     #endregion
@@ -43,6 +44,10 @@ namespace G2O_Launcher.G2O
         public G2OProxy()
         {
             this.proxyDll = LoadLibrary("G2O_Proxy.dll");
+            if (this.proxyDll == IntPtr.Zero)
+            {
+                throw  new FileNotFoundException(@"The gotic 2 online starter proxy could not be found",Path.Combine(Environment.CurrentDirectory, "G2O_Proxy.dll"));
+            }
             IntPtr runPtr = GetProcAddress(this.proxyDll, "G2O_Run");
             this.runFunctionDelegateFunction =
                 (RunFunctionDelegate)Marshal.GetDelegateForFunctionPointer(runPtr, typeof(RunFunctionDelegate));

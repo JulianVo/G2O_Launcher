@@ -13,10 +13,11 @@ namespace G2O_Launcher.ViewModels
     using System.Windows;
     using System.Windows.Threading;
 
+    using G2O_Launcher.Commands;
+
     using global::G2O.Launcher.ServerRequests;
 
-
-    using G2O_Launcher.Commands;
+    using G2O_Launcher.G2O;
 
     #endregion
 
@@ -30,16 +31,33 @@ namespace G2O_Launcher.ViewModels
         /// </summary>
         private readonly IServerWatcher serverWatcher;
 
+        /// <summary>
+        /// The used instance of <see cref="IG2OStarter"/>.
+        /// </summary>
+        private readonly IG2OStarter starter;
+
+        /// <summary>
+        /// The selected entry of the servers collection.
+        /// </summary>
         private ObservableServerEnty selectedEntry;
 
         /// <summary>
         ///     Initializes a new instance of the <see cref="FavoritesViewViewModel" /> class.
         /// </summary>
         /// <param name="serverWatcher">The used server watcher instance.</param>
-        public FavoritesViewViewModel(IServerWatcher serverWatcher)
+        /// <param name="starter">The <see cref="IG2OStarter"/> instance that should be used to start the client.</param>
+        public FavoritesViewViewModel(IServerWatcher serverWatcher,IG2OStarter starter)
         {
-            if (serverWatcher == null) throw new ArgumentNullException(nameof(serverWatcher));
+            if (serverWatcher == null)
+            {
+                throw new ArgumentNullException(nameof(serverWatcher));
+            }
+            if (starter == null)
+            {
+                throw new ArgumentNullException(nameof(starter));
+            }
             this.serverWatcher = serverWatcher;
+            this.starter = starter;
             this.serverWatcher.ServerStatusChanged += this.ServerWatcherServerStatusChanged;
             this.Servers = new ObservableCollection<ObservableServerEnty>();
 
@@ -54,28 +72,17 @@ namespace G2O_Launcher.ViewModels
         /// </summary>
         public ProxyCommand AddServerCommand => new ProxyCommand(this.ExecuteAddServerCommand);
 
-        public ProxyCommand RemoveServerCommand => new ProxyCommand(this.CanExecuteRemoveServerCommand, this.ExecuteRemoveServerCommand);
+        /// <summary>
+        ///     Gets the connect to server command.
+        /// </summary>
+        public ProxyCommand ConnectToServerCommand
+            => new ProxyCommand(this.CanExecuteConnectToServerCommand, this.ExecuteConnectToServerCommand);
 
         /// <summary>
-        /// Executes the remove server command.
+        ///     Gets the remove server command.
         /// </summary>
-        /// <param name="obj">command parameter(unused)</param>
-        private void ExecuteRemoveServerCommand(object obj)
-        {
-            var entry = this.SelectedEntry;
-            this.serverWatcher.RemoveServer(entry.ServerState);
-            this.Servers.Remove(entry);
-        }
-
-        /// <summary>
-        /// Checks if the remove server command can be executed.
-        /// </summary>
-        /// <param name="arg">command parameter.(unused)</param>
-        /// <returns>True if the remove server command can be executed.</returns>
-        private bool CanExecuteRemoveServerCommand(object arg)
-        {
-            return this.SelectedEntry != null;
-        }
+        public ProxyCommand RemoveServerCommand
+            => new ProxyCommand(this.CanExecuteRemoveServerCommand, this.ExecuteRemoveServerCommand);
 
         /// <summary>
         ///     Gets or sets the selected entry.
@@ -100,6 +107,26 @@ namespace G2O_Launcher.ViewModels
         public ObservableCollection<ObservableServerEnty> Servers { get; }
 
         /// <summary>
+        ///     Checks if the connect to server command can be executed.
+        /// </summary>
+        /// <param name="arg">command parameter.(not used)</param>
+        /// <returns>True if the command can be executed.</returns>
+        private bool CanExecuteConnectToServerCommand(object arg)
+        {
+            return this.SelectedEntry != null;
+        }
+
+        /// <summary>
+        ///     Checks if the remove server command can be executed.
+        /// </summary>
+        /// <param name="arg">command parameter.(unused)</param>
+        /// <returns>True if the remove server command can be executed.</returns>
+        private bool CanExecuteRemoveServerCommand(object arg)
+        {
+            return this.SelectedEntry != null;
+        }
+
+        /// <summary>
         ///     Executes the add server command.
         /// </summary>
         /// <param name="value">[string] address of the server.</param>
@@ -115,6 +142,35 @@ namespace G2O_Launcher.ViewModels
             {
                 MessageBox.Show(ex.Message);
             }
+        }
+
+        /// <summary>
+        ///     Executes the connect to server command
+        /// </summary>
+        /// <param name="obj"></param>
+        private void ExecuteConnectToServerCommand(object obj)
+        {
+            if (this.SelectedEntry.ServerState.Info != null)
+            {
+                var info = this.selectedEntry.ServerState.Info;
+                this.starter.Start(info.Major,info.Minor,info.Patch,$"{this.SelectedEntry.ServerState.ServerIp}:{this.SelectedEntry.ServerState.ServerPort}");
+            }
+            else
+            {
+                
+
+            }
+        }
+
+        /// <summary>
+        ///     Executes the remove server command.
+        /// </summary>
+        /// <param name="obj">command parameter(unused)</param>
+        private void ExecuteRemoveServerCommand(object obj)
+        {
+            var entry = this.SelectedEntry;
+            this.serverWatcher.RemoveServer(entry.ServerState);
+            this.Servers.Remove(entry);
         }
 
         /// <summary>

@@ -54,5 +54,10 @@ namespace G2O.Launcher.ServerRequests
         ///     Gets the server port.
         /// </summary>
         ushort ServerPort { get; }
+
+        /// <summary>
+        /// Gets the string that was used to add the server to the server watcher.
+        /// </summary>
+        string OriginalAddress { get; }
     }
 }
