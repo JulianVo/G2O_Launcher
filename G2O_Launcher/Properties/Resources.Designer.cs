@@ -174,6 +174,43 @@ namespace G2O_Launcher.Properties {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Cannot join to server! You don&apos;t have required version. ähnelt.
+        /// </summary>
+        public static string resMessageBoxCanNotJoin {
+            get {
+                return ResourceManager.GetString("resMessageBoxCanNotJoin", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Could not start Gothic 2 Online ähnelt.
+        /// </summary>
+        public static string resMessageBoxCouldNotStartG2O {
+            get {
+                return ResourceManager.GetString("resMessageBoxCouldNotStartG2O", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Could not open Gothic2.exe.
+        ///Did you install G2O to a folder with Gothic 2: Night of the Raven! ähnelt.
+        /// </summary>
+        public static string resMessageBoxGothicInstalled {
+            get {
+                return ResourceManager.GetString("resMessageBoxGothicInstalled", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Gothic 2 Online ähnelt.
+        /// </summary>
+        public static string resMessageBoxTitelG2O {
+            get {
+                return ResourceManager.GetString("resMessageBoxTitelG2O", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die The news could not be loaded.
         ///Please check you internet connection. ähnelt.
         /// </summary>

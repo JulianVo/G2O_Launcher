@@ -160,21 +160,21 @@ namespace G2O_Launcher.ViewModels
                         break;
                     case G2OProxy.RunResult.WrongVersion:
                         MessageBox.Show(
-                            "Cannot join to server! You don't have required version.",
-                            "Gothic 2 Online",
+                            Properties.Resources.resMessageBoxCanNotJoin,
+                            Properties.Resources.resMessageBoxTitelG2O,
                             MessageBoxButton.OK,
                             MessageBoxImage.Error);
                         break;
                     case G2OProxy.RunResult.GothicNotFound:
                         MessageBox.Show(
-                                "Could not open Gothic2.exe.\nDid you install G2O to a folder with Gothic 2: Night of the Raven?",
-                                "Gothic 2 Online",
+                                Properties.Resources.resMessageBoxGothicInstalled,
+                                Properties.Resources.resMessageBoxTitelG2O,
                                 MessageBoxButton.OK,
                                 MessageBoxImage.Error
                             );
                         break;
                     case G2OProxy.RunResult.Unknown:
-                        MessageBox.Show($"Could not start Gothic 2 Online {info.VersionString}", "Gothic 2 Online", MessageBoxButton.OK, MessageBoxImage.Error);
+                        MessageBox.Show($"{Properties.Resources.resMessageBoxCouldNotStartG2O} {info.VersionString}", Properties.Resources.resMessageBoxTitelG2O, MessageBoxButton.OK, MessageBoxImage.Error);
                         break;
                     default:
                         throw new ArgumentOutOfRangeException();

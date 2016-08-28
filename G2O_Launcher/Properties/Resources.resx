@@ -212,4 +212,17 @@ Please check you internet connection.</value>
   <data name="resServerPing" xml:space="preserve">
     <value>Ping</value>
   </data>
+  <data name="resMessageBoxCanNotJoin" xml:space="preserve">
+    <value>Cannot join to server! You don't have required version.</value>
+  </data>
+  <data name="resMessageBoxCouldNotStartG2O" xml:space="preserve">
+    <value>Could not start Gothic 2 Online</value>
+  </data>
+  <data name="resMessageBoxGothicInstalled" xml:space="preserve">
+    <value>Could not open Gothic2.exe.
+Did you install G2O to a folder with Gothic 2: Night of the Raven!</value>
+  </data>
+  <data name="resMessageBoxTitelG2O" xml:space="preserve">
+    <value>Gothic 2 Online</value>
+  </data>
 </root>
