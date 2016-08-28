@@ -46,7 +46,7 @@ namespace G2O_Launcher.ViewModels
         /// </summary>
         /// <param name="serverWatcher">The used server watcher instance.</param>
         /// <param name="starter">The <see cref="IG2OStarter"/> instance that should be used to start the client.</param>
-        public FavoritesViewViewModel(IServerWatcher serverWatcher,IG2OStarter starter)
+        public FavoritesViewViewModel(IServerWatcher serverWatcher, IG2OStarter starter)
         {
             if (serverWatcher == null)
             {
@@ -153,12 +153,35 @@ namespace G2O_Launcher.ViewModels
             if (this.SelectedEntry.ServerState.Info != null)
             {
                 var info = this.selectedEntry.ServerState.Info;
-                this.starter.Start(info.Major,info.Minor,info.Patch,$"{this.SelectedEntry.ServerState.ServerIp}:{this.SelectedEntry.ServerState.ServerPort}");
+                var result = this.starter.Start(info.Major, info.Minor, info.Patch, $"{this.SelectedEntry.ServerState.ServerIp}:{this.SelectedEntry.ServerState.ServerPort}");
+                switch (result)
+                {
+                    case G2OProxy.RunResult.Success:
+                        break;
+                    case G2OProxy.RunResult.WrongVersion:
+                        MessageBox.Show(
+                            "Cannot join to server! You don't have required version.",
+                            "Gothic 2 Online",
+                            MessageBoxButton.OK,
+                            MessageBoxImage.Error);
+                        break;
+                    case G2OProxy.RunResult.GothicNotFound:
+                        MessageBox.Show(
+                                "Could not open Gothic2.exe.\nDid you install G2O to a folder with Gothic 2: Night of the Raven?",
+                                "Gothic 2 Online",
+                                MessageBoxButton.OK,
+                                MessageBoxImage.Error
+                            );
+                        break;
+                    case G2OProxy.RunResult.Unknown:
+                        MessageBox.Show($"Could not start Gothic 2 Online {info.VersionString}", "Gothic 2 Online", MessageBoxButton.OK, MessageBoxImage.Error);
+                        break;
+                    default:
+                        throw new ArgumentOutOfRangeException();
+                }
             }
             else
             {
-                
-
             }
         }
 

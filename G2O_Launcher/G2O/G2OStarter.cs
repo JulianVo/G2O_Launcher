@@ -65,8 +65,10 @@ namespace G2O_Launcher.G2O
         /// <param name="ipAndPort">
         /// The ip port.
         /// </param>
-        // ReSharper disable once StyleCop.SA1650
-        public void Start(int versionMajor, int versionMinor, int patchNr, string ipAndPort)
+        /// <returns>
+        /// The <see cref="G2OProxy.RunResult"/>.
+        /// </returns>
+        public G2OProxy.RunResult Start(int versionMajor, int versionMinor, int patchNr, string ipAndPort)
         {
             if (versionMajor < 0)
             {
@@ -85,7 +87,7 @@ namespace G2O_Launcher.G2O
                 throw new ArgumentException(@"Value cannot be null or empty.", nameof(ipAndPort));
             }
             this.registry.IpPort = ipAndPort;
-            this.proxy.Run(versionMajor, versionMinor, patchNr);
+            return this.proxy.Run(versionMajor, versionMinor, patchNr);
         }
 
         /// <summary>

@@ -96,14 +96,14 @@ namespace G2O_Launcher.G2O
         /// <param name="major">The major version number.</param>
         /// <param name="minor">The minor version number</param>
         /// <param name="patch">The patch number.</param>
-        public int Run(int major, int minor, int patch)
+        public RunResult Run(int major, int minor, int patch)
         {
             if (this.disposed)
             {
                 throw new ObjectDisposedException(nameof(G2OProxy));
             }
 
-            return (int)(this.runFunctionDelegateFunction?.Invoke(major, minor, patch) ?? (int?)0);
+            return (RunResult)this.runFunctionDelegateFunction(major,minor,patch);
         }
 
         /// <summary>
@@ -190,6 +190,29 @@ namespace G2O_Launcher.G2O
             ///     Gets the Build number.
             /// </summary>
             public int Build { get; }
+        }
+
+        /// <summary>
+        /// Defines the possible results of the run method.
+        /// </summary>
+        public enum  RunResult
+        {
+            /// <summary>
+            /// G2O was startet successfully.
+            /// </summary>
+            Success =0,
+            /// <summary>
+            /// Wrong version was detected.
+            /// </summary>
+            WrongVersion=1,
+            /// <summary>
+            /// Gothic2.exe was not found.
+            /// </summary>
+            GothicNotFound=2,
+            /// <summary>
+            /// Unknow error.
+            /// </summary>
+            Unknown=3,
         }
     }
 }

@@ -11,12 +11,23 @@ namespace G2O_Launcher.G2O
     public interface IG2OStarter
     {
         /// <summary>
-        ///     Starts the client and connects to specific server.
+        /// Starts the client and connects to specific server.
         /// </summary>
-        /// <param name="versionMajor">The target server major version number.</param>
-        /// <param name="versionMinor">The target server minor version number.</param>
-        /// <param name="patchNr">The target server patch number.</param>
-        /// <param name="ipPort">The server ip and port string.</param>
-        void Start(int versionMajor, int versionMinor, int patchNr, string ipPort);
+        /// <param name="versionMajor">
+        /// The target server major version number.
+        /// </param>
+        /// <param name="versionMinor">
+        /// The target server minor version number.
+        /// </param>
+        /// <param name="patchNr">
+        /// The target server patch number.
+        /// </param>
+        /// <param name="ipPort">
+        /// The server ip and port string.
+        /// </param>
+        /// <returns>
+        /// The <see cref="G2OProxy.RunResult"/>.
+        /// </returns>
+        G2OProxy.RunResult Start(int versionMajor, int versionMinor, int patchNr, string ipPort);
     }
 }
