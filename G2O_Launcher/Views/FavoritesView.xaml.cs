@@ -5,17 +5,6 @@
 // // --------------------------------------------------------------------------------------------------------------------
 namespace G2O_Launcher.Views
 {
-    #region
-
-    using System;
-    using System.Windows.Controls;
-
-    using G2O.Launcher.ServerRequests;
-
-    using G2O_Launcher.ViewModels;
-
-    #endregion
-
     /// <summary>
     ///     Interaction logic for the <see cref="FavoritesView"/>.
     /// </summary>

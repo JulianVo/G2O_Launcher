@@ -229,7 +229,7 @@ namespace G2O_Launcher.Properties {
         }
         
         /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die Host Name ähnelt.
+        ///   Sucht eine lokalisierte Zeichenfolge, die Server Name ähnelt.
         /// </summary>
         public static string resServerName {
             get {

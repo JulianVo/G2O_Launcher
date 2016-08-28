@@ -69,7 +69,8 @@
 
         </Grid>
         <Grid Grid.Row="2" Grid.RowSpan="1">
-            <controls:GothicProgressBar Value="100" VerticalAlignment="Center" HorizontalAlignment="Center" Width="500" Height="50"/>
+            <controls:GothicProgressBar Value="100" VerticalAlignment="Center" HorizontalAlignment="Center" Width="500" Height="50" Margin="275,-7,23,0"/>
+            <TextBox Text="{Binding Nickname}" HorizontalAlignment="Left" Height="23" Margin="27,10,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="206" Background="#66000000" Foreground="White" VerticalContentAlignment="Center"/>
         </Grid>
     </Grid>
 </Window>

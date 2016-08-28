@@ -13,31 +13,26 @@ namespace G2O_Launcher.ViewModels
 
     using G2O_Launcher.Commands;
     using G2O_Launcher.Config;
+    using G2O_Launcher.G2O;
 
     #endregion
 
     public class MainWindowViewModel : NotifyPropertyChangedBase
     {
+        /// <summary>
+        ///     The current launcher config.
+        /// </summary>
         private readonly ILauncherConfig config;
+
+        /// <summary>
+        ///     Object used to access the gothic 2 online registry values.
+        /// </summary>
+        private readonly RegistryConfig registry;
 
         /// <summary>
         ///     The exit command
         /// </summary>
         private ProxyCommand exitCommand;
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="MainWindowViewModel"/> class.
-        /// </summary>
-        /// <param name="config">The current launcher config,</param>
-        public MainWindowViewModel(ILauncherConfig config)
-        {
-            if (config == null)
-            {
-                throw new ArgumentNullException(nameof(config));
-            }
-            this.config = config;
-            this.SelectedTabIndex = config.SelectedTabIndex > 0 ? config.SelectedTabIndex : 0;
-        }
 
         /// <summary>
         ///     The minimize command.
@@ -55,6 +50,28 @@ namespace G2O_Launcher.ViewModels
         private WindowState windowState;
 
         /// <summary>
+        ///     Initializes a new instance of the <see cref="MainWindowViewModel" /> class.
+        /// </summary>
+        /// <param name="config">The current launcher config,</param>
+        /// <param name="registry">The registry config object.</param>
+        public MainWindowViewModel(ILauncherConfig config, RegistryConfig registry)
+        {
+            if (config == null)
+            {
+                throw new ArgumentNullException(nameof(config));
+            }
+
+            if (registry == null)
+            {
+                throw new ArgumentNullException(nameof(registry));
+            }
+
+            this.config = config;
+            this.registry = registry;
+            this.SelectedTabIndex = config.SelectedTabIndex > 0 ? config.SelectedTabIndex : 0;
+        }
+
+        /// <summary>
         ///     Gets the exit command.
         /// </summary>
         public ProxyCommand ExitCommand => this.exitCommand ?? (this.exitCommand = new ProxyCommand(ExecuteExitCommand))
@@ -65,6 +82,28 @@ namespace G2O_Launcher.ViewModels
         /// </summary>
         public ProxyCommand MinimizeCommand
             => this.minimizeCommand ?? (this.minimizeCommand = new ProxyCommand(this.ExecuteMinimizeCommand));
+
+        /// <summary>
+        ///     Gets or sets the Nickname value.
+        /// </summary>
+        public string Nickname
+        {
+            get
+            {
+                return this.registry.Nickname;
+            }
+
+            set
+            {
+                if (value == null)
+                {
+                    throw new ArgumentNullException(nameof(value));
+                }
+
+                this.registry.Nickname = value;
+                this.OnPropertyChanged(nameof(this.Nickname));
+            }
+        }
 
         /// <summary>
         ///     Gets or sets the selected tab index.

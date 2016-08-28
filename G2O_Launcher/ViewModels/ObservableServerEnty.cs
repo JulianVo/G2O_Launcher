@@ -7,7 +7,7 @@ namespace G2O_Launcher.ViewModels
 {
     using System;
 
-    using G2O.Launcher.ServerRequests;
+    using global::G2O.Launcher.ServerRequests;
 
     /// <summary>
     ///     ViewModel class for server list entries.

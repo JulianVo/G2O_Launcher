@@ -18,8 +18,8 @@ X:\G2O_Launcher\G2O_Launcher\G2O_Launcher\obj\Debug\Views\ServersView.g.cs
 X:\G2O_Launcher\G2O_Launcher\G2O_Launcher\obj\Debug\Views\ServersView.baml
 X:\G2O_Launcher\G2O_Launcher\G2O_Launcher\obj\Debug\Views\FavoritesView.g.cs
 X:\G2O_Launcher\G2O_Launcher\G2O_Launcher\obj\Debug\Views\FavoritesView.baml
-E:\Develop\G2O\G2O_Launcher\G2O_Launcher\bin\Debug\G2O_Launcher.exe
-E:\Develop\G2O\G2O_Launcher\G2O_Launcher\bin\Debug\G2O_Launcher.pdb
+E:\Develop\G2O\G2O_Launcher\G2O_Launcher\obj\Debug\G2O_Launcher.csprojResolveAssemblyReference.cache
+E:\Develop\G2O\G2O_Launcher\G2O_Launcher\obj\Debug\Controls\GothicProgressBar.g.cs
 E:\Develop\G2O\G2O_Launcher\G2O_Launcher\obj\Debug\Views\FavoritesView.g.cs
 E:\Develop\G2O\G2O_Launcher\G2O_Launcher\obj\Debug\Views\MainWindow.g.cs
 E:\Develop\G2O\G2O_Launcher\G2O_Launcher\obj\Debug\Views\NewsView.g.cs
@@ -28,6 +28,12 @@ E:\Develop\G2O\G2O_Launcher\G2O_Launcher\obj\Debug\App.g.cs
 E:\Develop\G2O\G2O_Launcher\G2O_Launcher\obj\Debug\GeneratedInternalTypeHelper.g.cs
 E:\Develop\G2O\G2O_Launcher\G2O_Launcher\obj\Debug\G2O_Launcher_MarkupCompile.cache
 E:\Develop\G2O\G2O_Launcher\G2O_Launcher\obj\Debug\G2O_Launcher_MarkupCompile.lref
+E:\Develop\G2O\G2O_Launcher\G2O_Launcher\bin\Debug\G2O_Launcher.exe.config
+E:\Develop\G2O\G2O_Launcher\G2O_Launcher\bin\Debug\G2O_Launcher.exe
+E:\Develop\G2O\G2O_Launcher\G2O_Launcher\bin\Debug\G2O_Launcher.pdb
+E:\Develop\G2O\G2O_Launcher\G2O_Launcher\bin\Debug\ServerRequests.dll
+E:\Develop\G2O\G2O_Launcher\G2O_Launcher\bin\Debug\ServerRequests.pdb
+E:\Develop\G2O\G2O_Launcher\G2O_Launcher\obj\Debug\Controls\GothicProgressBar.baml
 E:\Develop\G2O\G2O_Launcher\G2O_Launcher\obj\Debug\Views\FavoritesView.baml
 E:\Develop\G2O\G2O_Launcher\G2O_Launcher\obj\Debug\Views\MainWindow.baml
 E:\Develop\G2O\G2O_Launcher\G2O_Launcher\obj\Debug\Views\NewsView.baml
@@ -37,9 +43,3 @@ E:\Develop\G2O\G2O_Launcher\G2O_Launcher\obj\Debug\G2O_Launcher.Properties.Resou
 E:\Develop\G2O\G2O_Launcher\G2O_Launcher\obj\Debug\G2O_Launcher.csproj.GenerateResource.Cache
 E:\Develop\G2O\G2O_Launcher\G2O_Launcher\obj\Debug\G2O_Launcher.exe
 E:\Develop\G2O\G2O_Launcher\G2O_Launcher\obj\Debug\G2O_Launcher.pdb
-E:\Develop\G2O\G2O_Launcher\G2O_Launcher\obj\Debug\G2O_Launcher.csprojResolveAssemblyReference.cache
-E:\Develop\G2O\G2O_Launcher\G2O_Launcher\obj\Debug\Controls\GothicProgressBar.g.cs
-E:\Develop\G2O\G2O_Launcher\G2O_Launcher\obj\Debug\Controls\GothicProgressBar.baml
-E:\Develop\G2O\G2O_Launcher\G2O_Launcher\bin\Debug\G2O_Launcher.exe.config
-E:\Develop\G2O\G2O_Launcher\G2O_Launcher\bin\Debug\ServerRequests.dll
-E:\Develop\G2O\G2O_Launcher\G2O_Launcher\bin\Debug\ServerRequests.pdb

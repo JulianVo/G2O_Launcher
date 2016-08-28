@@ -14,9 +14,10 @@ namespace G2O_Launcher
     using System.Threading;
     using System.Windows;
 
-    using G2O.Launcher.ServerRequests;
+    using global::G2O.Launcher.ServerRequests;
 
     using G2O_Launcher.Config;
+    using G2O_Launcher.G2O;
     using G2O_Launcher.ViewModels;
     using G2O_Launcher.Views;
 
@@ -49,7 +50,7 @@ namespace G2O_Launcher
         /// <summary>
         /// The server watcher for the favorite servers.
         /// </summary>
-        private readonly ServerWatcher favoritesServerWatcher;
+        private readonly IServerWatcher favoritesServerWatcher;
 
         /// <summary>
         ///     Initializes a new instance of the <see cref="App" /> class.
@@ -92,7 +93,7 @@ namespace G2O_Launcher
                     MessageBoxImage.Warning);
             }
 
-            MainWindowViewModel mainWindowViewModel = new MainWindowViewModel(this.config);
+            MainWindowViewModel mainWindowViewModel = new MainWindowViewModel(this.config,new RegistryConfig());
             NewsViewViewModel newsViewViewModel = new NewsViewViewModel(G2O_Launcher.Properties.Resources.resNewsNotLoaded);
             FavoritesViewViewModel favoritesViewViewModel = new FavoritesViewViewModel(this.favoritesServerWatcher);
             this.ShutdownMode = ShutdownMode.OnExplicitShutdown;
