@@ -12,15 +12,32 @@ namespace G2O_Launcher.ViewModels
     using System.Windows;
 
     using G2O_Launcher.Commands;
+    using G2O_Launcher.Config;
 
     #endregion
 
-    internal class MainWindowViewModel : NotifyPropertyChangedBase
+    public class MainWindowViewModel : NotifyPropertyChangedBase
     {
+        private readonly ILauncherConfig config;
+
         /// <summary>
         ///     The exit command
         /// </summary>
         private ProxyCommand exitCommand;
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="MainWindowViewModel"/> class.
+        /// </summary>
+        /// <param name="config">The current launcher config,</param>
+        public MainWindowViewModel(ILauncherConfig config)
+        {
+            if (config == null)
+            {
+                throw new ArgumentNullException(nameof(config));
+            }
+            this.config = config;
+            this.SelectedTabIndex = config.SelectedTabIndex > 0 ? config.SelectedTabIndex : 0;
+        }
 
         /// <summary>
         ///     The minimize command.
@@ -68,6 +85,7 @@ namespace G2O_Launcher.ViewModels
 
                 this.selectedTabIndex = value;
                 this.OnPropertyChanged(nameof(this.SelectedTabIndex));
+                this.config.SelectedTabIndex = value;
             }
         }
 

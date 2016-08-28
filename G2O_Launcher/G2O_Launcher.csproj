@@ -74,6 +74,8 @@
     <Compile Include="Controls\GothicProgressBar.xaml.cs">
       <DependentUpon>GothicProgressBar.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Config\ILauncherConfig.cs" />
+    <Compile Include="Config\LauncherConfig.cs" />
     <Compile Include="ViewModels\FavoritesViewViewModel.cs" />
     <Compile Include="ViewModels\NewsViewViewModel.cs" />
     <Compile Include="ViewModels\ObservableServerEnty.cs" />

@@ -51,18 +51,18 @@
             <Image  HorizontalAlignment="Center" Height="92" VerticalAlignment="Center" Width="217" Source="../Resources/logo.png" Margin="0"/>
             <TabControl Margin="20,0,20,20" Grid.Row="1" Background="{x:Null}" SelectedIndex="{Binding SelectedTabIndex, Mode=TwoWay}">
                 <TabItem Header="{x:Static p:Resources.resTabNews}" Background="{x:Null}">
-                    <Grid Background="#66000000">
-                        <views:NewsView Margin="0"/>
+                    <Grid Background="#66000000" >
+                        <views:NewsView x:Name="NewsView" Margin="0"/>
                     </Grid>
                 </TabItem>
                 <TabItem Header="{x:Static p:Resources.resTabServers}" Background="{x:Null}">
                     <Grid Background="#66000000">
-                        <views:ServersView Margin="0" Width="Auto"/>
+                        <views:ServersView x:Name="ServersView" Margin="0" Width="Auto"/>
                     </Grid>
                 </TabItem>
                 <TabItem Header="{x:Static p:Resources.resTabFavorites}" Background="{x:Null}">
                     <Grid  Background="#66000000">
-                        <views:FavoritesView Margin="0" Width="Auto"/>
+                        <views:FavoritesView x:Name="FavoritesView" Margin="0" Width="Auto"/>
                     </Grid>
                 </TabItem>
             </TabControl>

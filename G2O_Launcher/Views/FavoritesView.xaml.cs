@@ -7,6 +7,7 @@ namespace G2O_Launcher.Views
 {
     #region
 
+    using System;
     using System.Windows.Controls;
 
     using G2O.Launcher.ServerRequests;
@@ -26,7 +27,6 @@ namespace G2O_Launcher.Views
         public FavoritesView()
         {
             this.InitializeComponent();
-            this.DataContext = new FavoritesViewViewModel(new ServerWatcher(28970, 1000, 5000, 5000));
         }
     }
 }

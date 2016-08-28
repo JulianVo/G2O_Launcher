@@ -8,7 +8,7 @@ namespace G2O_Launcher.ViewModels
     /// <summary>
     ///     ViewModel for the news view.
     /// </summary>
-    internal class NewsViewViewModel : NotifyPropertyChangedBase
+    public class NewsViewViewModel : NotifyPropertyChangedBase
     {
         /// <summary>
         ///     The news text.

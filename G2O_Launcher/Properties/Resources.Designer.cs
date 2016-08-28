@@ -111,6 +111,15 @@ namespace G2O_Launcher.Properties {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Tried to load a invalid server from the favorites config. The invalid entry is ignored. ähnelt.
+        /// </summary>
+        public static string resErrorInvalidServerInConfig {
+            get {
+                return ResourceManager.GetString("resErrorInvalidServerInConfig", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die German ähnelt.
         /// </summary>
         public static string resLanguageDE {
@@ -225,6 +234,15 @@ namespace G2O_Launcher.Properties {
         public static string resServerName {
             get {
                 return ResourceManager.GetString("resServerName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Ping ähnelt.
+        /// </summary>
+        public static string resServerPing {
+            get {
+                return ResourceManager.GetString("resServerPing", resourceCulture);
             }
         }
         

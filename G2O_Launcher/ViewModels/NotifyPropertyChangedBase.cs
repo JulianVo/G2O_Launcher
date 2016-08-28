@@ -17,7 +17,7 @@ namespace G2O_Launcher.ViewModels
     /// <summary>
     ///     Base class for all observable types.
     /// </summary>
-    internal class NotifyPropertyChangedBase : INotifyPropertyChanged
+    public class NotifyPropertyChangedBase : INotifyPropertyChanged
     {
         /// <summary>
         ///     Called when a property value changes.

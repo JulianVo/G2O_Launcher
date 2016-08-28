@@ -12,10 +12,13 @@ namespace G2O_Launcher.Views
     #endregion
 
     /// <summary>
-    ///     Interaction logic for ServersView.xaml
+    /// The servers view.
     /// </summary>
-    public partial class ServersView : UserControl
+    public partial class ServersView
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ServersView"/> class.
+        /// </summary>
         public ServersView()
         {
             this.InitializeComponent();

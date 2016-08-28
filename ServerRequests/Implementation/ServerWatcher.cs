@@ -37,7 +37,7 @@ namespace G2O.Launcher.ServerRequests
         /// <summary>
         ///     Lock object used to synchronize the access to object fields.
         /// </summary>
-        private readonly object _Lock = new object();
+        private readonly object instanceLock = new object();
 
         /// <summary>
         ///     Stores the byte of a GO ping.
@@ -52,7 +52,7 @@ namespace G2O.Launcher.ServerRequests
         /// <summary>
         ///     List of server states that a kept refreshed by <see cref="ServerWatcher" />.
         /// </summary>
-        private readonly List<ServerState> polls = new List<ServerState>();
+        private readonly List<ServerState> watchedServers = new List<ServerState>();
 
         /// <summary>
         ///     Regex for finding the port number in a connection string.
@@ -127,7 +127,7 @@ namespace G2O.Launcher.ServerRequests
             if (pollInterval <= pingInterval)
             {
                 throw new ArgumentOutOfRangeException(
-                    nameof(pollInterval), 
+                    nameof(pollInterval),
                     "The poll interval needs to be greater than the ping interval");
             }
 
@@ -153,7 +153,7 @@ namespace G2O.Launcher.ServerRequests
         {
             get
             {
-                lock (this._Lock)
+                lock (this.instanceLock)
                 {
                     return this.defaultPort;
                 }
@@ -161,7 +161,7 @@ namespace G2O.Launcher.ServerRequests
 
             set
             {
-                lock (this._Lock)
+                lock (this.instanceLock)
                 {
                     this.defaultPort = value;
                 }
@@ -176,7 +176,7 @@ namespace G2O.Launcher.ServerRequests
         {
             get
             {
-                lock (this._Lock)
+                lock (this.instanceLock)
                 {
                     return this.pingInterval;
                 }
@@ -192,11 +192,11 @@ namespace G2O.Launcher.ServerRequests
                 if (this.pollInterval <= value)
                 {
                     throw new ArgumentOutOfRangeException(
-                        nameof(value), 
+                        nameof(value),
                         "The ping interval needs to be lower than the poll interval");
                 }
 
-                lock (this._Lock)
+                lock (this.instanceLock)
                 {
                     this.pingInterval = value;
                 }
@@ -224,11 +224,11 @@ namespace G2O.Launcher.ServerRequests
                 if (value <= this.pingInterval)
                 {
                     throw new ArgumentOutOfRangeException(
-                        nameof(value), 
+                        nameof(value),
                         "The poll interval needs to be greater than the ping interval");
                 }
 
-                lock (this._Lock)
+                lock (this.instanceLock)
                 {
                     this.pollInterval = value;
                 }
@@ -243,7 +243,7 @@ namespace G2O.Launcher.ServerRequests
         {
             get
             {
-                lock (this._Lock)
+                lock (this.instanceLock)
                 {
                     return this.serverTimeout;
                 }
@@ -256,7 +256,7 @@ namespace G2O.Launcher.ServerRequests
                     throw new ArgumentOutOfRangeException(nameof(value));
                 }
 
-                lock (this._Lock)
+                lock (this.instanceLock)
                 {
                     this.serverTimeout = value;
                 }
@@ -271,9 +271,9 @@ namespace G2O.Launcher.ServerRequests
         {
             get
             {
-                lock (this._Lock)
+                lock (this.instanceLock)
                 {
-                    return this.polls.ToArray();
+                    return this.watchedServers.ToArray();
                 }
             }
         }
@@ -296,7 +296,7 @@ namespace G2O.Launcher.ServerRequests
             {
                 throw new ArgumentException("Value cannot be null or whitespace.", nameof(serverAddress));
             }
-
+            serverAddress = serverAddress.Trim();
             string portMatch = this.portRegex.Match(serverAddress).ToString();
 
             ushort port;
@@ -337,15 +337,35 @@ namespace G2O.Launcher.ServerRequests
             if (serverEndPoint.AddressFamily != AddressFamily.InterNetwork)
             {
                 throw new ArgumentException(
-                    "The argument does not contain a valid IPv4 address", 
+                    "The argument does not contain a valid IPv4 address",
                     nameof(serverEndPoint));
             }
 
-            lock (this._Lock)
+            lock (this.instanceLock)
             {
                 var newServer = new ServerState(serverEndPoint.Address, (ushort)serverEndPoint.Port);
-                this.polls.Add(newServer);
+                this.watchedServers.Add(newServer);
                 return newServer;
+            }
+        }
+
+        /// <summary>
+        /// Removes a server from the <see cref="IServerWatcher"/>.
+        /// </summary>
+        /// <param name="server">The server state object that describes the server that should be removed.</param>
+        public void RemoveServer(IServerState server)
+        {
+            if (server == null)
+            {
+                throw new ArgumentNullException(nameof(server));
+            }
+            lock (this.instanceLock)
+            {
+                ServerState state = server as ServerState;
+                if (state != null && this.watchedServers.Contains(state))
+                {
+                    this.watchedServers.Remove(state);
+                }
             }
         }
 
@@ -354,9 +374,9 @@ namespace G2O.Launcher.ServerRequests
         /// </summary>
         public void Reset()
         {
-            lock (this._Lock)
+            lock (this.instanceLock)
             {
-                this.polls.Clear();
+                this.watchedServers.Clear();
             }
         }
 
@@ -408,9 +428,9 @@ namespace G2O.Launcher.ServerRequests
             }
 
             ServerState state;
-            lock (this._Lock)
+            lock (this.instanceLock)
             {
-                state = this.polls.FirstOrDefault(p => sender.Address.Equals(p.ServerIp) && sender.Port == p.ServerPort);
+                state = this.watchedServers.FirstOrDefault(p => sender.Address.Equals(p.ServerIp) && sender.Port == p.ServerPort);
             }
 
             // Calcualte new ping
@@ -487,12 +507,12 @@ namespace G2O.Launcher.ServerRequests
                     this.InvokeOnServerStatusChanged(serverPoll);
                 }
 
-                this.SendPing(new IPEndPoint(serverPoll.ServerIp, serverPoll.ServerPort), this.socket);
-                serverPoll.LastPingTime = DateTime.Now;
-                if (sendPoll)
-                {
-                    this.SendPoll(new IPEndPoint(serverPoll.ServerIp, serverPoll.ServerPort), this.socket);
-                }
+                    this.SendPing(new IPEndPoint(serverPoll.ServerIp, serverPoll.ServerPort), this.socket);
+                    serverPoll.LastPingTime = DateTime.Now;
+                    if (sendPoll)
+                    {
+                        this.SendPoll(new IPEndPoint(serverPoll.ServerIp, serverPoll.ServerPort), this.socket);
+                    }
             }
 
             this.lastPingTime = DateTime.Now;
@@ -534,9 +554,9 @@ namespace G2O.Launcher.ServerRequests
             hostName = hostName.Replace("\0", string.Empty);
 
             ServerState state;
-            lock (this._Lock)
+            lock (this.instanceLock)
             {
-                state = this.polls.FirstOrDefault(p => sender.Address.Equals(p.ServerIp) && sender.Port == p.ServerPort);
+                state = this.watchedServers.FirstOrDefault(p => sender.Address.Equals(p.ServerIp) && sender.Port == p.ServerPort);
             }
 
             if (state != null)
@@ -589,9 +609,9 @@ namespace G2O.Launcher.ServerRequests
             while (this.watcherThreadRun)
             {
                 List<ServerState> serverStates;
-                lock (this._Lock)
+                lock (this.instanceLock)
                 {
-                    serverStates = new List<ServerState>(this.polls);
+                    serverStates = new List<ServerState>(this.watchedServers);
                 }
 
                 bool sendPoll = (DateTime.Now - this.lastPingTime).TotalMilliseconds >= this.PingInternal;

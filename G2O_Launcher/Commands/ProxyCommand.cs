@@ -14,14 +14,23 @@ namespace G2O_Launcher.Commands
 
     #endregion
 
-    internal class ProxyCommand : ICommand
+    /// <summary>
+    /// A generic command class which uses delegates for the interface implementation.
+    /// </summary>
+    public class ProxyCommand : ICommand
     {
-        private readonly Action<object> _Action;
-
-        private readonly Func<object, bool> _CanExecuteCheck;
+        /// <summary>
+        /// The action.
+        /// </summary>
+        private readonly Action<object> action;
 
         /// <summary>
-        ///     Initializes a new instance of the <see cref="ProxyCommand" /> class that can allways be executed.
+        /// The can execute check.
+        /// </summary>
+        private readonly Func<object, bool> canExecuteCheck;
+
+        /// <summary>
+        ///     Initializes a new instance of the <see cref="ProxyCommand" /> class that can always be executed.
         /// </summary>
         /// <param name="action">Action that should be invoked when the command is executed.</param>
         public ProxyCommand([NotNull] Action<object> action)
@@ -31,12 +40,12 @@ namespace G2O_Launcher.Commands
                 throw new ArgumentNullException(nameof(action));
             }
 
-            this._CanExecuteCheck = ob => true;
-            this._Action = action;
+           this.canExecuteCheck = ob => true;
+            this.action = action;
         }
 
         /// <summary>
-        ///     Initializes a new instance of the <see cref="ProxyCommand" /> with a check if the command can be executed and
+        ///     Initializes a new instance of the <see cref="ProxyCommand" /> class with a check if the command can be executed and
         ///     a <see cref="Action" /> that should be executed i the command is executed.
         /// </summary>
         /// <param name="canExecuteCheck">Function that can be used to check if the command can be executed.</param>
@@ -53,10 +62,13 @@ namespace G2O_Launcher.Commands
                 throw new ArgumentNullException(nameof(action));
             }
 
-            this._CanExecuteCheck = canExecuteCheck;
-            this._Action = action;
+            this.canExecuteCheck = canExecuteCheck;
+            this.action = action;
         }
 
+        /// <summary>
+        /// The can execute changed event.
+        /// </summary>
         public event EventHandler CanExecuteChanged
         {
             add
@@ -70,14 +82,23 @@ namespace G2O_Launcher.Commands
             }
         }
 
+        /// <summary>
+        /// Checks if the command can be executed.
+        /// </summary>
+        /// <param name="parameter">Command parameter.</param>
+        /// <returns>True if the command can be executed.</returns>
         public bool CanExecute(object parameter)
         {
-            return this._CanExecuteCheck(parameter);
+            return this.canExecuteCheck(parameter);
         }
 
+        /// <summary>
+        /// Executes the command.
+        /// </summary>
+        /// <param name="parameter">Command parameter.</param>
         public void Execute(object parameter)
         {
-            this._Action(parameter);
+            this.action(parameter);
         }
     }
 }

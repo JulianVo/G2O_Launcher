@@ -71,6 +71,12 @@ namespace G2O.Launcher.ServerRequests
         IServerState AddServer(IPEndPoint serverEndPoint);
 
         /// <summary>
+        /// Removes a server from the <see cref="IServerWatcher"/>.
+        /// </summary>
+        /// <param name="server">The server state object that describes the server that should be removed.</param>
+        void RemoveServer(IServerState server);
+
+        /// <summary>
         ///     Removes all watched servers from the <see cref="IServerWatcher" />.
         /// </summary>
         void Reset();

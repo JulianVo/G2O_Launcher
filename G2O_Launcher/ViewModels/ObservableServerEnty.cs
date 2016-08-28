@@ -12,7 +12,7 @@ namespace G2O_Launcher.ViewModels
     /// <summary>
     ///     ViewModel class for server list entries.
     /// </summary>
-    internal class ObservableServerEnty : NotifyPropertyChangedBase
+    public class ObservableServerEnty : NotifyPropertyChangedBase
     {
         /// <summary>
         ///     The host name.
@@ -33,6 +33,11 @@ namespace G2O_Launcher.ViewModels
         ///     The version.
         /// </summary>
         private string version;
+
+        /// <summary>
+        /// The ping
+        /// </summary>
+        private int ping;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ObservableServerEnty"/> class.
@@ -123,6 +128,22 @@ namespace G2O_Launcher.ViewModels
         }
 
         /// <summary>
+        /// Gets or sets the ping.
+        /// </summary>
+        public int Ping
+        {
+            get
+            {
+                return this.ping;
+            }
+            set
+            {
+                this.OnPropertyChanged(nameof(this.Ping));
+                this.ping = value;
+            }
+        }
+
+        /// <summary>
         /// Updates the server enty values from the related state object.
         /// </summary>
         public void UpdateFromState()
@@ -131,6 +152,7 @@ namespace G2O_Launcher.ViewModels
             this.ServerName = this.ServerState.Info?.ServerName ?? "-";
             this.Version = this.ServerState.Info?.VersionString ?? "-";
             this.PlayerCount = this.ServerState.Info?.PlayersString ?? "-";
+            this.Ping = this.ServerState.LastPing;
         }
     }
 }

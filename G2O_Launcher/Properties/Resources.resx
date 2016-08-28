@@ -206,4 +206,10 @@ Please check you internet connection.</value>
   <data name="resServerAddBoxTitle" xml:space="preserve">
     <value>Please enter the server address and port</value>
   </data>
+  <data name="resErrorInvalidServerInConfig" xml:space="preserve">
+    <value>Tried to load a invalid server from the favorites config. The invalid entry is ignored.</value>
+  </data>
+  <data name="resServerPing" xml:space="preserve">
+    <value>Ping</value>
+  </data>
 </root>

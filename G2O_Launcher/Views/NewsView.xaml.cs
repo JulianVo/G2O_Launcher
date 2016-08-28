@@ -7,6 +7,7 @@ namespace G2O_Launcher.Views
 {
     #region
 
+    using System;
     using System.Windows.Controls;
 
     using G2O_Launcher.ViewModels;
@@ -14,14 +15,16 @@ namespace G2O_Launcher.Views
     #endregion
 
     /// <summary>
-    ///     Interaction logic for NewsView.xaml
+    ///     The news view model.
     /// </summary>
     public partial class NewsView : UserControl
     {
+        /// <summary>
+        ///     Initializes a new instance of the <see cref="NewsView" /> class.
+        /// </summary>
         public NewsView()
-        {
+        {   
             this.InitializeComponent();
-            this.DataContext = new NewsViewViewModel(Properties.Resources.resNewsNotLoaded);
         }
     }
 }
