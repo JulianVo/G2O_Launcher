@@ -47,4 +47,3 @@ C:\Program Files (x86)\Steam\steamapps\common\Gothic II\G2O_Launcher.pdb
 E:\Develop\G2O\G2O_Launcher\G2O_Launcher\obj\Debug\G2O_Launcher_Content.g.cs
 E:\Gothic II g2o - Launcher\G2O_Launcher.exe
 E:\Gothic II g2o - Launcher\G2O_Launcher.pdb
-E:\Develop\G2O\G2O_Launcher\G2O_Launcher\obj\Debug\G2O_Launcher.csprojResolveAssemblyReference.cache
