@@ -21,6 +21,7 @@ namespace G2O_Launcher.ViewModels
 
     using System;
     using System.ComponentModel;
+    using System.Globalization;
     using System.Windows;
 
     using G2O_Launcher.Commands;
@@ -43,15 +44,17 @@ namespace G2O_Launcher.ViewModels
         /// </summary>
         private readonly RegistryConfig registry;
 
+        private RelayCommand changeLanguageCommand;
+
         /// <summary>
         ///     The exit command
         /// </summary>
-        private ProxyCommand exitCommand;
+        private RelayCommand exitCommand;
 
         /// <summary>
         ///     The minimize command.
         /// </summary>
-        private ProxyCommand minimizeCommand;
+        private RelayCommand minimizeCommand;
 
         /// <summary>
         ///     The selected tab index.
@@ -68,9 +71,16 @@ namespace G2O_Launcher.ViewModels
         /// </summary>
         /// <param name="config">The current launcher config,</param>
         /// <param name="registry">The registry config object.</param>
-        /// <param name="updater">The instance of the <see cref="Updater"/> class that is used to check for and execute updates.</param>
-        /// <param name="resourceManager">The instance of the resource manager that should be used to provide resource strings for the view.</param>
-        public MainWindowViewModel(ILauncherConfig config, RegistryConfig registry,Updater updater,ResourceManager resourceManager)
+        /// <param name="updater">The instance of the <see cref="Updater" /> class that is used to check for and execute updates.</param>
+        /// <param name="resourceManager">
+        ///     The instance of the resource manager that should be used to provide resource strings for
+        ///     the view.
+        /// </param>
+        public MainWindowViewModel(
+            ILauncherConfig config, 
+            RegistryConfig registry, 
+            Updater updater, 
+            ResourceManager resourceManager)
             : base(resourceManager)
         {
             if (config == null)
@@ -82,6 +92,7 @@ namespace G2O_Launcher.ViewModels
             {
                 throw new ArgumentNullException(nameof(registry));
             }
+
             if (updater == null)
             {
                 throw new ArgumentNullException(nameof(updater));
@@ -93,16 +104,24 @@ namespace G2O_Launcher.ViewModels
         }
 
         /// <summary>
+        ///     Gets the command for changing the language of the application
+        /// </summary>
+        public RelayCommand ChangeLanguageCommand
+            =>
+                this.changeLanguageCommand
+                ?? (this.changeLanguageCommand = new RelayCommand(this.ExecuteChangeLanguageCommand));
+
+        /// <summary>
         ///     Gets the exit command.
         /// </summary>
-        public ProxyCommand ExitCommand => this.exitCommand ?? (this.exitCommand = new ProxyCommand(ExecuteExitCommand))
+        public RelayCommand ExitCommand => this.exitCommand ?? (this.exitCommand = new RelayCommand(ExecuteExitCommand))
             ;
 
         /// <summary>
         ///     Gets the minimizes command.
         /// </summary>
-        public ProxyCommand MinimizeCommand
-            => this.minimizeCommand ?? (this.minimizeCommand = new ProxyCommand(this.ExecuteMinimizeCommand));
+        public RelayCommand MinimizeCommand
+            => this.minimizeCommand ?? (this.minimizeCommand = new RelayCommand(this.ExecuteMinimizeCommand));
 
         /// <summary>
         ///     Gets or sets the Nickname value.
@@ -168,6 +187,19 @@ namespace G2O_Launcher.ViewModels
 
                 this.windowState = value;
                 this.OnPropertyChanged(nameof(this.WindowState));
+            }
+        }
+
+        /// <summary>
+        ///     Execute the ChangeLanguageCommand command.
+        /// </summary>
+        /// <param name="language">Language code of the language to wich the application should be changed.</param>
+        public void ExecuteChangeLanguageCommand(object language)
+        {
+            if (language != null)
+            {
+                var culture = CultureInfo.GetCultureInfo(language.ToString());
+                this.Res.CurrentCulture = culture;
             }
         }
 

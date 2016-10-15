@@ -1,5 +1,5 @@
 ﻿//  --------------------------------------------------------------------------------------------------------------------
-//  <copyright file="ProxyCommand.cs" company="Gothic Online Project">
+//  <copyright file="RelayCommand.cs" company="Gothic Online Project">
 //  Copyright (C) <2016>  <Julian Vogel>
 //  This program is free software: you can redistribute it and/or modify
 //  it under the terms of the GNU General Public License as published by
@@ -29,7 +29,7 @@ namespace G2O_Launcher.Commands
     /// <summary>
     ///     A generic command class which uses delegates for the interface implementation.
     /// </summary>
-    public class ProxyCommand : ICommand
+    public class RelayCommand : ICommand
     {
         /// <summary>
         ///     The action.
@@ -42,10 +42,10 @@ namespace G2O_Launcher.Commands
         private readonly Func<object, bool> canExecuteCheck;
 
         /// <summary>
-        ///     Initializes a new instance of the <see cref="ProxyCommand" /> class that can always be executed.
+        ///     Initializes a new instance of the <see cref="RelayCommand" /> class that can always be executed.
         /// </summary>
         /// <param name="action">Action that should be invoked when the command is executed.</param>
-        public ProxyCommand([NotNull] Action<object> action)
+        public RelayCommand([NotNull] Action<object> action)
         {
             if (action == null)
             {
@@ -57,12 +57,12 @@ namespace G2O_Launcher.Commands
         }
 
         /// <summary>
-        ///     Initializes a new instance of the <see cref="ProxyCommand" /> class with a check if the command can be executed and
+        ///     Initializes a new instance of the <see cref="RelayCommand" /> class with a check if the command can be executed and
         ///     a <see cref="Action" /> that should be executed i the command is executed.
         /// </summary>
         /// <param name="canExecuteCheck">Function that can be used to check if the command can be executed.</param>
         /// <param name="action">Action that should be invoked when the command is executed.</param>
-        public ProxyCommand(Func<object, bool> canExecuteCheck, [NotNull] Action<object> action)
+        public RelayCommand(Func<object, bool> canExecuteCheck, [NotNull] Action<object> action)
         {
             if (canExecuteCheck == null)
             {

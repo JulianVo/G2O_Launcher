@@ -90,7 +90,6 @@
     <Compile Include="G2O\G2OProxy.cs" />
     <Compile Include="Localization\DynamicStringResource.cs" />
     <Compile Include="Localization\ResourceManager.cs" />
-    <Compile Include="Properties\Annotations1.cs" />
     <Compile Include="ServerRequests\Implementation\IServerWatcher.cs" />
     <Compile Include="ServerRequests\Implementation\ServerInfo.cs" />
     <Compile Include="ServerRequests\Implementation\ServerState.cs" />
@@ -131,7 +130,7 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Commands\ProxyCommand.cs" />
+    <Compile Include="Commands\RelayCommand.cs" />
     <Compile Include="Properties\Annotations.cs" />
     <Compile Include="ViewModels\MainWindowViewModel.cs" />
     <Compile Include="ViewModels\ViewModelBase.cs" />
@@ -206,6 +205,7 @@
   <ItemGroup>
     <Content Include="lib\ICSharpCode.SharpZipLib.dll" />
     <Content Include="lib\Newtonsoft.Json.dll" />
+    <EmbeddedResource Include="Localization\de-DE.xml" />
     <EmbeddedResource Include="Localization\en-US.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

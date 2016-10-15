@@ -24,20 +24,41 @@ namespace G2O_Launcher.Localization
     using System.Reflection;
     using System.Xml;
 
-    using G2O_Launcher.Annotations;
+    using G2O_Launcher.Properties;
 
+    /// <summary>
+    ///     A class that loads an provides localized resource strings.
+    /// </summary>
     internal class ResourceManager
     {
-        private readonly Dictionary<CultureInfo, Dictionary<string, string>> LocalizationDictionary =
+        /// <summary>
+        ///     A dictionary that stores all loaded cultures resources grouped by their culture name and resource key.
+        /// </summary>
+        private readonly Dictionary<CultureInfo, Dictionary<string, string>> localizationDictionary =
             new Dictionary<CultureInfo, Dictionary<string, string>>();
 
-        private readonly Dictionary<string, DynamicStringResource> ResourceObjs =
+        /// <summary>
+        ///     A dictionary that stores all <see cref="DynamicStringResource" /> created by this <see cref="ResourceManager" />
+        ///     together with the belonging resource key.
+        /// </summary>
+        private readonly Dictionary<string, DynamicStringResource> resourceObjs =
             new Dictionary<string, DynamicStringResource>();
 
+        /// <summary>
+        ///     The backing field of the <see cref="CurrentCulture" /> property.
+        /// </summary>
         private CultureInfo currentCulture;
 
+        /// <summary>
+        ///     Backing field of the <see cref="FallbackCulture" /> property.
+        /// </summary>
         private CultureInfo fallbackCulture;
 
+        /// <summary>
+        ///     Initializes a new instance of the <see cref="ResourceManager" /> class.
+        /// </summary>
+        /// <param name="culture">The starting culture of the <see cref="ResourceManager" />.</param>
+        /// <param name="fallBack">The fallback culture.</param>
         public ResourceManager(CultureInfo culture, [NotNull] CultureInfo fallBack)
         {
             if (culture == null)
@@ -53,13 +74,17 @@ namespace G2O_Launcher.Localization
             this.CurrentCulture = culture;
             this.FallbackCulture = fallBack;
 
-            string[] definedCultures = { "EN-us" };
+            string[] definedCultures = { "en-US", "de-DE" };
             foreach (var definedCulture in definedCultures)
             {
                 this.ReadLocalization(CultureInfo.GetCultureInfo(definedCulture));
             }
         }
 
+        /// <summary>
+        ///     Gets or sets the current culture of the <see cref="ResourceManager" />.
+        ///     <remarks>If this value changes all <see cref="DynamicStringResource" /> get updated with the new culture.</remarks>
+        /// </summary>
         [NotNull]
         public CultureInfo CurrentCulture
         {
@@ -81,25 +106,29 @@ namespace G2O_Launcher.Localization
                 }
 
                 this.currentCulture = value;
-                foreach (var key in this.ResourceObjs.Keys)
+                foreach (var key in this.resourceObjs.Keys)
                 {
                     string locValue;
-                    if (!this.LocalizationDictionary[this.currentCulture].TryGetValue(key, out locValue))
+                    if (!this.localizationDictionary[this.currentCulture].TryGetValue(key, out locValue))
                     {
                         // Try to get the fallback value for the resource key.
-                        if (!this.LocalizationDictionary[this.fallbackCulture].TryGetValue(key, out locValue))
+                        if (!this.localizationDictionary[this.fallbackCulture].TryGetValue(key, out locValue))
                         {
                             throw new ArgumentException(
-                                @"The a string resource with the given key does not exist for the given culture",
+                                @"The a string resource with the given key does not exist for the given culture", 
                                 nameof(locValue));
                         }
                     }
 
-                    this.ResourceObjs[key].Value = locValue;
+                    this.resourceObjs[key].Value = locValue;
                 }
             }
         }
 
+        /// <summary>
+        ///     Gets or set the fallback culture.
+        ///     <remarks>This culture will be used if there is no localized value for the <see cref="CurrentCulture" />.</remarks>
+        /// </summary>
         [NotNull]
         public CultureInfo FallbackCulture
         {
@@ -124,45 +153,44 @@ namespace G2O_Launcher.Localization
             }
         }
 
+        /// <summary>
+        ///     Gets the <see cref="DynamicStringResource" /> object for the resource with the given key.
+        /// </summary>
+        /// <param name="key">The resource key for which the resource should be returned.</param>
+        /// <returns>The <see cref="DynamicStringResource" /> object.</returns>
         public DynamicStringResource this[string key]
         {
             get
             {
                 DynamicStringResource result;
-                if (!this.ResourceObjs.TryGetValue(key, out result))
+                if (!this.resourceObjs.TryGetValue(key, out result))
                 {
                     string value;
 
-                    if (this.LocalizationDictionary.ContainsKey(this.currentCulture) && !this.LocalizationDictionary[this.currentCulture].TryGetValue(key, out value))
+                    if (!this.localizationDictionary.ContainsKey(this.currentCulture)
+                        || !this.localizationDictionary[this.currentCulture].TryGetValue(key, out value))
                     {
                         // Try to get the fallback value for the resource key.
-                        if (!this.LocalizationDictionary[this.fallbackCulture].TryGetValue(key, out value))
+                        if (!this.localizationDictionary[this.fallbackCulture].TryGetValue(key, out value))
                         {
                             throw new ArgumentException(
-                                @"The a string resource with the given key does not exist",
-                                nameof(value));
-                        }
-                    }
-                    //Current culture does not exist.
-                    else
-                    {
-                        // Try to get the fallback value for the resource key.
-                        if (!this.LocalizationDictionary[this.fallbackCulture].TryGetValue(key, out value))
-                        {
-                            throw new ArgumentException(
-                                @"The a string resource with the given key does not exist",
+                                @"The a string resource with the given key does not exist", 
                                 nameof(value));
                         }
                     }
 
-                    result = new DynamicStringResource(key, value);
-                    this.ResourceObjs.Add(key, result);
+                    result = new DynamicStringResource(value);
+                    this.resourceObjs.Add(key, result);
                 }
 
                 return result;
             }
         }
 
+        /// <summary>
+        ///     Reads a localization file.
+        /// </summary>
+        /// <param name="cultureInfo">Tje culture info of the localization file(also its file name)</param>
         private void ReadLocalization(CultureInfo cultureInfo)
         {
             using (
@@ -173,16 +201,16 @@ namespace G2O_Launcher.Localization
                 if (stream == null)
                 {
                     throw new ArgumentException(
-                        @"A localization file with for the given language code was not found",
+                        @"A localization file with for the given language code was not found", 
                         nameof(cultureInfo));
                 }
 
-                if (this.LocalizationDictionary.ContainsKey(cultureInfo))
+                if (this.localizationDictionary.ContainsKey(cultureInfo))
                 {
                     throw new ArgumentException(@"The given culture is already loaded", nameof(cultureInfo));
                 }
 
-                this.LocalizationDictionary.Add(cultureInfo, new Dictionary<string, string>());
+                this.localizationDictionary.Add(cultureInfo, new Dictionary<string, string>());
 
                 // Read the localization file.
                 TextReader tr = new StreamReader(stream);
@@ -220,10 +248,10 @@ namespace G2O_Launcher.Localization
                         throw new XmlException("The entry does not contain a valid key value pair");
                     }
 
-                    //There should not be duplicate key. But lets check this just in case.
-                    if (!this.LocalizationDictionary[cultureInfo].ContainsKey(key))
+                    // There should not be duplicate key. But lets check this just in case.
+                    if (!this.localizationDictionary[cultureInfo].ContainsKey(key))
                     {
-                        this.LocalizationDictionary[cultureInfo].Add(key, value);
+                        this.localizationDictionary[cultureInfo].Add(key, value);
                     }
                 }
             }

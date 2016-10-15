@@ -47,7 +47,7 @@
         </DataGrid>
         <Border Name="gridAddBox" Visibility="Hidden" BorderThickness="2" Height="120" Margin="0" Width="480" VerticalAlignment="Center" HorizontalAlignment="Center" Background="#FF2E2D2D" BorderBrush="White">
             <Grid >
-                <Button Content="{Binding Res[resServerAddBoxButtonChancel].Value}" HorizontalAlignment="Right" Margin="0,0,20,5" VerticalAlignment="Bottom" Width="75">
+                <Button Content="{Binding Res[resServerAddBoxButtonChancel].Value}" HorizontalAlignment="Right" Margin="0,0,20,5" VerticalAlignment="Bottom" Width="100">
                     <Button.Triggers>
                         <EventTrigger RoutedEvent="Button.Click">
                             <BeginStoryboard>
@@ -64,7 +64,7 @@
                 </Button>
                 <TextBox  Margin="20,60,20,0" TextWrapping="Wrap"  VerticalAlignment="Top"/>
                 <Label  Content="{Binding Res[resServerAddBoxTitle].Value}" Margin="20,10,20,0" VerticalAlignment="Top" Foreground="White" Width="432" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
-                <Button  Content="{Binding Res[resServerAddBoxButtonAdd].Value}" HorizontalAlignment="Left" Margin="20,0,0,5" VerticalAlignment="Bottom" Width="75" Command="{Binding AddServerCommand}" CommandParameter="{Binding ElementName=txtAddress, Path=Text}">
+                <Button  Content="{Binding Res[resServerAddBoxButtonAdd].Value}" HorizontalAlignment="Left" Margin="20,0,0,5" VerticalAlignment="Bottom" Width="100" Command="{Binding AddServerCommand}" CommandParameter="{Binding ElementName=txtAddress, Path=Text}">
                     <Button.Triggers>
                         <EventTrigger RoutedEvent="Button.Click">
                             <BeginStoryboard>

@@ -36,7 +36,7 @@ namespace G2O_Launcher.ViewModels
         /// Initializes a new instance of the <see cref="ViewModelBase"/> class. 
         /// </summary>
         /// <param name="res">The instance of the resource manager that should be used to provide resource strings for the view.</param>
-        protected ViewModelBase([Annotations.NotNull] ResourceManager res)
+        protected ViewModelBase(ResourceManager res)
         {
             if (res == null)
             {

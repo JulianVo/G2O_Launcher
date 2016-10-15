@@ -19,8 +19,8 @@ namespace G2O_Launcher.ViewModels
 {
     using System;
 
-    using G2O_Launcher.Annotations;
     using G2O_Launcher.Localization;
+    using G2O_Launcher.Properties;
 
     /// <summary>
     ///     ViewModel for the news view.

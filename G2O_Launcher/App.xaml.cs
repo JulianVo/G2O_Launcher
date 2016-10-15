@@ -50,8 +50,8 @@ namespace G2O_Launcher
         /// </summary>
         private readonly string configPath =
             Path.Combine(
-                Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData),
-                "Gothic2OnlineLauncher",
+                Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), 
+                "Gothic2OnlineLauncher", 
                 "config.xml");
 
         /// <summary>
@@ -63,6 +63,8 @@ namespace G2O_Launcher
         ///     Mutex. Used to ensure that only one instance of the launcher exists.
         /// </summary>
         private readonly Mutex mutex = new Mutex(false, typeof(App).Namespace);
+
+        private readonly ResourceManager resourceManager;
 
         /// <summary>
         ///     Initializes a new instance of the <see cref="App" /> class.
@@ -86,10 +88,9 @@ namespace G2O_Launcher
             {
                 this.config.SelectedLanguage = Thread.CurrentThread.CurrentCulture.Name;
             }
+
             CultureInfo fallbackCultureInfo = CultureInfo.GetCultureInfo("EN-us");
-            ResourceManager resourceManager = new ResourceManager(Thread.CurrentThread.CurrentCulture, fallbackCultureInfo);
-
-
+            this.resourceManager = new ResourceManager(Thread.CurrentThread.CurrentCulture, fallbackCultureInfo);
 
             this.favoritesServerWatcher = new ServerWatcher(28970, 100, 1000, 2000);
             this.favoritesServerWatcher.Start();
@@ -105,23 +106,26 @@ namespace G2O_Launcher
             catch (Exception)
             {
                 MessageBox.Show(
-                    resourceManager["resErrorInvalidServerInConfig"].Value,
-                    "Invalid server address loaded",
-                    MessageBoxButton.OK,
+                    this.resourceManager["resErrorInvalidServerInConfig"].Value, 
+                    "Invalid server address loaded", 
+                    MessageBoxButton.OK, 
                     MessageBoxImage.Warning);
             }
-
-
-
 
             var registry = new RegistryConfig();
             using (var starter = new G2OStarter(new G2OProxy(), registry))
             {
-
-
-                MainWindowViewModel mainWindowViewModel = new MainWindowViewModel(this.config, registry, new Updater.Updater(), resourceManager);
-                NewsViewViewModel newsViewViewModel = new NewsViewViewModel(resourceManager["resNewsNotLoaded"].Value, resourceManager);
-                FavoritesViewViewModel favoritesViewViewModel = new FavoritesViewViewModel(this.favoritesServerWatcher, starter, resourceManager);
+                MainWindowViewModel mainWindowViewModel = new MainWindowViewModel(
+                    this.config, 
+                    registry, 
+                    new Updater.Updater(), 
+                    this.resourceManager);
+                NewsViewViewModel newsViewViewModel =
+                    new NewsViewViewModel(this.resourceManager["resNewsNotLoaded"].Value, this.resourceManager);
+                FavoritesViewViewModel favoritesViewViewModel = new FavoritesViewViewModel(
+                    this.favoritesServerWatcher, 
+                    starter, 
+                    this.resourceManager);
                 MainWindow window = new MainWindow(mainWindowViewModel, newsViewViewModel, favoritesViewViewModel);
                 window.Show();
             }
@@ -145,6 +149,7 @@ namespace G2O_Launcher
                 this.config.FavoriteServers.Add(watchedServer.OriginalAddress);
             }
 
+            this.config.SelectedLanguage = this.resourceManager.CurrentCulture.Name;
             this.config.SaveConfig(this.configPath);
         }
 
@@ -159,9 +164,9 @@ namespace G2O_Launcher
         {
             // Show a messagebox with the exception text and stacktrace.
             MessageBox.Show(
-                $"A unhandled error occured: {Environment.NewLine}{((Exception)e.ExceptionObject).Message}",
-                "Unhandled error",
-                MessageBoxButton.OK,
+                $"A unhandled error occured: {Environment.NewLine}{((Exception)e.ExceptionObject).Message}", 
+                "Unhandled error", 
+                MessageBoxButton.OK, 
                 MessageBoxImage.Error);
         }
 

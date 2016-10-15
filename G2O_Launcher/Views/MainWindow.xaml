@@ -35,9 +35,9 @@
             </Grid.ColumnDefinitions>
             <Menu  Grid.Column="1" Margin="0" Background="{Binding Background, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}" Padding="0" BorderBrush="{x:Null}" Style="{DynamicResource Gothic2}">
                 <MenuItem Header="{Binding Res[resLanguageSelection].Value}" Background="{Binding Background, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}" >
-                    <MenuItem Header="{Binding Res[resLanguageEN].Value}" Background="{Binding Background, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}"/>
-                    <MenuItem Header="{Binding Res[resLanguageDE].Value}" Background="{Binding Background, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}"/>
-                    <MenuItem Header="{Binding Res[resLanguagePL].Value}" Background="{Binding Background, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}"/>
+                    <MenuItem Header="{Binding Res[resLanguageEN].Value}" Background="{Binding Background, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}" Command="{Binding ChangeLanguageCommand}" CommandParameter="en-US"/>
+                    <MenuItem Header="{Binding Res[resLanguageDE].Value}" Background="{Binding Background, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}" Command="{Binding ChangeLanguageCommand}" CommandParameter="de-DE"/>
+                    <MenuItem Header="{Binding Res[resLanguagePL].Value}" Background="{Binding Background, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}" Command="{Binding ChangeLanguageCommand}" CommandParameter="pl-PL"/>
                 </MenuItem>
             </Menu>
             <Button Content="_" Grid.Column="2" Margin="0" Background="{Binding Background, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}" Padding="0" BorderBrush="{x:Null}" Command="{Binding MinimizeCommand}"/>

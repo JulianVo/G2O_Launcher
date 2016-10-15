@@ -85,19 +85,19 @@ namespace G2O_Launcher.ViewModels
         /// <summary>
         ///     Gets the add server command.
         /// </summary>
-        public ProxyCommand AddServerCommand => new ProxyCommand(this.ExecuteAddServerCommand);
+        public RelayCommand AddServerCommand => new RelayCommand(this.ExecuteAddServerCommand);
 
         /// <summary>
         ///     Gets the connect to server command.
         /// </summary>
-        public ProxyCommand ConnectToServerCommand
-            => new ProxyCommand(this.CanExecuteConnectToServerCommand, this.ExecuteConnectToServerCommand);
+        public RelayCommand ConnectToServerCommand
+            => new RelayCommand(this.CanExecuteConnectToServerCommand, this.ExecuteConnectToServerCommand);
 
         /// <summary>
         ///     Gets the remove server command.
         /// </summary>
-        public ProxyCommand RemoveServerCommand
-            => new ProxyCommand(this.CanExecuteRemoveServerCommand, this.ExecuteRemoveServerCommand);
+        public RelayCommand RemoveServerCommand
+            => new RelayCommand(this.CanExecuteRemoveServerCommand, this.ExecuteRemoveServerCommand);
 
         /// <summary>
         ///     Gets or sets the selected entry.
