@@ -109,7 +109,8 @@ namespace G2O_Launcher.Localization
                 foreach (var key in this.resourceObjs.Keys)
                 {
                     string locValue;
-                    if (!this.localizationDictionary[this.currentCulture].TryGetValue(key, out locValue))
+                    if (!this.localizationDictionary.ContainsKey(this.currentCulture) || 
+                        !this.localizationDictionary[this.currentCulture].TryGetValue(key, out locValue))
                     {
                         // Try to get the fallback value for the resource key.
                         if (!this.localizationDictionary[this.fallbackCulture].TryGetValue(key, out locValue))

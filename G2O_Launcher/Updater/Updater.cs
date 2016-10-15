@@ -24,6 +24,12 @@ namespace G2O_Launcher.Updater
     using System.Diagnostics;
     using System.IO;
     using System.Net;
+    using System.Reflection;
+    using System.Runtime.CompilerServices;
+    using System.Text;
+    using System.Windows.Navigation;
+
+    using G2O_Launcher.G2O;
 
     using Newtonsoft.Json;
 
@@ -40,9 +46,28 @@ namespace G2O_Launcher.Updater
         private const string UpdateUri = "http://gothic-online.com.pl/version/update.php";
 
         /// <summary>
+        ///     The instance of <see cref="G2OProxy" /> used to get the current version.
+        /// </summary>
+        private readonly G2OProxy proxy;
+
+        /// <summary>
         ///     Stores the downloadlink for the next update.
         /// </summary>
         private string downloadLink;
+
+        /// <summary>
+        ///     Initializes a new instance of the <see cref="G2OProxy" /> class.
+        /// </summary>
+        /// <param name="proxy"></param>
+        public Updater(G2OProxy proxy)
+        {
+            if (proxy == null)
+            {
+                throw new ArgumentNullException(nameof(proxy));
+            }
+
+            this.proxy = proxy;
+        }
 
         /// <summary>
         ///     Calls all registered handlers if a available update was found by the <see cref="Check" /> method.
@@ -72,19 +97,25 @@ namespace G2O_Launcher.Updater
         /// <summary>
         ///     Starts a asynchronous server request to find out if the is a newer version that the currently used one.
         /// </summary>
-        /// <param name="major">The current major version</param>
-        /// <param name="minor">The current minor version</param>
-        /// <param name="patch">The current patch number</param>
-        /// <param name="build">THe current build number</param>
-        public void Check(int major, int minor, int patch, int build)
+        public void Check()
         {
+            G2OProxy.G2OVersion version = this.proxy.Version();
+            version = new G2OProxy.G2OVersion(0, 0, 0, 0);
+
+
             using (WebClient webClient = new WebClient())
             {
                 string uriString = UpdateUri;
                 webClient.UploadStringCompleted += this.UpdateUploadStringCompleted;
                 try
                 {
-                    var post = new UpdatePost() { major = minor, minor = minor, patch = patch, build = build };
+                    var post = new UpdatePost()
+                    {
+                        major = version.Major,
+                        minor = version.Minor,
+                        patch = version.Patch,
+                        build = version.Build
+                    };
                     string data = JsonConvert.SerializeObject(post);
                     webClient.UploadStringAsync(new Uri(uriString), "POST", data);
                 }
@@ -144,15 +175,45 @@ namespace G2O_Launcher.Updater
             {
                 try
                 {
-                    if (Process.Start("G2O_Update.exe") != null)
-                    {
-                        Environment.Exit(0);
-                    }
-                    else
-                    {
-                        var args = new UpdateErrorEventArgs($"Cannot start update process!");
-                        this.ErrorOccured?.Invoke(this, args);
-                    }
+                    StringBuilder batch = new StringBuilder();
+                    batch.AppendLine($"taskkill /F /IM {Assembly.GetExecutingAssembly().GetName().Name}.exe");
+                    string appPath = Assembly.GetExecutingAssembly().Location;
+
+                    batch.AppendLine("timeout /t 1 /nobreak");
+                    batch.AppendLine($"move /y \"{appPath}.update\" \"{appPath}\"");
+                    batch.AppendLine($"\"{appPath}\"");              
+                    batch.AppendLine("del /F \"%~f0\"");
+                    batch.AppendLine("exit");
+
+                    string batchPath = Path.Combine(Path.GetTempPath(), Path.GetRandomFileName() + ".bat");
+                    File.WriteAllText(batchPath, batch.ToString());
+
+
+                    ProcessStartInfo processStart = new ProcessStartInfo();
+                    processStart.WindowStyle = ProcessWindowStyle.Hidden;
+                    processStart.FileName = batchPath;
+                    processStart.UseShellExecute = true;
+                    processStart.RedirectStandardOutput = false;
+                    processStart.RedirectStandardError = false;
+                    Process.Start(processStart);
+
+
+
+                    //// Kill the G2O_Update process if it already exists.
+                    //foreach (var process in Process.GetProcessesByName("G2O_Update.exe"))
+                    //{
+                    //    process.Kill();
+                    //}
+
+                    //if (Process.Start("G2O_Update.exe") != null)
+                    //{
+                    //    Environment.Exit(0);
+                    //}
+                    //else
+                    //{
+                    //    var args = new UpdateErrorEventArgs($"Cannot start update process!");
+                    //    this.ErrorOccured?.Invoke(this, args);
+                    //}
                 }
                 catch (Win32Exception)
                 {
@@ -198,15 +259,18 @@ namespace G2O_Launcher.Updater
                 }
                 else
                 {
-                    this.AvailableUpdateDetected?.Invoke(this, new EventArgs());
                     UpdateResponse response = JsonConvert.DeserializeObject<UpdateResponse>(e.Result);
                     this.downloadLink = response.Link;
+                    if (!string.IsNullOrEmpty(this.downloadLink))
+                    {
+                        this.AvailableUpdateDetected?.Invoke(this, new EventArgs());
+                    }
                 }
             }
             catch (JsonReaderException)
             {
                 this.ErrorOccured?.Invoke(
-                    this, 
+                    this,
                     new UpdateErrorEventArgs($"Could not parse the data that was returned from the update server."));
             }
         }

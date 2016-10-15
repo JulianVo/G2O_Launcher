@@ -33,7 +33,7 @@ namespace G2O_Launcher.ViewModels
     internal abstract class ViewModelBase : INotifyPropertyChanged
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="ViewModelBase"/> class. 
+        ///     Initializes a new instance of the <see cref="ViewModelBase" /> class.
         /// </summary>
         /// <param name="res">The instance of the resource manager that should be used to provide resource strings for the view.</param>
         protected ViewModelBase(ResourceManager res)
@@ -42,6 +42,7 @@ namespace G2O_Launcher.ViewModels
             {
                 throw new ArgumentNullException(nameof(res));
             }
+
             this.Res = res;
         }
 
@@ -49,6 +50,11 @@ namespace G2O_Launcher.ViewModels
         ///     Called when a property value changes.
         /// </summary>
         public event PropertyChangedEventHandler PropertyChanged;
+
+        /// <summary>
+        ///     Gets the instance of the resource manager that should be used to provide resource strings for the view.
+        /// </summary>
+        public ResourceManager Res { get; }
 
         /// <summary>
         ///     Invokes the property changed event.
@@ -64,10 +70,5 @@ namespace G2O_Launcher.ViewModels
 
             this.PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
-
-        /// <summary>
-        /// Gets the instance of the resource manager that should be used to provide resource strings for the view.
-        /// </summary>
-        public ResourceManager Res { get; }
     }
 }

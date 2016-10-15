@@ -22,6 +22,7 @@ namespace G2O_Launcher.ViewModels
     using System;
     using System.ComponentModel;
     using System.Globalization;
+    using System.Net;
     using System.Windows;
 
     using G2O_Launcher.Commands;
@@ -60,6 +61,12 @@ namespace G2O_Launcher.ViewModels
         ///     The selected tab index.
         /// </summary>
         private int selectedTabIndex;
+
+        private int updateProgress;
+
+        private string updateProgressText;
+
+        private bool updateRunning;
 
         /// <summary>
         ///     The current window state.
@@ -101,6 +108,14 @@ namespace G2O_Launcher.ViewModels
             this.config = config;
             this.registry = registry;
             this.SelectedTabIndex = config.SelectedTabIndex > 0 ? config.SelectedTabIndex : 0;
+            updater.AvailableUpdateDetected += this.Updater_AvailableUpdateDetected;
+            updater.ErrorOccured += this.UpdaterErrorOccured;
+            updater.DownloadStarted += (obj, args) => this.UpdateRunning = true;
+            updater.UpdateCompleted += (obj, args) => this.UpdateRunning = false;
+
+            updater.DownloadProgress += this.UpdaterDownloadProgress;
+
+            updater.Check();
         }
 
         /// <summary>
@@ -169,6 +184,57 @@ namespace G2O_Launcher.ViewModels
         }
 
         /// <summary>
+        ///     Gets the current Progress of the update in percent.
+        /// </summary>
+        public int UpdateProgress
+        {
+            get
+            {
+                return this.updateProgress;
+            }
+
+            set
+            {
+                this.updateProgress = value;
+                this.OnPropertyChanged(nameof(this.UpdateProgress));
+            }
+        }
+
+        /// <summary>
+        ///     Gets a text that describes the current update progress.
+        /// </summary>
+        public string UpdateProgressText
+        {
+            get
+            {
+                return this.updateProgressText;
+            }
+
+            set
+            {
+                this.updateProgressText = value;
+                this.OnPropertyChanged(nameof(this.updateProgressText));
+            }
+        }
+
+        /// <summary>
+        ///     Gets a value indicating whether a update is running or not.
+        /// </summary>
+        public bool UpdateRunning
+        {
+            get
+            {
+                return this.updateRunning;
+            }
+
+            private set
+            {
+                this.updateRunning = value;
+                this.OnPropertyChanged(nameof(this.UpdateRunning));
+            }
+        }
+
+        /// <summary>
         ///     Gets or sets the current window state.
         /// </summary>
         public WindowState WindowState
@@ -219,6 +285,25 @@ namespace G2O_Launcher.ViewModels
         private void ExecuteMinimizeCommand(object param)
         {
             this.WindowState = WindowState.Minimized;
+        }
+
+        private void Updater_AvailableUpdateDetected(object sender, EventArgs e)
+        {
+            if (MessageBox.Show(string.Empty, string.Empty, MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
+            {
+                (sender as Updater)?.Update();
+            }
+        }
+
+        private void UpdaterDownloadProgress(object sender, DownloadProgressChangedEventArgs e)
+        {
+            this.UpdateProgress = e.ProgressPercentage;
+            this.UpdateProgressText = $"{e.BytesReceived / 1000}KB / {e.TotalBytesToReceive / 1000}Kb";
+        }
+
+        private void UpdaterErrorOccured(object sender, UpdateErrorEventArgs e)
+        {
+            MessageBox.Show(e.ErrorMessage, this.Res["resMsgBoxUpdateError"].Value);
         }
     }
 }

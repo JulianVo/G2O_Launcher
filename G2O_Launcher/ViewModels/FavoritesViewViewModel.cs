@@ -57,8 +57,14 @@ namespace G2O_Launcher.ViewModels
         /// </summary>
         /// <param name="serverWatcher">The used server watcher instance.</param>
         /// <param name="starter">The <see cref="IG2OStarter" /> instance that should be used to start the client.</param>
-        /// <param name="resourceManager">The instance of the resource manager that should be used to provide resource strings for the view.</param>
-        public FavoritesViewViewModel(IServerWatcher serverWatcher, IG2OStarter starter, ResourceManager resourceManager)
+        /// <param name="resourceManager">
+        ///     The instance of the resource manager that should be used to provide resource strings for
+        ///     the view.
+        /// </param>
+        public FavoritesViewViewModel(
+            IServerWatcher serverWatcher, 
+            IG2OStarter starter, 
+            ResourceManager resourceManager)
             : base(resourceManager)
         {
             if (serverWatcher == null)
@@ -173,31 +179,33 @@ namespace G2O_Launcher.ViewModels
             {
                 var info = this.selectedEntry.ServerState.Info;
                 var result = this.starter.Start(
-                    info.Major,
-                    info.Minor,
-                    info.Patch,
+                    info.Major, 
+                    info.Minor, 
+                    info.Patch, 
                     $"{this.SelectedEntry.ServerState.ServerIp}:{this.SelectedEntry.ServerState.ServerPort}");
                 switch (result)
                 {
                     case G2OProxy.RunResult.Success:
                         break;
                     case G2OProxy.RunResult.WrongVersion:
-                        MessageBox.Show(this.Res["resMessageBoxCanNotJoin"].Value,
-                            this.Res["resMessageBoxTitelG2O"].Value,
-                            MessageBoxButton.OK,
+                        MessageBox.Show(
+                            this.Res["resMessageBoxCanNotJoin"].Value, 
+                            this.Res["resMessageBoxTitelG2O"].Value, 
+                            MessageBoxButton.OK, 
                             MessageBoxImage.Error);
                         break;
                     case G2OProxy.RunResult.GothicNotFound:
-                            MessageBox.Show(this.Res["resMessageBoxGothicInstalled"].Value,
-                            this.Res["resMessageBoxTitelG2O"].Value,
-                            MessageBoxButton.OK,
+                        MessageBox.Show(
+                            this.Res["resMessageBoxGothicInstalled"].Value, 
+                            this.Res["resMessageBoxTitelG2O"].Value, 
+                            MessageBoxButton.OK, 
                             MessageBoxImage.Error);
                         break;
                     case G2OProxy.RunResult.Unknown:
                         MessageBox.Show(
-                            $"{this.Res["resMessageBoxCouldNotStartG2O"].Value} {info.VersionString}",
-                            this.Res["resMessageBoxTitelG2O"].Value,
-                            MessageBoxButton.OK,
+                            $"{this.Res["resMessageBoxCouldNotStartG2O"].Value} {info.VersionString}", 
+                            this.Res["resMessageBoxTitelG2O"].Value, 
+                            MessageBoxButton.OK, 
                             MessageBoxImage.Error);
                         break;
                     default:

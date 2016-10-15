@@ -123,4 +123,9 @@
     <Key>resTabServers</Key>
     <Value>Server</Value>
   </Entry>
+  <Entry>
+    <!--Updater Error message box -->
+    <Key>resMsgBoxUpdateError</Key>
+    <Value>Es ist ein Fehler im Updateprozess aufgetreten</Value>
+  </Entry>
 </Localization>

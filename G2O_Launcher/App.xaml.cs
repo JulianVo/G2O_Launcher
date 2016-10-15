@@ -113,12 +113,13 @@ namespace G2O_Launcher
             }
 
             var registry = new RegistryConfig();
-            using (var starter = new G2OStarter(new G2OProxy(), registry))
+            var g2oProxy = new G2OProxy();
+            using (var starter = new G2OStarter(g2oProxy, registry))
             {
                 MainWindowViewModel mainWindowViewModel = new MainWindowViewModel(
                     this.config, 
                     registry, 
-                    new Updater.Updater(), 
+                    new Updater.Updater(g2oProxy), 
                     this.resourceManager);
                 NewsViewViewModel newsViewViewModel =
                     new NewsViewViewModel(this.resourceManager["resNewsNotLoaded"].Value, this.resourceManager);

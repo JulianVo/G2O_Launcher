@@ -15,6 +15,7 @@
         <Style x:Key="Gothic2">
             <Setter Property="TextElement.FontFamily" Value="/Resources/#Gothic II - Die Nacht des Raben" />
         </Style>
+        <BooleanToVisibilityConverter x:Key="BoolToVis" />
     </Window.Resources>
     <Grid>
         <Grid.Background>
@@ -40,7 +41,7 @@
                     <MenuItem Header="{Binding Res[resLanguagePL].Value}" Background="{Binding Background, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}" Command="{Binding ChangeLanguageCommand}" CommandParameter="pl-PL"/>
                 </MenuItem>
             </Menu>
-            <Button Content="_" Grid.Column="2" Margin="0" Background="{Binding Background, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}" Padding="0" BorderBrush="{x:Null}" Command="{Binding MinimizeCommand}"/>
+            <Button Content="-" Grid.Column="2" Margin="0" Background="{Binding Background, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}" Padding="0" BorderBrush="{x:Null}" Command="{Binding MinimizeCommand}"/>
             <Button Content="X" Grid.Column="3" Margin="0" Background="{Binding Background, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}" Padding="0" BorderBrush="{x:Null}" Command="{Binding ExitCommand}"/>
         </Grid>
         <Grid Grid.Row="1" Margin="0">
@@ -69,9 +70,14 @@
             </TabControl>
 
         </Grid>
-        <Grid Grid.Row="2" Grid.RowSpan="1">
-            <ProgressBar Value="100" VerticalAlignment="Center" HorizontalAlignment="Center" Width="500" Height="50" Margin="275,-7,23,0"/>
+        <Grid Grid.Row="2" >
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="383*"/>
+                <ColumnDefinition Width="415*"/>
+            </Grid.ColumnDefinitions>
             <TextBox Text="{Binding Nickname}" HorizontalAlignment="Left" Height="23" Margin="27,10,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="206" Background="#66000000" Foreground="White" VerticalContentAlignment="Center"/>
+            <ProgressBar Value="{Binding UpdateProgress}" Grid.Column="1" Grid.ColumnSpan="1" Margin="20,0,20,0" Visibility="{Binding UpdateRunning ,Converter={StaticResource BoolToVis}}" Foreground="#FF460101"/>
+            <Label Content="{Binding UpdateProgressText}"  Grid.Column="1" Grid.ColumnSpan="1" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontWeight="Bold" FontSize="14"/>
         </Grid>
     </Grid>
 </Window>

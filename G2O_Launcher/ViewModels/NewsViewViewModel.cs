@@ -36,13 +36,18 @@ namespace G2O_Launcher.ViewModels
         ///     Initializes a new instance of the <see cref="NewsViewViewModel" /> class.
         /// </summary>
         /// <param name="defaultNewsText">The default news text.</param>
-        /// <param name="resourceManager">The instance of the resource manager that should be used to provide resource strings for the view.</param>
-        public NewsViewViewModel([NotNull] string defaultNewsText, ResourceManager resourceManager) : base(resourceManager)
+        /// <param name="resourceManager">
+        ///     The instance of the resource manager that should be used to provide resource strings for
+        ///     the view.
+        /// </param>
+        public NewsViewViewModel([NotNull] string defaultNewsText, ResourceManager resourceManager)
+            : base(resourceManager)
         {
             if (string.IsNullOrEmpty(defaultNewsText))
             {
                 throw new ArgumentException(@"Value cannot be null or empty.", nameof(defaultNewsText));
             }
+
             this.newsText = defaultNewsText;
         }
 

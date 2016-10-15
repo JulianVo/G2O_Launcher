@@ -20,7 +20,6 @@ namespace G2O_Launcher.ViewModels
     using System;
     using System.ComponentModel;
 
-    using G2O_Launcher.Localization;
     using G2O_Launcher.Properties;
     using G2O_Launcher.ServerRequests.Interface;
 
@@ -68,6 +67,8 @@ namespace G2O_Launcher.ViewModels
             this.ServerState = serverState;
             this.UpdateFromState();
         }
+
+        public event PropertyChangedEventHandler PropertyChanged;
 
         /// <summary>
         ///     Gets or sets the host name.
@@ -170,8 +171,6 @@ namespace G2O_Launcher.ViewModels
             this.PlayerCount = this.ServerState.Info?.PlayersString ?? "-";
             this.Ping = this.ServerState.LastPing;
         }
-
-        public event PropertyChangedEventHandler PropertyChanged;
 
         [NotifyPropertyChangedInvocator]
         protected virtual void OnPropertyChanged(string propertyName)
