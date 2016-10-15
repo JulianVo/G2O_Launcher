@@ -51,6 +51,14 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="ICSharpCode.SharpZipLib, Version=0.86.0.518, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>lib\ICSharpCode.SharpZipLib.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>lib\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
@@ -80,6 +88,18 @@
     <Compile Include="G2O\IG2OStarter.cs" />
     <Compile Include="G2O\RegistryConfig.cs" />
     <Compile Include="G2O\G2OProxy.cs" />
+    <Compile Include="ServerRequests\Implementation\IServerWatcher.cs" />
+    <Compile Include="ServerRequests\Implementation\ServerInfo.cs" />
+    <Compile Include="ServerRequests\Implementation\ServerState.cs" />
+    <Compile Include="ServerRequests\Implementation\ServerStatusChangedEventArgs.cs" />
+    <Compile Include="ServerRequests\Implementation\ServerWatcher.cs" />
+    <Compile Include="ServerRequests\Interface\IServerInfo.cs" />
+    <Compile Include="ServerRequests\Interface\IServerState.cs" />
+    <Compile Include="Updater\ErrorCode.cs" />
+    <Compile Include="Updater\Updater.cs" />
+    <Compile Include="Updater\UpdateErrorEventArgs.cs" />
+    <Compile Include="Updater\UpdatePost.cs" />
+    <Compile Include="Updater\UpdateResponse.cs" />
     <Compile Include="ViewModels\FavoritesViewViewModel.cs" />
     <Compile Include="ViewModels\NewsViewViewModel.cs" />
     <Compile Include="ViewModels\ObservableServerEnty.cs" />
@@ -143,7 +163,6 @@
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <None Include="app.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -180,11 +199,10 @@
       <Install>true</Install>
     </BootstrapperPackage>
   </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
-    <ProjectReference Include="..\ServerRequests\ServerRequests.csproj">
-      <Project>{56e7fd5b-6893-4d09-88ef-10a74ce73821}</Project>
-      <Name>ServerRequests</Name>
-    </ProjectReference>
+    <Content Include="lib\ICSharpCode.SharpZipLib.dll" />
+    <Content Include="lib\Newtonsoft.Json.dll" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

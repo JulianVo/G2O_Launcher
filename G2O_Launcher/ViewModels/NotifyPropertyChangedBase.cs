@@ -10,7 +10,7 @@ namespace G2O_Launcher.ViewModels
     using System;
     using System.ComponentModel;
 
-    using G2O_Launcher.Annotations;
+    using G2O_Launcher.Properties;
 
     #endregion
 

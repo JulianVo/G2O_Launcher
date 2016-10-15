@@ -10,7 +10,7 @@ namespace G2O_Launcher.Commands
     using System;
     using System.Windows.Input;
 
-    using G2O_Launcher.Annotations;
+    using G2O_Launcher.Properties;
 
     #endregion
 

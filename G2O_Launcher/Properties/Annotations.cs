@@ -11,7 +11,7 @@
 // ReSharper disable IntroduceOptionalParameters.Global
 // ReSharper disable MemberCanBeProtected.Global
 // ReSharper disable InconsistentNaming
-namespace G2O_Launcher.Annotations
+namespace G2O_Launcher.Properties
 {
     #region
 

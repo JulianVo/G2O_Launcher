@@ -109,7 +109,7 @@ namespace Updater
                 {
                     UpdateResponse response = JsonConvert.DeserializeObject<UpdateResponse>(e.Result);
                     this.DownloadStarted?.Invoke(this, new EventArgs());
-                    this.download(response.Link);
+                    this.Download(response.Link);
                 }
             }
             catch (JsonReaderException ex)
@@ -122,7 +122,7 @@ namespace Updater
             }
         }
 
-        private void download(string link)
+        private void Download(string link)
         {
             using (WebClient webClient = new WebClient())
             {

@@ -14,10 +14,9 @@ namespace G2O_Launcher
     using System.Threading;
     using System.Windows;
 
-    using global::G2O.Launcher.ServerRequests;
-
     using G2O_Launcher.Config;
     using G2O_Launcher.G2O;
+    using G2O_Launcher.ServerRequests.Implementation;
     using G2O_Launcher.ViewModels;
     using G2O_Launcher.Views;
 

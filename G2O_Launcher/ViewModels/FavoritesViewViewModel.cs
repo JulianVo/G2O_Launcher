@@ -14,10 +14,8 @@ namespace G2O_Launcher.ViewModels
     using System.Windows.Threading;
 
     using G2O_Launcher.Commands;
-
-    using global::G2O.Launcher.ServerRequests;
-
     using G2O_Launcher.G2O;
+    using G2O_Launcher.ServerRequests.Implementation;
 
     #endregion
 
