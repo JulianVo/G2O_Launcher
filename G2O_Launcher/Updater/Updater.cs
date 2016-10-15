@@ -1,5 +1,5 @@
 ﻿//  --------------------------------------------------------------------------------------------------------------------
-//  <copyright file="Update.cs" company="Gothic Online Project">
+//  <copyright file="Updater.cs" company="Gothic Online Project">
 //  Copyright (C) <2016>  <Julian Vogel>
 //  This program is free software: you can redistribute it and/or modify
 //  it under the terms of the GNU General Public License as published by
@@ -14,41 +14,68 @@
 //  You should have received a copy of the GNU General Public License
 //  along with this program.  If not, see <http:www.gnu.org/licenses/>.
 //  </copyright>
-//  --------------------------------------------------------------------------------------------------------------------
+//  -------------------------------------------------------------------------------
 namespace G2O_Launcher.Updater
 {
     #region
 
     using System;
-    using System.Collections;
     using System.ComponentModel;
     using System.Diagnostics;
     using System.IO;
     using System.Net;
 
-    using ICSharpCode.SharpZipLib.Core;
-    using ICSharpCode.SharpZipLib.Zip;
-
     using Newtonsoft.Json;
 
     #endregion
 
+    /// <summary>
+    /// Encapsulates the updating process.
+    /// </summary>
     internal class Updater
     {
-        private string downloadLink;
-
+        /// <summary>
+        /// Path tho the gothic online update server.
+        /// </summary>
         private const string UpdateUri = "http://gothic-online.com.pl/version/update.php";
 
-        public event EventHandler<DownloadProgressChangedEventArgs> DownloadProgress;
+        /// <summary>
+        /// Stores the downloadlink for the next update.
+        /// </summary>
+        private string downloadLink;
 
-        public event EventHandler<EventArgs> DownloadStarted;
-
-        public event EventHandler<UpdateErrorEventArgs> ErrorOccured;
-
+        /// <summary>
+        /// Calls all registered handlers if a available update was found by the <see cref="Check"/> method.
+        /// </summary>
         public event EventHandler<EventArgs> AvailableUpdateDetected;
 
+        /// <summary>
+        /// Calls all registered handlers if progress on the current download is made.
+        /// </summary>
+        public event EventHandler<DownloadProgressChangedEventArgs> DownloadProgress;
+
+        /// <summary>
+        /// Calls all registered handlers if a download is started.
+        /// </summary>
+        public event EventHandler<EventArgs> DownloadStarted;
+
+        /// <summary>
+        /// Calls all registered handlers if a error occurs(used by the async methods)
+        /// </summary>
+        public event EventHandler<UpdateErrorEventArgs> ErrorOccured;
+
+        /// <summary>
+        /// Calls all registered handlers when the update is completed.
+        /// </summary>
         public event EventHandler<EventArgs> UpdateCompleted;
 
+        /// <summary>
+        /// Starts a asynchronous server request to find out if the is a newer version that the currently used one.
+        /// </summary>
+        /// <param name="major">The current major version</param>
+        /// <param name="minor">The current minor version</param>
+        /// <param name="patch">The current patch number</param>
+        /// <param name="build">THe current build number</param>
         public void Check(int major, int minor, int patch, int build)
         {
             using (WebClient webClient = new WebClient())
@@ -57,33 +84,110 @@ namespace G2O_Launcher.Updater
                 webClient.UploadStringCompleted += this.UpdateUploadStringCompleted;
                 try
                 {
-                    string data =
-                        JsonConvert.SerializeObject(
-                            (object)new UpdatePost() { major = minor, minor = minor, patch = patch, build = build });
+                    var post = new UpdatePost() { major = minor, minor = minor, patch = patch, build = build };
+                    string data = JsonConvert.SerializeObject(post);
                     webClient.UploadStringAsync(new Uri(uriString), "POST", data);
                 }
                 catch (WebException ex)
                 {
+                    this.ErrorOccured?.Invoke(this, new UpdateErrorEventArgs(ex.Message));
                 }
             }
         }
 
+        /// <summary>
+        /// Starts the download and processing of a available download if one was detected by the <see cref="Check"/> method.
+        /// </summary>
+        /// <exception cref="NotSupportedException">Thrown if no update was found or the <see cref="Check"/> method was not called.</exception>
+        public void Update()
+        {
+            if (string.IsNullOrEmpty(this.downloadLink))
+            {
+                throw new NotSupportedException("No update link available(call the check method first.)");
+            }
+
+            using (WebClient webClient = new WebClient())
+            {
+                webClient.DownloadProgressChanged += this.UpdateDownloadProgressChanged;
+                webClient.DownloadFileCompleted += this.UpdateDownloadFileCompleted;
+                try
+                {
+                    webClient.DownloadFileAsync(new Uri(this.downloadLink), "update.zip");
+                    this.DownloadStarted?.Invoke(this, new EventArgs());
+                }
+                catch (WebException ex)
+                {
+                    this.ErrorOccured?.Invoke(this, new UpdateErrorEventArgs(ex.Message));
+                }
+                catch (UriFormatException ex)
+                {
+                    this.ErrorOccured?.Invoke(this, new UpdateErrorEventArgs(ex.Message));
+                }
+            }
+        }
+
+        /// <summary>
+        /// Is called when download of a file has completed.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void UpdateDownloadFileCompleted(object sender, AsyncCompletedEventArgs e)
+        {
+            // Extracts the update.zip file to the directory that the launcher assembly is in.
+            new ZipExtractor().Extract("update.zip", Path.GetDirectoryName(this.GetType().Assembly.Location));
+
+            // The launcher assembly has to be replaces(requires a restart).
+            if (File.Exists("G2O_Launcher.exe.update"))
+            {
+                try
+                {
+                    if (Process.Start("G2O_Update.exe") != null)
+                    {
+                        Environment.Exit(0);
+                    }
+                    else
+                    {
+                        var args = new UpdateErrorEventArgs($"Cannot start update process!");
+                        this.ErrorOccured?.Invoke(this, args);
+                    }
+                }
+                catch (Win32Exception)
+                {
+                    var args = new UpdateErrorEventArgs($"G2O_Update.exe didn't exist!");
+                    this.ErrorOccured?.Invoke(this, args);
+                }
+            }
+
+            // Update complete no restart required.
+            else
+            {
+                this.UpdateCompleted?.Invoke(this, new EventArgs());
+            }
+        }
+
+        /// <summary>
+        /// Is called when the progress of a download changes.
+        /// </summary>
+        /// <param name="sender">The downloader that made the progress.</param>
+        /// <param name="e"><see cref="DownloadProgressChangedEventArgs"/></param>
         private void UpdateDownloadProgressChanged(object sender, DownloadProgressChangedEventArgs e)
         {
             this.DownloadProgress?.Invoke(this, e);
         }
 
+        /// <summary>
+        /// Is calles when the request for information about a available update has been completed.
+        /// </summary>
+        /// <param name="sender">The WebClient that completed the operation.</param>
+        /// <param name="e"><see cref="UploadStringCompletedEventArgs"/></param>
         private void UpdateUploadStringCompleted(object sender, UploadStringCompletedEventArgs e)
         {
             try
             {
                 if (e.Error != null)
                 {
-                    this.ErrorOccured?.Invoke(
-                        this,
-                        new UpdateErrorEventArgs(
-                            $"Could not reach the update server..",
-                            ErrorCode.CouldNotReachUpdateServer));
+                    var args = new UpdateErrorEventArgs($"Could not reach the update server..");
+                    this.ErrorOccured?.Invoke(this, args);
                 }
                 else
                 {
@@ -95,134 +199,8 @@ namespace G2O_Launcher.Updater
             catch (JsonReaderException)
             {
                 this.ErrorOccured?.Invoke(
-                    this,
-                    new UpdateErrorEventArgs(
-                        $"Could not parse the data that was returned from the update server.",
-                        ErrorCode.ParsingUpdateResponseFailed));
-            }
-        }
-
-        public void Update()
-        {
-            if (string.IsNullOrEmpty(this.downloadLink))
-            {
-                throw new NotSupportedException("No update available");
-            }
-            using (WebClient webClient = new WebClient())
-            {
-                webClient.DownloadProgressChanged += this.UpdateDownloadProgressChanged;
-                webClient.DownloadFileCompleted += this.UpdateDownloadFileCompleted;
-                try
-                {
-                    webClient.DownloadFileAsync(new Uri(this.downloadLink), "update.zip");
-                    this.DownloadStarted?.Invoke(this,new EventArgs());
-                }
-                catch (WebException ex)
-                {
-                    this.ErrorOccured?.Invoke(this, new UpdateErrorEventArgs(ex.Message, ErrorCode.UpdateProcessCouldNotBeStarted));
-                }
-                catch (UriFormatException ex)
-                {
-                    this.ErrorOccured?.Invoke(this, new UpdateErrorEventArgs(ex.Message, ErrorCode.UpdateProcessCouldNotBeStarted));
-                }
-            }
-        }
-
-        private void UpdateDownloadFileCompleted(object sender, AsyncCompletedEventArgs e)
-        {
-            this.Extract("update.zip", string.Empty);
-            if (File.Exists("G2O_Launcher.exe.update"))
-            {
-                try
-                {
-                    if (Process.Start("G2O_Update.exe") != null)
-                    {
-                        Environment.Exit(0);
-                    }
-                    else
-                    {
-                        this.ErrorOccured?.Invoke(
-                            this,
-                            new UpdateErrorEventArgs(
-                                $"Cannot start update process!",
-                                ErrorCode.UpdateProcessCouldNotBeStarted));
-                    }
-                }
-                catch (Win32Exception ex)
-                {
-                    this.ErrorOccured?.Invoke(
-                        this,
-                        new UpdateErrorEventArgs($"G2O_Update.exe didn't exist!", ErrorCode.UpdateProcessNotFound));
-                }
-            }
-            else
-            {
-                this.UpdateCompleted?.Invoke(this,new EventArgs());
-            }
-        }
-
-
-
-        private void Extract(string archiveFilename, string path)
-        {
-            if (string.IsNullOrEmpty(archiveFilename))
-            {
-                throw new ArgumentException(@"Value cannot be null or empty.", nameof(archiveFilename));
-            }
-            if (string.IsNullOrEmpty(path))
-            {
-                throw new ArgumentException(@"Value cannot be null or empty.", nameof(path));
-            }
-            ZipFile zipFile = (ZipFile)null;
-            try
-            {
-                zipFile = new ZipFile((FileStream)File.OpenRead(archiveFilename));
-                IEnumerator enumerator = (IEnumerator)zipFile.GetEnumerator();
-                try
-                {
-                    while (enumerator.MoveNext())
-                    {
-                        ZipEntry entry = (ZipEntry)enumerator.Current;
-                        if (entry.IsFile)
-                        {
-                            string name = entry.Name;
-                            byte[] buffer = new byte[4096];
-                            Stream stream = (Stream)zipFile.GetInputStream(entry);
-                            string path1 = Path.Combine(path, name);
-                            string directoryName = Path.GetDirectoryName(path1);
-                            if (directoryName.Length > 0)
-                            {
-                                Directory.CreateDirectory(directoryName);
-                            }
-                            using (FileStream fileStream = File.Create(path1))
-                            {
-                                StreamUtils.Copy((Stream)stream, (Stream)fileStream, buffer);
-                            }
-                        }
-                    }
-                }
-                finally
-                {
-                    IDisposable disposable = enumerator as IDisposable;
-                    disposable?.Dispose();
-                }
-
-                // MainWindow.Instance.Message("Ready.");
-            }
-            catch (FileNotFoundException ex)
-            {
-                // MainWindow.Instance.Update_Result(new UpdateResponse() { Code = -2 });
-                this.ErrorOccured?.Invoke(
-                    this,
-                    new UpdateErrorEventArgs($"The update file could not be found.", ErrorCode.UpdateFileNotFound));
-            }
-            finally
-            {
-                if (zipFile != null)
-                {
-                    zipFile.IsStreamOwner = true;
-                    zipFile.Close();
-                }
+                    this, 
+                    new UpdateErrorEventArgs($"Could not parse the data that was returned from the update server."));
             }
         }
     }

@@ -95,11 +95,11 @@
     <Compile Include="ServerRequests\Implementation\ServerWatcher.cs" />
     <Compile Include="ServerRequests\Interface\IServerInfo.cs" />
     <Compile Include="ServerRequests\Interface\IServerState.cs" />
-    <Compile Include="Updater\ErrorCode.cs" />
     <Compile Include="Updater\Updater.cs" />
     <Compile Include="Updater\UpdateErrorEventArgs.cs" />
     <Compile Include="Updater\UpdatePost.cs" />
     <Compile Include="Updater\UpdateResponse.cs" />
+    <Compile Include="Updater\ZipExtractor.cs" />
     <Compile Include="ViewModels\FavoritesViewViewModel.cs" />
     <Compile Include="ViewModels\NewsViewViewModel.cs" />
     <Compile Include="ViewModels\ObservableServerEnty.cs" />
