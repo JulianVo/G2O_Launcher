@@ -1,8 +1,20 @@
-﻿// // --------------------------------------------------------------------------------------------------------------------
-// // <copyright file="ProxyCommand.cs" company="Gothic Online Project">
-// //   
-// // </copyright>
-// // --------------------------------------------------------------------------------------------------------------------
+﻿//  --------------------------------------------------------------------------------------------------------------------
+//  <copyright file="ProxyCommand.cs" company="Gothic Online Project">
+//  Copyright (C) <2016>  <Julian Vogel>
+//  This program is free software: you can redistribute it and/or modify
+//  it under the terms of the GNU General Public License as published by
+//  the Free Software Foundation, either version 3 of the License, or
+//  (at your option) any later version.
+//  -
+//  This program is distributed in the hope that it will be useful,
+//   but WITHOUT ANY WARRANTY; without even the implied warranty of
+//   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+//   GNU General Public License for more details.
+// -
+//  You should have received a copy of the GNU General Public License
+//  along with this program.  If not, see <http:www.gnu.org/licenses/>.
+//  </copyright>
+//  -------------------------------------------------------------------------------
 namespace G2O_Launcher.Commands
 {
     #region
@@ -15,17 +27,17 @@ namespace G2O_Launcher.Commands
     #endregion
 
     /// <summary>
-    /// A generic command class which uses delegates for the interface implementation.
+    ///     A generic command class which uses delegates for the interface implementation.
     /// </summary>
     public class ProxyCommand : ICommand
     {
         /// <summary>
-        /// The action.
+        ///     The action.
         /// </summary>
         private readonly Action<object> action;
 
         /// <summary>
-        /// The can execute check.
+        ///     The can execute check.
         /// </summary>
         private readonly Func<object, bool> canExecuteCheck;
 
@@ -40,7 +52,7 @@ namespace G2O_Launcher.Commands
                 throw new ArgumentNullException(nameof(action));
             }
 
-           this.canExecuteCheck = ob => true;
+            this.canExecuteCheck = ob => true;
             this.action = action;
         }
 
@@ -67,7 +79,7 @@ namespace G2O_Launcher.Commands
         }
 
         /// <summary>
-        /// The can execute changed event.
+        ///     The can execute changed event.
         /// </summary>
         public event EventHandler CanExecuteChanged
         {
@@ -83,7 +95,7 @@ namespace G2O_Launcher.Commands
         }
 
         /// <summary>
-        /// Checks if the command can be executed.
+        ///     Checks if the command can be executed.
         /// </summary>
         /// <param name="parameter">Command parameter.</param>
         /// <returns>True if the command can be executed.</returns>
@@ -93,7 +105,7 @@ namespace G2O_Launcher.Commands
         }
 
         /// <summary>
-        /// Executes the command.
+        ///     Executes the command.
         /// </summary>
         /// <param name="parameter">Command parameter.</param>
         public void Execute(object parameter)

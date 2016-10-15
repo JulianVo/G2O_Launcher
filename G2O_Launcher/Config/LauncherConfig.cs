@@ -1,8 +1,20 @@
-﻿// // --------------------------------------------------------------------------------------------------------------------
-// // <copyright file="LauncherConfig.cs" company="Gothic Online Project">
-// //   
-// // </copyright>
-// // --------------------------------------------------------------------------------------------------------------------
+﻿//  --------------------------------------------------------------------------------------------------------------------
+//  <copyright file="LauncherConfig.cs" company="Gothic Online Project">
+//  Copyright (C) <2016>  <Julian Vogel>
+//  This program is free software: you can redistribute it and/or modify
+//  it under the terms of the GNU General Public License as published by
+//  the Free Software Foundation, either version 3 of the License, or
+//  (at your option) any later version.
+//  -
+//  This program is distributed in the hope that it will be useful,
+//   but WITHOUT ANY WARRANTY; without even the implied warranty of
+//   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+//   GNU General Public License for more details.
+// -
+//  You should have received a copy of the GNU General Public License
+//  along with this program.  If not, see <http:www.gnu.org/licenses/>.
+//  </copyright>
+//  -------------------------------------------------------------------------------
 namespace G2O_Launcher.Config
 {
     #region
@@ -23,7 +35,7 @@ namespace G2O_Launcher.Config
     public class LauncherConfig : ILauncherConfig
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="LauncherConfig"/> class.
+        ///     Initializes a new instance of the <see cref="LauncherConfig" /> class.
         /// </summary>
         public LauncherConfig()
         {
@@ -92,7 +104,8 @@ namespace G2O_Launcher.Config
             {
                 using (TextWriter textWriter = new StreamWriter(file, Encoding.Unicode))
                 {
-                    using (XmlWriter xmlWriter = XmlWriter.Create(textWriter, new XmlWriterSettings() { Indent = true }))
+                    using (XmlWriter xmlWriter = XmlWriter.Create(textWriter, new XmlWriterSettings() { Indent = true })
+                        )
                     {
                         var serializer = new XmlSerializer(typeof(LauncherConfig));
                         serializer.Serialize(xmlWriter, this);

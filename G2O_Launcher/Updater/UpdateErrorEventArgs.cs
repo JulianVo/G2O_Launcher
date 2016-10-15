@@ -23,8 +23,15 @@ namespace G2O_Launcher.Updater
 
     #endregion
 
+    /// <summary>
+    ///     Stores information about an error that occured while updating.
+    /// </summary>
     public class UpdateErrorEventArgs : EventArgs
     {
+        /// <summary>
+        ///     Initializes a new instance of the <see cref="UpdateErrorEventArgs" /> class.
+        /// </summary>
+        /// <param name="errorMessage">The error message.</param>
         public UpdateErrorEventArgs(string errorMessage)
         {
             if (errorMessage == null)
@@ -35,6 +42,9 @@ namespace G2O_Launcher.Updater
             this.ErrorMessage = errorMessage;
         }
 
+        /// <summary>
+        ///     Gets the error message.
+        /// </summary>
         public string ErrorMessage { get; }
     }
 }

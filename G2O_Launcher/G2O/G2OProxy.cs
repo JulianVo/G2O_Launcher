@@ -1,8 +1,20 @@
-﻿// // --------------------------------------------------------------------------------------------------------------------
-// // <copyright file="G2OProxy.cs" company="Gothic Online Project">
-// //   
-// // </copyright>
-// // --------------------------------------------------------------------------------------------------------------------
+﻿//  --------------------------------------------------------------------------------------------------------------------
+//  <copyright file="G2OProxy.cs" company="Gothic Online Project">
+//  Copyright (C) <2016>  <Julian Vogel>
+//  This program is free software: you can redistribute it and/or modify
+//  it under the terms of the GNU General Public License as published by
+//  the Free Software Foundation, either version 3 of the License, or
+//  (at your option) any later version.
+//  -
+//  This program is distributed in the hope that it will be useful,
+//   but WITHOUT ANY WARRANTY; without even the implied warranty of
+//   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+//   GNU General Public License for more details.
+// -
+//  You should have received a copy of the GNU General Public License
+//  along with this program.  If not, see <http:www.gnu.org/licenses/>.
+//  </copyright>
+//  -------------------------------------------------------------------------------
 namespace G2O_Launcher.G2O
 {
     #region
@@ -46,8 +58,11 @@ namespace G2O_Launcher.G2O
             this.proxyDll = LoadLibrary("G2O_Proxy.dll");
             if (this.proxyDll == IntPtr.Zero)
             {
-                throw  new FileNotFoundException(@"The gotic 2 online starter proxy could not be found",Path.Combine(Environment.CurrentDirectory, "G2O_Proxy.dll"));
+                throw new FileNotFoundException(
+                    @"The gotic 2 online starter proxy could not be found", 
+                    Path.Combine(Environment.CurrentDirectory, "G2O_Proxy.dll"));
             }
+
             IntPtr runPtr = GetProcAddress(this.proxyDll, "G2O_Run");
             this.runFunctionDelegateFunction =
                 (RunFunctionDelegate)Marshal.GetDelegateForFunctionPointer(runPtr, typeof(RunFunctionDelegate));
@@ -79,6 +94,32 @@ namespace G2O_Launcher.G2O
         private delegate void VersionFunctionDelegate(ref int major, ref int minor, ref int patch, ref int build);
 
         /// <summary>
+        ///     Defines the possible results of the run method.
+        /// </summary>
+        public enum RunResult
+        {
+            /// <summary>
+            ///     G2O was startet successfully.
+            /// </summary>
+            Success = 0, 
+
+            /// <summary>
+            ///     Wrong version was detected.
+            /// </summary>
+            WrongVersion = 1, 
+
+            /// <summary>
+            ///     Gothic2.exe was not found.
+            /// </summary>
+            GothicNotFound = 2, 
+
+            /// <summary>
+            ///     Unknow error.
+            /// </summary>
+            Unknown = 3, 
+        }
+
+        /// <summary>
         ///     Releases all unmanaged resources associated with this object.
         /// </summary>
         public void Dispose()
@@ -103,7 +144,7 @@ namespace G2O_Launcher.G2O
                 throw new ObjectDisposedException(nameof(G2OProxy));
             }
 
-            return (RunResult)this.runFunctionDelegateFunction(major,minor,patch);
+            return (RunResult)this.runFunctionDelegateFunction(major, minor, patch);
         }
 
         /// <summary>
@@ -190,29 +231,6 @@ namespace G2O_Launcher.G2O
             ///     Gets the Build number.
             /// </summary>
             public int Build { get; }
-        }
-
-        /// <summary>
-        /// Defines the possible results of the run method.
-        /// </summary>
-        public enum  RunResult
-        {
-            /// <summary>
-            /// G2O was startet successfully.
-            /// </summary>
-            Success =0,
-            /// <summary>
-            /// Wrong version was detected.
-            /// </summary>
-            WrongVersion=1,
-            /// <summary>
-            /// Gothic2.exe was not found.
-            /// </summary>
-            GothicNotFound=2,
-            /// <summary>
-            /// Unknow error.
-            /// </summary>
-            Unknown=3,
         }
     }
 }

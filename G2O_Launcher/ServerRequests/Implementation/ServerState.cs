@@ -1,8 +1,20 @@
-﻿// // --------------------------------------------------------------------------------------------------------------------
-// // <copyright file="ServerState.cs" company="Gothic Online Project">
-// //   
-// // </copyright>
-// // --------------------------------------------------------------------------------------------------------------------
+﻿//  --------------------------------------------------------------------------------------------------------------------
+//  <copyright file="ServerState.cs" company="Gothic Online Project">
+//  Copyright (C) <2016>  <Julian Vogel>
+//  This program is free software: you can redistribute it and/or modify
+//  it under the terms of the GNU General Public License as published by
+//  the Free Software Foundation, either version 3 of the License, or
+//  (at your option) any later version.
+//  -
+//  This program is distributed in the hope that it will be useful,
+//   but WITHOUT ANY WARRANTY; without even the implied warranty of
+//   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+//   GNU General Public License for more details.
+// -
+//  You should have received a copy of the GNU General Public License
+//  along with this program.  If not, see <http:www.gnu.org/licenses/>.
+//  </copyright>
+//  -------------------------------------------------------------------------------
 namespace G2O_Launcher.ServerRequests.Implementation
 {
     #region
@@ -25,7 +37,7 @@ namespace G2O_Launcher.ServerRequests.Implementation
         private readonly object lockObject = new object();
 
         /// <summary>
-        /// The server <see cref="IPAddress"/>.
+        ///     The server <see cref="IPAddress" />.
         /// </summary>
         private readonly IPAddress serverIpAddress;
 
@@ -50,19 +62,19 @@ namespace G2O_Launcher.ServerRequests.Implementation
         private DateTime lastPingTime;
 
         /// <summary>
-        /// The last successful ping time.
+        ///     The last successful ping time.
         /// </summary>
         private DateTime lastSuccessfullPingTime;
 
         /// <summary>
-        /// The last ping was successful.
+        ///     The last ping was successful.
         /// </summary>
         private bool pingSuccessful;
 
         /// <summary>
         ///     Initializes a new instance of the <see cref="ServerState" /> class.
         /// </summary>
-        /// <param name="serverIp">The <see cref="IPAddress"/> which should be watched.</param>
+        /// <param name="serverIp">The <see cref="IPAddress" /> which should be watched.</param>
         /// <param name="serverPort">The port of the server that should be watched.</param>
         /// <param name="originalAddress">The string that was used to add the server to the server watcher.</param>
         public ServerState(IPAddress serverIp, ushort serverPort, string originalAddress)
@@ -173,6 +185,11 @@ namespace G2O_Launcher.ServerRequests.Implementation
         }
 
         /// <summary>
+        ///     Gets the string that was used to add the server to the server watcher.
+        /// </summary>
+        public string OriginalAddress { get; internal set; }
+
+        /// <summary>
         ///     Gets a value indicating whether a valid response was received from the server.
         /// </summary>
         public bool PingSuccessfull
@@ -221,10 +238,5 @@ namespace G2O_Launcher.ServerRequests.Implementation
                 }
             }
         }
-
-        /// <summary>
-        /// Gets the string that was used to add the server to the server watcher.
-        /// </summary>
-        public string OriginalAddress { get; internal set; }
     }
 }

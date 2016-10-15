@@ -1,8 +1,20 @@
-﻿// // --------------------------------------------------------------------------------------------------------------------
-// // <copyright file="ServerWatcher.cs" company="Gothic Online Project">
-// //   
-// // </copyright>
-// // --------------------------------------------------------------------------------------------------------------------
+﻿//  --------------------------------------------------------------------------------------------------------------------
+//  <copyright file="ServerWatcher.cs" company="Gothic Online Project">
+//  Copyright (C) <2016>  <Julian Vogel>
+//  This program is free software: you can redistribute it and/or modify
+//  it under the terms of the GNU General Public License as published by
+//  the Free Software Foundation, either version 3 of the License, or
+//  (at your option) any later version.
+//  -
+//  This program is distributed in the hope that it will be useful,
+//   but WITHOUT ANY WARRANTY; without even the implied warranty of
+//   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+//   GNU General Public License for more details.
+// -
+//  You should have received a copy of the GNU General Public License
+//  along with this program.  If not, see <http:www.gnu.org/licenses/>.
+//  </copyright>
+//  -------------------------------------------------------------------------------
 namespace G2O_Launcher.ServerRequests.Implementation
 {
     #region
@@ -52,14 +64,14 @@ namespace G2O_Launcher.ServerRequests.Implementation
         private readonly byte[] pollBytes;
 
         /// <summary>
-        ///     List of server states that a kept refreshed by <see cref="ServerWatcher" />.
-        /// </summary>
-        private readonly List<ServerState> watchedServers = new List<ServerState>();
-
-        /// <summary>
         ///     Regex for finding the port number in a connection string.
         /// </summary>
         private readonly Regex portRegex = new Regex(@"[:][0-9]{1,5}", RegexOptions.None);
+
+        /// <summary>
+        ///     List of server states that a kept refreshed by <see cref="ServerWatcher" />.
+        /// </summary>
+        private readonly List<ServerState> watchedServers = new List<ServerState>();
 
         /// <summary>
         ///     The port to which the requests should be send if no port is contained in connection string.
@@ -129,7 +141,7 @@ namespace G2O_Launcher.ServerRequests.Implementation
             if (pollInterval <= pingInterval)
             {
                 throw new ArgumentOutOfRangeException(
-                    nameof(pollInterval),
+                    nameof(pollInterval), 
                     "The poll interval needs to be greater than the ping interval");
             }
 
@@ -194,7 +206,7 @@ namespace G2O_Launcher.ServerRequests.Implementation
                 if (this.pollInterval <= value)
                 {
                     throw new ArgumentOutOfRangeException(
-                        nameof(value),
+                        nameof(value), 
                         "The ping interval needs to be lower than the poll interval");
                 }
 
@@ -226,7 +238,7 @@ namespace G2O_Launcher.ServerRequests.Implementation
                 if (value <= this.pingInterval)
                 {
                     throw new ArgumentOutOfRangeException(
-                        nameof(value),
+                        nameof(value), 
                         "The poll interval needs to be greater than the ping interval");
                 }
 
@@ -298,6 +310,7 @@ namespace G2O_Launcher.ServerRequests.Implementation
             {
                 throw new ArgumentException("Value cannot be null or whitespace.", nameof(serverAddress));
             }
+
             serverAddress = serverAddress.Trim();
             string portMatch = this.portRegex.Match(serverAddress).ToString();
 
@@ -341,20 +354,23 @@ namespace G2O_Launcher.ServerRequests.Implementation
             if (serverEndPoint.AddressFamily != AddressFamily.InterNetwork)
             {
                 throw new ArgumentException(
-                    "The argument does not contain a valid IPv4 address",
+                    "The argument does not contain a valid IPv4 address", 
                     nameof(serverEndPoint));
             }
 
             lock (this.instanceLock)
             {
-                var newServer = new ServerState(serverEndPoint.Address, (ushort)serverEndPoint.Port, serverEndPoint.ToString());
+                var newServer = new ServerState(
+                    serverEndPoint.Address, 
+                    (ushort)serverEndPoint.Port, 
+                    serverEndPoint.ToString());
                 this.watchedServers.Add(newServer);
                 return newServer;
             }
         }
 
         /// <summary>
-        /// Removes a server from the <see cref="IServerWatcher"/>.
+        ///     Removes a server from the <see cref="IServerWatcher" />.
         /// </summary>
         /// <param name="server">The server state object that describes the server that should be removed.</param>
         public void RemoveServer(IServerState server)
@@ -363,6 +379,7 @@ namespace G2O_Launcher.ServerRequests.Implementation
             {
                 throw new ArgumentNullException(nameof(server));
             }
+
             lock (this.instanceLock)
             {
                 ServerState state = server as ServerState;
@@ -434,7 +451,9 @@ namespace G2O_Launcher.ServerRequests.Implementation
             ServerState state;
             lock (this.instanceLock)
             {
-                state = this.watchedServers.FirstOrDefault(p => sender.Address.Equals(p.ServerIp) && sender.Port == p.ServerPort);
+                state =
+                    this.watchedServers.FirstOrDefault(
+                        p => sender.Address.Equals(p.ServerIp) && sender.Port == p.ServerPort);
             }
 
             // Calcualte new ping
@@ -560,7 +579,9 @@ namespace G2O_Launcher.ServerRequests.Implementation
             ServerState state;
             lock (this.instanceLock)
             {
-                state = this.watchedServers.FirstOrDefault(p => sender.Address.Equals(p.ServerIp) && sender.Port == p.ServerPort);
+                state =
+                    this.watchedServers.FirstOrDefault(
+                        p => sender.Address.Equals(p.ServerIp) && sender.Port == p.ServerPort);
             }
 
             if (state != null)

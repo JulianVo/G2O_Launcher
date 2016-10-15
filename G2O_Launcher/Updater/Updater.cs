@@ -30,47 +30,47 @@ namespace G2O_Launcher.Updater
     #endregion
 
     /// <summary>
-    /// Encapsulates the updating process.
+    ///     Encapsulates the updating process.
     /// </summary>
     internal class Updater
     {
         /// <summary>
-        /// Path tho the gothic online update server.
+        ///     Path tho the gothic online update server.
         /// </summary>
         private const string UpdateUri = "http://gothic-online.com.pl/version/update.php";
 
         /// <summary>
-        /// Stores the downloadlink for the next update.
+        ///     Stores the downloadlink for the next update.
         /// </summary>
         private string downloadLink;
 
         /// <summary>
-        /// Calls all registered handlers if a available update was found by the <see cref="Check"/> method.
+        ///     Calls all registered handlers if a available update was found by the <see cref="Check" /> method.
         /// </summary>
         public event EventHandler<EventArgs> AvailableUpdateDetected;
 
         /// <summary>
-        /// Calls all registered handlers if progress on the current download is made.
+        ///     Calls all registered handlers if progress on the current download is made.
         /// </summary>
         public event EventHandler<DownloadProgressChangedEventArgs> DownloadProgress;
 
         /// <summary>
-        /// Calls all registered handlers if a download is started.
+        ///     Calls all registered handlers if a download is started.
         /// </summary>
         public event EventHandler<EventArgs> DownloadStarted;
 
         /// <summary>
-        /// Calls all registered handlers if a error occurs(used by the async methods)
+        ///     Calls all registered handlers if a error occurs(used by the async methods)
         /// </summary>
         public event EventHandler<UpdateErrorEventArgs> ErrorOccured;
 
         /// <summary>
-        /// Calls all registered handlers when the update is completed.
+        ///     Calls all registered handlers when the update is completed.
         /// </summary>
         public event EventHandler<EventArgs> UpdateCompleted;
 
         /// <summary>
-        /// Starts a asynchronous server request to find out if the is a newer version that the currently used one.
+        ///     Starts a asynchronous server request to find out if the is a newer version that the currently used one.
         /// </summary>
         /// <param name="major">The current major version</param>
         /// <param name="minor">The current minor version</param>
@@ -96,9 +96,12 @@ namespace G2O_Launcher.Updater
         }
 
         /// <summary>
-        /// Starts the download and processing of a available download if one was detected by the <see cref="Check"/> method.
+        ///     Starts the download and processing of a available download if one was detected by the <see cref="Check" /> method.
         /// </summary>
-        /// <exception cref="NotSupportedException">Thrown if no update was found or the <see cref="Check"/> method was not called.</exception>
+        /// <exception cref="NotSupportedException">
+        ///     Thrown if no update was found or the <see cref="Check" /> method was not
+        ///     called.
+        /// </exception>
         public void Update()
         {
             if (string.IsNullOrEmpty(this.downloadLink))
@@ -127,7 +130,7 @@ namespace G2O_Launcher.Updater
         }
 
         /// <summary>
-        /// Is called when download of a file has completed.
+        ///     Is called when download of a file has completed.
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -166,20 +169,24 @@ namespace G2O_Launcher.Updater
         }
 
         /// <summary>
-        /// Is called when the progress of a download changes.
+        ///     Is called when the progress of a download changes.
         /// </summary>
         /// <param name="sender">The downloader that made the progress.</param>
-        /// <param name="e"><see cref="DownloadProgressChangedEventArgs"/></param>
+        /// <param name="e">
+        ///     <see cref="DownloadProgressChangedEventArgs" />
+        /// </param>
         private void UpdateDownloadProgressChanged(object sender, DownloadProgressChangedEventArgs e)
         {
             this.DownloadProgress?.Invoke(this, e);
         }
 
         /// <summary>
-        /// Is calles when the request for information about a available update has been completed.
+        ///     Is calles when the request for information about a available update has been completed.
         /// </summary>
         /// <param name="sender">The WebClient that completed the operation.</param>
-        /// <param name="e"><see cref="UploadStringCompletedEventArgs"/></param>
+        /// <param name="e">
+        ///     <see cref="UploadStringCompletedEventArgs" />
+        /// </param>
         private void UpdateUploadStringCompleted(object sender, UploadStringCompletedEventArgs e)
         {
             try

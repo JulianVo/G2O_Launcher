@@ -1,8 +1,20 @@
-﻿// // --------------------------------------------------------------------------------------------------------------------
-// // <copyright file="IServerWatcher.cs" company="Gothic Online Project">
-// //   
-// // </copyright>
-// // --------------------------------------------------------------------------------------------------------------------
+﻿//  --------------------------------------------------------------------------------------------------------------------
+//  <copyright file="IServerWatcher.cs" company="Gothic Online Project">
+//  Copyright (C) <2016>  <Julian Vogel>
+//  This program is free software: you can redistribute it and/or modify
+//  it under the terms of the GNU General Public License as published by
+//  the Free Software Foundation, either version 3 of the License, or
+//  (at your option) any later version.
+//  -
+//  This program is distributed in the hope that it will be useful,
+//   but WITHOUT ANY WARRANTY; without even the implied warranty of
+//   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+//   GNU General Public License for more details.
+// -
+//  You should have received a copy of the GNU General Public License
+//  along with this program.  If not, see <http:www.gnu.org/licenses/>.
+//  </copyright>
+//  -------------------------------------------------------------------------------
 namespace G2O_Launcher.ServerRequests.Implementation
 {
     #region
@@ -51,29 +63,29 @@ namespace G2O_Launcher.ServerRequests.Implementation
         IEnumerable<IServerState> WatchedServers { get; }
 
         /// <summary>
-        /// Adds a server to the <see cref="IServerWatcher"/>.
+        ///     Adds a server to the <see cref="IServerWatcher" />.
         /// </summary>
         /// <param name="serverAddress">
-        /// The server address.
+        ///     The server address.
         /// </param>
         /// <returns>
-        /// The state object of the new server.
+        ///     The state object of the new server.
         /// </returns>
         IServerState AddServer(string serverAddress);
 
         /// <summary>
-        /// Adds a server to the <see cref="IServerWatcher"/>.
+        ///     Adds a server to the <see cref="IServerWatcher" />.
         /// </summary>
         /// <param name="serverEndPoint">
-        /// The server end point.
+        ///     The server end point.
         /// </param>
         /// <returns>
-        ///  The state object of the new server.
+        ///     The state object of the new server.
         /// </returns>
         IServerState AddServer(IPEndPoint serverEndPoint);
 
         /// <summary>
-        /// Removes a server from the <see cref="IServerWatcher"/>.
+        ///     Removes a server from the <see cref="IServerWatcher" />.
         /// </summary>
         /// <param name="server">The server state object that describes the server that should be removed.</param>
         void RemoveServer(IServerState server);

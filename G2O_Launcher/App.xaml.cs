@@ -1,8 +1,20 @@
-﻿// // --------------------------------------------------------------------------------------------------------------------
-// // <copyright file="App.xaml.cs" company="Gothic Online Project">
-// //   
-// // </copyright>
-// // --------------------------------------------------------------------------------------------------------------------
+﻿//  --------------------------------------------------------------------------------------------------------------------
+//  <copyright file="App.xaml.cs" company="Gothic Online Project">
+//  Copyright (C) <2016>  <Julian Vogel>
+//  This program is free software: you can redistribute it and/or modify
+//  it under the terms of the GNU General Public License as published by
+//  the Free Software Foundation, either version 3 of the License, or
+//  (at your option) any later version.
+//  -
+//  This program is distributed in the hope that it will be useful,
+//   but WITHOUT ANY WARRANTY; without even the implied warranty of
+//   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+//   GNU General Public License for more details.
+// -
+//  You should have received a copy of the GNU General Public License
+//  along with this program.  If not, see <http:www.gnu.org/licenses/>.
+//  </copyright>
+//  -------------------------------------------------------------------------------
 namespace G2O_Launcher
 {
     #region
@@ -37,19 +49,19 @@ namespace G2O_Launcher
         /// </summary>
         private readonly string configPath =
             Path.Combine(
-                Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData),
-                "Gothic2OnlineLauncher",
+                Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), 
+                "Gothic2OnlineLauncher", 
                 "config.xml");
+
+        /// <summary>
+        ///     The server watcher for the favorite servers.
+        /// </summary>
+        private readonly IServerWatcher favoritesServerWatcher;
 
         /// <summary>
         ///     Mutex. Used to ensure that only one instance of the launcher exists.
         /// </summary>
         private readonly Mutex mutex = new Mutex(false, typeof(App).Namespace);
-
-        /// <summary>
-        /// The server watcher for the favorite servers.
-        /// </summary>
-        private readonly IServerWatcher favoritesServerWatcher;
 
         /// <summary>
         ///     Initializes a new instance of the <see cref="App" /> class.
@@ -73,9 +85,11 @@ namespace G2O_Launcher
             {
                 this.config.SelectedLanguage = Thread.CurrentThread.CurrentCulture.Name;
             }
+
             this.favoritesServerWatcher = new ServerWatcher(28970, 100, 1000, 2000);
             this.favoritesServerWatcher.Start();
-            //Load the saved favorites servers.
+
+            // Load the saved favorites servers.
             try
             {
                 foreach (var favoriteServer in this.config.FavoriteServers)
@@ -86,9 +100,9 @@ namespace G2O_Launcher
             catch (Exception)
             {
                 MessageBox.Show(
-                    G2O_Launcher.Properties.Resources.resErrorInvalidServerInConfig,
-                    "Invalid server address loaded",
-                    MessageBoxButton.OK,
+                    G2O_Launcher.Properties.Resources.resErrorInvalidServerInConfig, 
+                    "Invalid server address loaded", 
+                    MessageBoxButton.OK, 
                     MessageBoxImage.Warning);
             }
 
@@ -96,8 +110,11 @@ namespace G2O_Launcher
             using (var starter = new G2OStarter(new G2OProxy(), registry))
             {
                 MainWindowViewModel mainWindowViewModel = new MainWindowViewModel(this.config, registry);
-                NewsViewViewModel newsViewViewModel = new NewsViewViewModel(G2O_Launcher.Properties.Resources.resNewsNotLoaded);
-                FavoritesViewViewModel favoritesViewViewModel = new FavoritesViewViewModel(this.favoritesServerWatcher, starter);
+                NewsViewViewModel newsViewViewModel =
+                    new NewsViewViewModel(G2O_Launcher.Properties.Resources.resNewsNotLoaded);
+                FavoritesViewViewModel favoritesViewViewModel = new FavoritesViewViewModel(
+                    this.favoritesServerWatcher, 
+                    starter);
                 this.ShutdownMode = ShutdownMode.OnExplicitShutdown;
                 while (true)
                 {
@@ -139,9 +156,9 @@ namespace G2O_Launcher
         {
             // Show a messagebox with the exception text and stacktrace.
             MessageBox.Show(
-                $"A unhandled error occured: {Environment.NewLine}{((Exception)e.ExceptionObject).Message}",
-                "Unhandled error",
-                MessageBoxButton.OK,
+                $"A unhandled error occured: {Environment.NewLine}{((Exception)e.ExceptionObject).Message}", 
+                "Unhandled error", 
+                MessageBoxButton.OK, 
                 MessageBoxImage.Error);
         }
 
@@ -162,6 +179,7 @@ namespace G2O_Launcher
             catch (Exception ex)
             {
                 Debug.Write(ex);
+
                 // ToDo add logging here.
             }
             finally

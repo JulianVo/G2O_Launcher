@@ -1,8 +1,20 @@
-﻿// // --------------------------------------------------------------------------------------------------------------------
-// // <copyright file="ObservableServerEnty.cs" company="Gothic Online Project">
-// //   
-// // </copyright>
-// // --------------------------------------------------------------------------------------------------------------------
+﻿//  --------------------------------------------------------------------------------------------------------------------
+//  <copyright file="ObservableServerEnty.cs" company="Gothic Online Project">
+//  Copyright (C) <2016>  <Julian Vogel>
+//  This program is free software: you can redistribute it and/or modify
+//  it under the terms of the GNU General Public License as published by
+//  the Free Software Foundation, either version 3 of the License, or
+//  (at your option) any later version.
+//  -
+//  This program is distributed in the hope that it will be useful,
+//   but WITHOUT ANY WARRANTY; without even the implied warranty of
+//   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+//   GNU General Public License for more details.
+// -
+//  You should have received a copy of the GNU General Public License
+//  along with this program.  If not, see <http:www.gnu.org/licenses/>.
+//  </copyright>
+//  -------------------------------------------------------------------------------
 namespace G2O_Launcher.ViewModels
 {
     using System;
@@ -20,6 +32,11 @@ namespace G2O_Launcher.ViewModels
         private string hostName;
 
         /// <summary>
+        ///     The ping
+        /// </summary>
+        private int ping;
+
+        /// <summary>
         ///     The player count.
         /// </summary>
         private string playerCount;
@@ -35,12 +52,7 @@ namespace G2O_Launcher.ViewModels
         private string version;
 
         /// <summary>
-        /// The ping
-        /// </summary>
-        private int ping;
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="ObservableServerEnty"/> class.
+        ///     Initializes a new instance of the <see cref="ObservableServerEnty" /> class.
         /// </summary>
         /// <param name="serverState">The state object for the displayed server.</param>
         public ObservableServerEnty(IServerState serverState)
@@ -68,6 +80,23 @@ namespace G2O_Launcher.ViewModels
             {
                 this.OnPropertyChanged(nameof(this.HostName));
                 this.hostName = value;
+            }
+        }
+
+        /// <summary>
+        ///     Gets or sets the ping.
+        /// </summary>
+        public int Ping
+        {
+            get
+            {
+                return this.ping;
+            }
+
+            set
+            {
+                this.OnPropertyChanged(nameof(this.Ping));
+                this.ping = value;
             }
         }
 
@@ -106,7 +135,7 @@ namespace G2O_Launcher.ViewModels
         }
 
         /// <summary>
-        /// Gets the ServerState.
+        ///     Gets the ServerState.
         /// </summary>
         public IServerState ServerState { get; }
 
@@ -128,23 +157,7 @@ namespace G2O_Launcher.ViewModels
         }
 
         /// <summary>
-        /// Gets or sets the ping.
-        /// </summary>
-        public int Ping
-        {
-            get
-            {
-                return this.ping;
-            }
-            set
-            {
-                this.OnPropertyChanged(nameof(this.Ping));
-                this.ping = value;
-            }
-        }
-
-        /// <summary>
-        /// Updates the server enty values from the related state object.
+        ///     Updates the server enty values from the related state object.
         /// </summary>
         public void UpdateFromState()
         {

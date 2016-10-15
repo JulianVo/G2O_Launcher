@@ -1,8 +1,20 @@
-﻿// // --------------------------------------------------------------------------------------------------------------------
-// // <copyright file="FavoritesViewViewModel.cs" company="Gothic Online Project">
-// //   
-// // </copyright>
-// // --------------------------------------------------------------------------------------------------------------------
+﻿//  --------------------------------------------------------------------------------------------------------------------
+//  <copyright file="FavoritesViewViewModel.cs" company="Gothic Online Project">
+//  Copyright (C) <2016>  <Julian Vogel>
+//  This program is free software: you can redistribute it and/or modify
+//  it under the terms of the GNU General Public License as published by
+//  the Free Software Foundation, either version 3 of the License, or
+//  (at your option) any later version.
+//  -
+//  This program is distributed in the hope that it will be useful,
+//   but WITHOUT ANY WARRANTY; without even the implied warranty of
+//   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+//   GNU General Public License for more details.
+// -
+//  You should have received a copy of the GNU General Public License
+//  along with this program.  If not, see <http:www.gnu.org/licenses/>.
+//  </copyright>
+//  -------------------------------------------------------------------------------
 namespace G2O_Launcher.ViewModels
 {
     #region
@@ -30,12 +42,12 @@ namespace G2O_Launcher.ViewModels
         private readonly IServerWatcher serverWatcher;
 
         /// <summary>
-        /// The used instance of <see cref="IG2OStarter"/>.
+        ///     The used instance of <see cref="IG2OStarter" />.
         /// </summary>
         private readonly IG2OStarter starter;
 
         /// <summary>
-        /// The selected entry of the servers collection.
+        ///     The selected entry of the servers collection.
         /// </summary>
         private ObservableServerEnty selectedEntry;
 
@@ -43,17 +55,19 @@ namespace G2O_Launcher.ViewModels
         ///     Initializes a new instance of the <see cref="FavoritesViewViewModel" /> class.
         /// </summary>
         /// <param name="serverWatcher">The used server watcher instance.</param>
-        /// <param name="starter">The <see cref="IG2OStarter"/> instance that should be used to start the client.</param>
+        /// <param name="starter">The <see cref="IG2OStarter" /> instance that should be used to start the client.</param>
         public FavoritesViewViewModel(IServerWatcher serverWatcher, IG2OStarter starter)
         {
             if (serverWatcher == null)
             {
                 throw new ArgumentNullException(nameof(serverWatcher));
             }
+
             if (starter == null)
             {
                 throw new ArgumentNullException(nameof(starter));
             }
+
             this.serverWatcher = serverWatcher;
             this.starter = starter;
             this.serverWatcher.ServerStatusChanged += this.ServerWatcherServerStatusChanged;
@@ -132,7 +146,11 @@ namespace G2O_Launcher.ViewModels
         {
             try
             {
-                if (value == null) throw new ArgumentNullException(nameof(value));
+                if (value == null)
+                {
+                    throw new ArgumentNullException(nameof(value));
+                }
+
                 var serverState = this.serverWatcher.AddServer(value.ToString());
                 this.Servers.Add(new ObservableServerEnty(serverState));
             }
@@ -151,28 +169,35 @@ namespace G2O_Launcher.ViewModels
             if (this.SelectedEntry.ServerState.Info != null)
             {
                 var info = this.selectedEntry.ServerState.Info;
-                var result = this.starter.Start(info.Major, info.Minor, info.Patch, $"{this.SelectedEntry.ServerState.ServerIp}:{this.SelectedEntry.ServerState.ServerPort}");
+                var result = this.starter.Start(
+                    info.Major, 
+                    info.Minor, 
+                    info.Patch, 
+                    $"{this.SelectedEntry.ServerState.ServerIp}:{this.SelectedEntry.ServerState.ServerPort}");
                 switch (result)
                 {
                     case G2OProxy.RunResult.Success:
                         break;
                     case G2OProxy.RunResult.WrongVersion:
                         MessageBox.Show(
-                            Properties.Resources.resMessageBoxCanNotJoin,
-                            Properties.Resources.resMessageBoxTitelG2O,
-                            MessageBoxButton.OK,
+                            Properties.Resources.resMessageBoxCanNotJoin, 
+                            Properties.Resources.resMessageBoxTitelG2O, 
+                            MessageBoxButton.OK, 
                             MessageBoxImage.Error);
                         break;
                     case G2OProxy.RunResult.GothicNotFound:
                         MessageBox.Show(
-                                Properties.Resources.resMessageBoxGothicInstalled,
-                                Properties.Resources.resMessageBoxTitelG2O,
-                                MessageBoxButton.OK,
-                                MessageBoxImage.Error
-                            );
+                            Properties.Resources.resMessageBoxGothicInstalled, 
+                            Properties.Resources.resMessageBoxTitelG2O, 
+                            MessageBoxButton.OK, 
+                            MessageBoxImage.Error);
                         break;
                     case G2OProxy.RunResult.Unknown:
-                        MessageBox.Show($"{Properties.Resources.resMessageBoxCouldNotStartG2O} {info.VersionString}", Properties.Resources.resMessageBoxTitelG2O, MessageBoxButton.OK, MessageBoxImage.Error);
+                        MessageBox.Show(
+                            $"{Properties.Resources.resMessageBoxCouldNotStartG2O} {info.VersionString}", 
+                            Properties.Resources.resMessageBoxTitelG2O, 
+                            MessageBoxButton.OK, 
+                            MessageBoxImage.Error);
                         break;
                     default:
                         throw new ArgumentOutOfRangeException();

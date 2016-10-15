@@ -23,8 +23,8 @@ namespace G2O_Launcher.Updater
     using ICSharpCode.SharpZipLib.Zip;
 
     /// <summary>
-    /// Provides for extracting zip files.
-    /// <remarks>Uses the ICSharpCode.SharpZipLib library.</remarks>
+    ///     Provides for extracting zip files.
+    ///     <remarks>Uses the ICSharpCode.SharpZipLib library.</remarks>
     /// </summary>
     internal class ZipExtractor
     {
