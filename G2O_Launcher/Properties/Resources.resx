@@ -127,102 +127,10 @@
   <data name="logo" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\logo.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="resLanguageDE" xml:space="preserve">
-    <value>German</value>
-    <comment>Name of the german language</comment>
-  </data>
-  <data name="resLanguageEN" xml:space="preserve">
-    <value>English</value>
-    <comment>Name of the english language</comment>
-  </data>
-  <data name="resLanguagePL" xml:space="preserve">
-    <value>Polish</value>
-    <comment>Name of the polish language</comment>
-  </data>
-  <data name="resLanguageSelection" xml:space="preserve">
-    <value>Language</value>
-  </data>
-  <data name="resLaunchButton" xml:space="preserve">
-    <value>Launch</value>
-    <comment>Text of the Launch Button</comment>
-  </data>
-  <data name="resMainWindowTitle" xml:space="preserve">
-    <value>Gothic 2 Online Launcher</value>
-    <comment>Titel of the main window</comment>
-  </data>
-  <data name="resNewsNotLoaded" xml:space="preserve">
-    <value>The news could not be loaded.
-Please check you internet connection.</value>
-    <comment>Text that is displayed if the could not be loaded.</comment>
-  </data>
-  <data name="resReloadNews" xml:space="preserve">
-    <value>Reload</value>
-    <comment>Text for the reload news context menu item.</comment>
-  </data>
-  <data name="resServerAddress" xml:space="preserve">
-    <value>Server Address</value>
-  </data>
-  <data name="resServerName" xml:space="preserve">
-    <value>Server Name</value>
-  </data>
-  <data name="resServerPlayers" xml:space="preserve">
-    <value>Players</value>
-  </data>
-  <data name="resServerVersion" xml:space="preserve">
-    <value>Version</value>
-  </data>
-  <data name="resTabFavorites" xml:space="preserve">
-    <value>Favorites</value>
-    <comment>Title of the Favorites tab</comment>
-  </data>
-  <data name="resTabNews" xml:space="preserve">
-    <value>News</value>
-    <comment>Title of the News tab</comment>
-  </data>
-  <data name="resTabServers" xml:space="preserve">
-    <value>Servers</value>
-    <comment>Title of the Servers tab</comment>
-  </data>
   <data name="balken_bar" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\balken_bar.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="hintergrund_bar" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\hintergrund_bar.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="resTabFavoritesAddServer" xml:space="preserve">
-    <value>Add server</value>
-    <comment>Text of the favorites tab context menu entry for adding a new server</comment>
-  </data>
-  <data name="resTabFavoritesRemoveServer" xml:space="preserve">
-    <value>Remove server</value>
-    <comment>Text of the favorites tab context menu entry for removing a server</comment>
-  </data>
-  <data name="resServerAddBoxButtonAdd" xml:space="preserve">
-    <value>Add</value>
-  </data>
-  <data name="resServerAddBoxButtonChancel" xml:space="preserve">
-    <value>Chancel</value>
-  </data>
-  <data name="resServerAddBoxTitle" xml:space="preserve">
-    <value>Please enter the server address and port</value>
-  </data>
-  <data name="resErrorInvalidServerInConfig" xml:space="preserve">
-    <value>Tried to load a invalid server from the favorites config. The invalid entry is ignored.</value>
-  </data>
-  <data name="resServerPing" xml:space="preserve">
-    <value>Ping</value>
-  </data>
-  <data name="resMessageBoxCanNotJoin" xml:space="preserve">
-    <value>Cannot join to server! You don't have required version.</value>
-  </data>
-  <data name="resMessageBoxCouldNotStartG2O" xml:space="preserve">
-    <value>Could not start Gothic 2 Online</value>
-  </data>
-  <data name="resMessageBoxGothicInstalled" xml:space="preserve">
-    <value>Could not open Gothic2.exe.
-Did you install G2O to a folder with Gothic 2: Night of the Raven!</value>
-  </data>
-  <data name="resMessageBoxTitelG2O" xml:space="preserve">
-    <value>Gothic 2 Online</value>
   </data>
 </root>

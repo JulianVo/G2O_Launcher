@@ -19,7 +19,7 @@
             </DataGrid.InputBindings>
             <DataGrid.ContextMenu>
                 <ContextMenu Style="{DynamicResource Gothic2}">
-                    <MenuItem Header="{Binding Res[resresTabFavoritesAddServerTabFavorites].Value}">
+                    <MenuItem Header="{Binding Res[resTabFavoritesAddServer].Value}">
                         <MenuItem.Triggers>
                             <EventTrigger RoutedEvent="MenuItem.Click">
                                 <BeginStoryboard>

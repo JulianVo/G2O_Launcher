@@ -173,41 +173,36 @@ namespace G2O_Launcher.ViewModels
             {
                 var info = this.selectedEntry.ServerState.Info;
                 var result = this.starter.Start(
-                    info.Major, 
-                    info.Minor, 
-                    info.Patch, 
+                    info.Major,
+                    info.Minor,
+                    info.Patch,
                     $"{this.SelectedEntry.ServerState.ServerIp}:{this.SelectedEntry.ServerState.ServerPort}");
                 switch (result)
                 {
                     case G2OProxy.RunResult.Success:
                         break;
                     case G2OProxy.RunResult.WrongVersion:
-                        MessageBox.Show(
-                            Properties.Resources.resMessageBoxCanNotJoin, 
-                            Properties.Resources.resMessageBoxTitelG2O, 
-                            MessageBoxButton.OK, 
+                        MessageBox.Show(this.Res["resMessageBoxCanNotJoin"].Value,
+                            this.Res["resMessageBoxTitelG2O"].Value,
+                            MessageBoxButton.OK,
                             MessageBoxImage.Error);
                         break;
                     case G2OProxy.RunResult.GothicNotFound:
-                        MessageBox.Show(
-                            Properties.Resources.resMessageBoxGothicInstalled, 
-                            Properties.Resources.resMessageBoxTitelG2O, 
-                            MessageBoxButton.OK, 
+                            MessageBox.Show(this.Res["resMessageBoxGothicInstalled"].Value,
+                            this.Res["resMessageBoxTitelG2O"].Value,
+                            MessageBoxButton.OK,
                             MessageBoxImage.Error);
                         break;
                     case G2OProxy.RunResult.Unknown:
                         MessageBox.Show(
-                            $"{Properties.Resources.resMessageBoxCouldNotStartG2O} {info.VersionString}", 
-                            Properties.Resources.resMessageBoxTitelG2O, 
-                            MessageBoxButton.OK, 
+                            $"{this.Res["resMessageBoxCouldNotStartG2O"].Value} {info.VersionString}",
+                            this.Res["resMessageBoxTitelG2O"].Value,
+                            MessageBoxButton.OK,
                             MessageBoxImage.Error);
                         break;
                     default:
                         throw new ArgumentOutOfRangeException();
                 }
-            }
-            else
-            {
             }
         }
 
