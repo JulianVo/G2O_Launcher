@@ -10,10 +10,10 @@
     <Grid>
         <DataGrid  Margin="0" Background="{x:Null}" BorderBrush="{x:Null}" BorderThickness="0" >
             <DataGrid.Columns>
-                <DataGridTextColumn Header="{x:Static p:Resources.resServerAddress}"/>
-                <DataGridTextColumn Header="{x:Static p:Resources.resServerName}"/>
-                <DataGridTextColumn Header="{x:Static p:Resources.resServerPlayers}"/>
-                <DataGridTextColumn Header="{x:Static p:Resources.resServerVersion}"/>
+                <DataGridTextColumn Header="{Binding Res[resServerAddress].Value}"/>
+                <DataGridTextColumn Header="{Binding Res[resServerName].Value}"/>
+                <DataGridTextColumn Header="{Binding Res[resServerPlayers].Value}"/>
+                <DataGridTextColumn Header="{Binding Res[resServerVersion].Value}"/>
             </DataGrid.Columns>
         </DataGrid>
     </Grid>

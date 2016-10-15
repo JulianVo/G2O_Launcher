@@ -19,7 +19,7 @@
             </DataGrid.InputBindings>
             <DataGrid.ContextMenu>
                 <ContextMenu Style="{DynamicResource Gothic2}">
-                    <MenuItem Header="{x:Static p:Resources.resTabFavoritesAddServer}">
+                    <MenuItem Header="{Binding Res[resresTabFavoritesAddServerTabFavorites].Value}">
                         <MenuItem.Triggers>
                             <EventTrigger RoutedEvent="MenuItem.Click">
                                 <BeginStoryboard>
@@ -34,20 +34,20 @@
                             </EventTrigger>
                         </MenuItem.Triggers>
                     </MenuItem>
-                    <MenuItem Header="{x:Static p:Resources.resTabFavoritesRemoveServer}" Command="{Binding RemoveServerCommand}"/>
+                    <MenuItem Header="{Binding Res[resTabFavoritesRemoveServer].Value}" Command="{Binding RemoveServerCommand}"/>
                 </ContextMenu>
             </DataGrid.ContextMenu>
             <DataGrid.Columns>
-                <DataGridTextColumn Header="{x:Static p:Resources.resServerAddress}" Binding="{Binding HostName}"/>
-                <DataGridTextColumn Header="{x:Static p:Resources.resServerName}" Binding="{Binding ServerName}"/>
-                <DataGridTextColumn Header="{x:Static p:Resources.resServerPlayers}" Binding="{Binding PlayerCount}"/>
-                <DataGridTextColumn Header="{x:Static p:Resources.resServerVersion}" Binding="{Binding Version}"/>
-                <DataGridTextColumn Header="{x:Static p:Resources.resServerPing}" Binding="{Binding Ping}"/>
+                <DataGridTextColumn Header="{Binding Res[resServerAddress].Value}" Binding="{Binding HostName}"/>
+                <DataGridTextColumn Header="{Binding Res[resServerName].Value}" Binding="{Binding ServerName}"/>
+                <DataGridTextColumn Header="{Binding Res[resServerPlayers].Value}" Binding="{Binding PlayerCount}"/>
+                <DataGridTextColumn Header="{Binding Res[resServerVersion].Value}" Binding="{Binding Version}"/>
+                <DataGridTextColumn Header="{Binding Res[resServerPing].Value}" Binding="{Binding Ping}"/>
             </DataGrid.Columns>
         </DataGrid>
         <Border Name="gridAddBox" Visibility="Hidden" BorderThickness="2" Height="120" Margin="0" Width="480" VerticalAlignment="Center" HorizontalAlignment="Center" Background="#FF2E2D2D" BorderBrush="White">
             <Grid >
-                <Button Content="{x:Static p:Resources.resServerAddBoxButtonChancel}" HorizontalAlignment="Right" Margin="0,0,20,5" VerticalAlignment="Bottom" Width="75">
+                <Button Content="{Binding Res[resServerAddBoxButtonChancel].Value}" HorizontalAlignment="Right" Margin="0,0,20,5" VerticalAlignment="Bottom" Width="75">
                     <Button.Triggers>
                         <EventTrigger RoutedEvent="Button.Click">
                             <BeginStoryboard>
@@ -62,9 +62,9 @@
                         </EventTrigger>
                     </Button.Triggers>
                 </Button>
-                <TextBox Name="txtAddress" Margin="20,60,20,0" TextWrapping="Wrap"  VerticalAlignment="Top"/>
-                <Label  Content="{x:Static p:Resources.resServerAddBoxTitle}" Margin="20,10,20,0" VerticalAlignment="Top" Foreground="White" Width="432" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
-                <Button  Content="{x:Static p:Resources.resServerAddBoxButtonAdd}" HorizontalAlignment="Left" Margin="20,0,0,5" VerticalAlignment="Bottom" Width="75" Command="{Binding AddServerCommand}" CommandParameter="{Binding ElementName=txtAddress, Path=Text}">
+                <TextBox  Margin="20,60,20,0" TextWrapping="Wrap"  VerticalAlignment="Top"/>
+                <Label  Content="{Binding Res[resServerAddBoxTitle].Value}" Margin="20,10,20,0" VerticalAlignment="Top" Foreground="White" Width="432" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
+                <Button  Content="{Binding Res[resServerAddBoxButtonAdd].Value}" HorizontalAlignment="Left" Margin="20,0,0,5" VerticalAlignment="Bottom" Width="75" Command="{Binding AddServerCommand}" CommandParameter="{Binding ElementName=txtAddress, Path=Text}">
                     <Button.Triggers>
                         <EventTrigger RoutedEvent="Button.Click">
                             <BeginStoryboard>

@@ -1,5 +1,5 @@
 ﻿//  --------------------------------------------------------------------------------------------------------------------
-//  <copyright file="NotifyPropertyChangedBase.cs" company="Gothic Online Project">
+//  <copyright file="ViewModelBase.cs" company="Gothic Online Project">
 //  Copyright (C) <2016>  <Julian Vogel>
 //  This program is free software: you can redistribute it and/or modify
 //  it under the terms of the GNU General Public License as published by
@@ -22,6 +22,7 @@ namespace G2O_Launcher.ViewModels
     using System;
     using System.ComponentModel;
 
+    using G2O_Launcher.Localization;
     using G2O_Launcher.Properties;
 
     #endregion
@@ -29,8 +30,21 @@ namespace G2O_Launcher.ViewModels
     /// <summary>
     ///     Base class for all observable types.
     /// </summary>
-    public class NotifyPropertyChangedBase : INotifyPropertyChanged
+    internal abstract class ViewModelBase : INotifyPropertyChanged
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ViewModelBase"/> class. 
+        /// </summary>
+        /// <param name="res">The instance of the resource manager that should be used to provide resource strings for the view.</param>
+        protected ViewModelBase([Annotations.NotNull] ResourceManager res)
+        {
+            if (res == null)
+            {
+                throw new ArgumentNullException(nameof(res));
+            }
+            this.Res = res;
+        }
+
         /// <summary>
         ///     Called when a property value changes.
         /// </summary>
@@ -50,5 +64,10 @@ namespace G2O_Launcher.ViewModels
 
             this.PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
+
+        /// <summary>
+        /// Gets the instance of the resource manager that should be used to provide resource strings for the view.
+        /// </summary>
+        public ResourceManager Res { get; }
     }
 }

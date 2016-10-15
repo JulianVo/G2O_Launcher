@@ -26,10 +26,12 @@ namespace G2O_Launcher.ViewModels
     using G2O_Launcher.Commands;
     using G2O_Launcher.Config;
     using G2O_Launcher.G2O;
+    using G2O_Launcher.Localization;
+    using G2O_Launcher.Updater;
 
     #endregion
 
-    public class MainWindowViewModel : NotifyPropertyChangedBase
+    internal class MainWindowViewModel : ViewModelBase
     {
         /// <summary>
         ///     The current launcher config.
@@ -66,7 +68,10 @@ namespace G2O_Launcher.ViewModels
         /// </summary>
         /// <param name="config">The current launcher config,</param>
         /// <param name="registry">The registry config object.</param>
-        public MainWindowViewModel(ILauncherConfig config, RegistryConfig registry)
+        /// <param name="updater">The instance of the <see cref="Updater"/> class that is used to check for and execute updates.</param>
+        /// <param name="resourceManager">The instance of the resource manager that should be used to provide resource strings for the view.</param>
+        public MainWindowViewModel(ILauncherConfig config, RegistryConfig registry,Updater updater,ResourceManager resourceManager)
+            : base(resourceManager)
         {
             if (config == null)
             {
@@ -76,6 +81,10 @@ namespace G2O_Launcher.ViewModels
             if (registry == null)
             {
                 throw new ArgumentNullException(nameof(registry));
+            }
+            if (updater == null)
+            {
+                throw new ArgumentNullException(nameof(updater));
             }
 
             this.config = config;

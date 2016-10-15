@@ -16,7 +16,7 @@
         <TextBox Text="{Binding NewsText}" Margin="10" TextWrapping="Wrap" Background="{x:Null}" Foreground="White" BorderThickness="0">
             <TextBox.ContextMenu >
                 <ContextMenu>
-                    <MenuItem Header="{x:Static p:Resources.resReloadNews}" Style="{DynamicResource Gothic2}"/>
+                    <MenuItem Header="{Binding Res[resReloadNews].Value}" Style="{DynamicResource Gothic2}"/>
                 </ContextMenu>
             </TextBox.ContextMenu>
         </TextBox>

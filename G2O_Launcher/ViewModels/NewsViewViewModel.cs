@@ -17,10 +17,15 @@
 //  -------------------------------------------------------------------------------
 namespace G2O_Launcher.ViewModels
 {
+    using System;
+
+    using G2O_Launcher.Annotations;
+    using G2O_Launcher.Localization;
+
     /// <summary>
     ///     ViewModel for the news view.
     /// </summary>
-    public class NewsViewViewModel : NotifyPropertyChangedBase
+    internal class NewsViewViewModel : ViewModelBase
     {
         /// <summary>
         ///     The news text.
@@ -31,8 +36,13 @@ namespace G2O_Launcher.ViewModels
         ///     Initializes a new instance of the <see cref="NewsViewViewModel" /> class.
         /// </summary>
         /// <param name="defaultNewsText">The default news text.</param>
-        public NewsViewViewModel(string defaultNewsText)
+        /// <param name="resourceManager">The instance of the resource manager that should be used to provide resource strings for the view.</param>
+        public NewsViewViewModel([NotNull] string defaultNewsText, ResourceManager resourceManager) : base(resourceManager)
         {
+            if (string.IsNullOrEmpty(defaultNewsText))
+            {
+                throw new ArgumentException(@"Value cannot be null or empty.", nameof(defaultNewsText));
+            }
             this.newsText = defaultNewsText;
         }
 

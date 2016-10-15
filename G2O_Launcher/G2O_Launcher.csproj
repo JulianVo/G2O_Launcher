@@ -36,7 +36,7 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>C:\Program Files %28x86%29\Steam\steamapps\common\Gothic II\</OutputPath>
+    <OutputPath>..\..\..\..\Gothic II g2o - Launcher\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -88,6 +88,9 @@
     <Compile Include="G2O\IG2OStarter.cs" />
     <Compile Include="G2O\RegistryConfig.cs" />
     <Compile Include="G2O\G2OProxy.cs" />
+    <Compile Include="Localization\DynamicStringResource.cs" />
+    <Compile Include="Localization\ResourceManager.cs" />
+    <Compile Include="Properties\Annotations1.cs" />
     <Compile Include="ServerRequests\Implementation\IServerWatcher.cs" />
     <Compile Include="ServerRequests\Implementation\ServerInfo.cs" />
     <Compile Include="ServerRequests\Implementation\ServerState.cs" />
@@ -102,7 +105,7 @@
     <Compile Include="Updater\ZipExtractor.cs" />
     <Compile Include="ViewModels\FavoritesViewViewModel.cs" />
     <Compile Include="ViewModels\NewsViewViewModel.cs" />
-    <Compile Include="ViewModels\ObservableServerEnty.cs" />
+    <Compile Include="ViewModels\ObservableServerEntry.cs" />
     <Compile Include="Views\FavoritesView.xaml.cs">
       <DependentUpon>FavoritesView.xaml</DependentUpon>
     </Compile>
@@ -131,7 +134,7 @@
     <Compile Include="Commands\ProxyCommand.cs" />
     <Compile Include="Properties\Annotations.cs" />
     <Compile Include="ViewModels\MainWindowViewModel.cs" />
-    <Compile Include="ViewModels\NotifyPropertyChangedBase.cs" />
+    <Compile Include="ViewModels\ViewModelBase.cs" />
     <Compile Include="Views\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -203,6 +206,7 @@
   <ItemGroup>
     <Content Include="lib\ICSharpCode.SharpZipLib.dll" />
     <Content Include="lib\Newtonsoft.Json.dll" />
+    <EmbeddedResource Include="Localization\en-US.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

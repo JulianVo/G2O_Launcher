@@ -27,6 +27,7 @@ namespace G2O_Launcher.ViewModels
 
     using G2O_Launcher.Commands;
     using G2O_Launcher.G2O;
+    using G2O_Launcher.Localization;
     using G2O_Launcher.ServerRequests.Implementation;
 
     #endregion
@@ -34,7 +35,7 @@ namespace G2O_Launcher.ViewModels
     /// <summary>
     ///     ViewModel class for the favorites view.
     /// </summary>
-    public class FavoritesViewViewModel : NotifyPropertyChangedBase
+    internal class FavoritesViewViewModel : ViewModelBase
     {
         /// <summary>
         ///     The used <see cref="IServerWatcher" /> instance.
@@ -49,14 +50,16 @@ namespace G2O_Launcher.ViewModels
         /// <summary>
         ///     The selected entry of the servers collection.
         /// </summary>
-        private ObservableServerEnty selectedEntry;
+        private ObservableServerEntry selectedEntry;
 
         /// <summary>
         ///     Initializes a new instance of the <see cref="FavoritesViewViewModel" /> class.
         /// </summary>
         /// <param name="serverWatcher">The used server watcher instance.</param>
         /// <param name="starter">The <see cref="IG2OStarter" /> instance that should be used to start the client.</param>
-        public FavoritesViewViewModel(IServerWatcher serverWatcher, IG2OStarter starter)
+        /// <param name="resourceManager">The instance of the resource manager that should be used to provide resource strings for the view.</param>
+        public FavoritesViewViewModel(IServerWatcher serverWatcher, IG2OStarter starter, ResourceManager resourceManager)
+            : base(resourceManager)
         {
             if (serverWatcher == null)
             {
@@ -71,11 +74,11 @@ namespace G2O_Launcher.ViewModels
             this.serverWatcher = serverWatcher;
             this.starter = starter;
             this.serverWatcher.ServerStatusChanged += this.ServerWatcherServerStatusChanged;
-            this.Servers = new ObservableCollection<ObservableServerEnty>();
+            this.Servers = new ObservableCollection<ObservableServerEntry>();
 
             foreach (var watchedServer in serverWatcher.WatchedServers)
             {
-                this.Servers.Add(new ObservableServerEnty(watchedServer));
+                this.Servers.Add(new ObservableServerEntry(watchedServer));
             }
         }
 
@@ -99,7 +102,7 @@ namespace G2O_Launcher.ViewModels
         /// <summary>
         ///     Gets or sets the selected entry.
         /// </summary>
-        public ObservableServerEnty SelectedEntry
+        public ObservableServerEntry SelectedEntry
         {
             get
             {
@@ -116,7 +119,7 @@ namespace G2O_Launcher.ViewModels
         /// <summary>
         ///     Gets the observable server list.
         /// </summary>
-        public ObservableCollection<ObservableServerEnty> Servers { get; }
+        public ObservableCollection<ObservableServerEntry> Servers { get; }
 
         /// <summary>
         ///     Checks if the connect to server command can be executed.
@@ -152,7 +155,7 @@ namespace G2O_Launcher.ViewModels
                 }
 
                 var serverState = this.serverWatcher.AddServer(value.ToString());
-                this.Servers.Add(new ObservableServerEnty(serverState));
+                this.Servers.Add(new ObservableServerEntry(serverState));
             }
             catch (Exception ex)
             {

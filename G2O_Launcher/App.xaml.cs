@@ -28,6 +28,7 @@ namespace G2O_Launcher
 
     using G2O_Launcher.Config;
     using G2O_Launcher.G2O;
+    using G2O_Launcher.Localization;
     using G2O_Launcher.ServerRequests.Implementation;
     using G2O_Launcher.ViewModels;
     using G2O_Launcher.Views;
@@ -106,21 +107,25 @@ namespace G2O_Launcher
                     MessageBoxImage.Warning);
             }
 
+
+            CultureInfo selectedCulture=Thread.CurrentThread.CurrentCulture;
+            CultureInfo fallbackCultureInfo= CultureInfo.GetCultureInfo("EN-us");
+            if (!string.IsNullOrEmpty(this.config.SelectedLanguage))
+            {
+                selectedCulture = CultureInfo.GetCultureInfo(this.config.SelectedLanguage);
+            }
+
+
             var registry = new RegistryConfig();
             using (var starter = new G2OStarter(new G2OProxy(), registry))
             {
-                MainWindowViewModel mainWindowViewModel = new MainWindowViewModel(this.config, registry);
-                NewsViewViewModel newsViewViewModel =
-                    new NewsViewViewModel(G2O_Launcher.Properties.Resources.resNewsNotLoaded);
-                FavoritesViewViewModel favoritesViewViewModel = new FavoritesViewViewModel(
-                    this.favoritesServerWatcher, 
-                    starter);
-                this.ShutdownMode = ShutdownMode.OnExplicitShutdown;
-                while (true)
-                {
-                    MainWindow window = new MainWindow(mainWindowViewModel, newsViewViewModel, favoritesViewViewModel);
-                    window.ShowDialog();
-                }
+
+                ResourceManager resourceManager= new ResourceManager(selectedCulture, fallbackCultureInfo);
+                MainWindowViewModel mainWindowViewModel = new MainWindowViewModel(this.config, registry,new Updater.Updater(), resourceManager);
+                NewsViewViewModel newsViewViewModel =new NewsViewViewModel(G2O_Launcher.Properties.Resources.resNewsNotLoaded, resourceManager);
+                FavoritesViewViewModel favoritesViewViewModel = new FavoritesViewViewModel(  this.favoritesServerWatcher,starter, resourceManager);
+                MainWindow window = new MainWindow(mainWindowViewModel, newsViewViewModel, favoritesViewViewModel);
+                window.Show();
             }
         }
 

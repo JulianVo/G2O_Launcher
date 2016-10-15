@@ -1,0 +1,139 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Localization culture="en-US">
+  <Entry>
+    <Key>resErrorInvalidServerInConfig</Key>
+    <Value>Tried to load a invalid server from the favorites config. The invalid entry is ignored.</Value>
+    <Description></Description>   
+  </Entry>
+  <Entry>
+    <Key>resLanguageDE</Key>
+    <Value>German</Value>
+    <Description>Name of the german language</Description>
+  </Entry>
+  <Entry>
+    <Key>resLanguageEN</Key>
+    <Value>English</Value>
+    <Description>Name of the english language</Description>
+  </Entry>
+  <Entry>
+    <Key>resLanguagePL</Key>
+    <Value>Polish</Value>
+    <Description>Name of the polish language</Description>
+  </Entry>
+  <Entry>
+    <Key>resLanguageSelection</Key>
+    <Value>Language</Value>
+    <Description></Description>
+  </Entry>
+  <Entry>
+    <Key>resMainWindowTitle</Key>
+    <Value>Gothic 2 Online Launcher</Value>
+    <Description>Titel of the main window</Description>
+  </Entry>
+  <Entry>
+    <Key>resMessageBoxCanNotJoin</Key>
+    <Value>Cannot join to server! You don't have required version.</Value>
+    <Description></Description>
+  </Entry>
+  <Entry>
+    <Key>resMessageBoxCouldNotStartG2O</Key>
+    <Value>Could not start Gothic 2 Online</Value>
+    <Description></Description>
+  </Entry>
+  <Entry>
+    <Key>resMessageBoxGothicInstalled</Key>
+    <Value>
+      Could not open Gothic2.exe.
+      Did you install G2O to a folder with Gothic 2: Night of the Raven!
+    </Value>
+    <Description></Description>
+  </Entry>
+  <Entry>
+    <Key>resMessageBoxTitelG2O</Key>
+    <Value>Gothic 2 Online</Value>
+    <Description></Description>
+  </Entry>
+  <Entry>
+    <Key>resNewsNotLoaded</Key>
+    <Value>
+      The news could not be loaded.
+      Please check you internet connection.
+    </Value>
+    <Description>Text that is displayed if the news could not be loaded.</Description>
+  </Entry>
+  <Entry>
+    <Key>resReloadNews</Key>
+    <Value>Reload</Value>
+    <Description>Text for the reload news context menu item.</Description>
+  </Entry>
+  <Entry>
+    <Key>resServerAddBoxButtonAdd</Key>
+    <Value>Add</Value>
+    <Description>Text for the add server button</Description>
+  </Entry> 
+  <Entry>
+    <Key>resServerAddBoxButtonChancel</Key>
+    <Value>Chancel</Value>
+    <Description>Text for chancel button in the add server dialog.</Description>
+  </Entry>
+  <Entry>
+    <Key>resServerAddBoxTitle</Key>
+    <Value>Please enter the server address and port</Value>
+    <Description></Description>
+  </Entry>
+  <Entry>
+    <Key>resServerAddress</Key>
+    <Value>Server Address</Value>
+    <Description></Description>
+  </Entry>
+  <Entry>
+    <Key>resServerName</Key>
+    <Value>Server Name</Value>
+    <Description></Description>
+  </Entry>
+  <Entry>
+    <Key>resServerPing</Key>
+    <Value>Ping</Value>
+    <Description></Description>
+  </Entry>
+  <Entry>
+    <Key>resServerPlayers</Key>
+    <Value>Players</Value>
+    <Description></Description>
+  </Entry>
+  <Entry>
+    <Key>resServerVersion</Key>
+    <Value>Version</Value>
+    <Description></Description>
+  </Entry>
+  <Entry>
+    <Key>resTabFavorites</Key>
+    <Value>Favorites</Value>
+    <Description>Title of the Favorites tab</Description>
+  </Entry>
+  <Entry>
+    <Key>resTabFavoritesAddServer</Key>
+    <Value>Add server</Value>
+    <Description>Text of the favorites tab context menu entry for adding a new server</Description>
+  </Entry>
+  <Entry>
+    <Key>resTabFavoritesRemoveServer</Key>
+    <Value>Remove server</Value>
+    <Description>Text of the favorites tab context menu entry for removing a server</Description>
+  </Entry>
+  <Entry>
+    <Key>resTabFavoritesRemoveServer</Key>
+    <Value>Remove server</Value>
+    <Description>Conetex menu action for removing a server.</Description>
+  </Entry>
+  <Entry>
+    <Key>resTabNews</Key>
+    <Value>News</Value>
+    <Description>Title of the News tab</Description>
+  </Entry>
+  <Entry>
+    <Key>resTabServers</Key>
+    <Value>Servers</Value>
+    <Description>Title of the Servers tab</Description>
+  </Entry>
+</Localization>

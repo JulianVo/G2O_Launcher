@@ -29,7 +29,7 @@ namespace G2O_Launcher.Views
     /// <summary>
     ///     The main window.
     /// </summary>
-    public partial class MainWindow
+    internal partial class MainWindow
     {
         /// <summary>
         ///     Initializes a new instance of the <see cref="MainWindow" /> class.

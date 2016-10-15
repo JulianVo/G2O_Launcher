@@ -1,5 +1,5 @@
 ﻿//  --------------------------------------------------------------------------------------------------------------------
-//  <copyright file="ObservableServerEnty.cs" company="Gothic Online Project">
+//  <copyright file="ObservableServerEntry.cs" company="Gothic Online Project">
 //  Copyright (C) <2016>  <Julian Vogel>
 //  This program is free software: you can redistribute it and/or modify
 //  it under the terms of the GNU General Public License as published by
@@ -18,13 +18,16 @@
 namespace G2O_Launcher.ViewModels
 {
     using System;
+    using System.ComponentModel;
 
+    using G2O_Launcher.Annotations;
+    using G2O_Launcher.Localization;
     using G2O_Launcher.ServerRequests.Interface;
 
     /// <summary>
     ///     ViewModel class for server list entries.
     /// </summary>
-    public class ObservableServerEnty : NotifyPropertyChangedBase
+    internal class ObservableServerEntry : INotifyPropertyChanged
     {
         /// <summary>
         ///     The host name.
@@ -52,10 +55,10 @@ namespace G2O_Launcher.ViewModels
         private string version;
 
         /// <summary>
-        ///     Initializes a new instance of the <see cref="ObservableServerEnty" /> class.
+        ///     Initializes a new instance of the <see cref="ObservableServerEntry" /> class.
         /// </summary>
         /// <param name="serverState">The state object for the displayed server.</param>
-        public ObservableServerEnty(IServerState serverState)
+        public ObservableServerEntry(IServerState serverState)
         {
             if (serverState == null)
             {
@@ -166,6 +169,14 @@ namespace G2O_Launcher.ViewModels
             this.Version = this.ServerState.Info?.VersionString ?? "-";
             this.PlayerCount = this.ServerState.Info?.PlayersString ?? "-";
             this.Ping = this.ServerState.LastPing;
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        [NotifyPropertyChangedInvocator]
+        protected virtual void OnPropertyChanged(string propertyName)
+        {
+            this.PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 }
