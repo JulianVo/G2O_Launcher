@@ -10,11 +10,42 @@
     <Grid>
         <DataGrid  Margin="0" Background="{x:Null}" BorderBrush="{x:Null}" BorderThickness="0" >
             <DataGrid.Columns>
-                <DataGridTextColumn Header="{Binding Res[resServerAddress].Value}"/>
-                <DataGridTextColumn Header="{Binding Res[resServerName].Value}"/>
-                <DataGridTextColumn Header="{Binding Res[resServerPlayers].Value}"/>
-                <DataGridTextColumn Header="{Binding Res[resServerVersion].Value}"/>
-            </DataGrid.Columns>
+                <DataGridTextColumn Binding="{Binding HostName}">
+                        <DataGridTextColumn.HeaderTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding DataContext.Res[resServerAddress].Value, RelativeSource={RelativeSource AncestorType=DataGrid}}"/>
+                            </DataTemplate>
+                        </DataGridTextColumn.HeaderTemplate>
+                    </DataGridTextColumn>
+                    <DataGridTextColumn Binding="{Binding ServerName}">
+                        <DataGridTextColumn.HeaderTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding DataContext.Res[resServerName].Value, RelativeSource={RelativeSource AncestorType=DataGrid}}"/>
+                            </DataTemplate>
+                        </DataGridTextColumn.HeaderTemplate>
+                    </DataGridTextColumn>
+                    <DataGridTextColumn  Binding="{Binding PlayerCount}">
+                        <DataGridTextColumn.HeaderTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding DataContext.Res[resServerPlayers].Value, RelativeSource={RelativeSource AncestorType=DataGrid}}"/>
+                            </DataTemplate>
+                        </DataGridTextColumn.HeaderTemplate>
+                    </DataGridTextColumn>
+                    <DataGridTextColumn Binding="{Binding Version}">
+                        <DataGridTextColumn.HeaderTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding DataContext.Res[resServerVersion].Value, RelativeSource={RelativeSource AncestorType=DataGrid}}"/>
+                            </DataTemplate>
+                        </DataGridTextColumn.HeaderTemplate>
+                    </DataGridTextColumn>
+                    <DataGridTextColumn  Binding="{Binding Ping}">
+                        <DataGridTextColumn.HeaderTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding DataContext.Res[resServerPing].Value, RelativeSource={RelativeSource AncestorType=DataGrid}}"/>
+                            </DataTemplate>
+                        </DataGridTextColumn.HeaderTemplate>
+                    </DataGridTextColumn>
+                </DataGrid.Columns>
         </DataGrid>
     </Grid>
 </UserControl>
