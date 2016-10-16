@@ -62,7 +62,7 @@
                         </EventTrigger>
                     </Button.Triggers>
                 </Button>
-                <TextBox  Margin="20,60,20,0" TextWrapping="Wrap"  VerticalAlignment="Top"/>
+                <TextBox Name="txtAddress" Margin="20,60,20,0" TextWrapping="Wrap"  VerticalAlignment="Top"/>
                 <Label  Content="{Binding Res[resServerAddBoxTitle].Value}" Margin="20,10,20,0" VerticalAlignment="Top" Foreground="White" Width="432" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
                 <Button  Content="{Binding Res[resServerAddBoxButtonAdd].Value}" HorizontalAlignment="Left" Margin="20,0,0,5" VerticalAlignment="Bottom" Width="100" Command="{Binding AddServerCommand}" CommandParameter="{Binding ElementName=txtAddress, Path=Text}">
                     <Button.Triggers>

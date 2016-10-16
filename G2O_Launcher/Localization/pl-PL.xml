@@ -1,0 +1,131 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Localization culture="pl-PL">
+  <Entry>
+    <Key>resErrorInvalidServerInConfig</Key>
+    <Value>Tried to load a invalid server from the favorites config. The invalid entry is ignored.</Value>
+  </Entry>
+  <Entry>
+    <!--Name of the german language-->
+    <Key>resLanguageDE</Key>
+    <Value>German</Value>
+    <Description></Description>
+  </Entry>
+  <Entry>
+    <!--Name of the english language-->
+    <Key>resLanguageEN</Key>
+    <Value>English</Value>
+  </Entry>
+  <Entry>
+    <!--Name of the polish language-->
+    <Key>resLanguagePL</Key>
+    <Value>Polish</Value>
+  </Entry>
+  <Entry>
+    <!--Titel of the main window-->
+    <Key>resLanguageSelection</Key>
+    <Value>Language</Value>
+  </Entry>
+  <Entry>
+    <!--Titel of the main window-->
+    <Key>resMainWindowTitle</Key>
+    <Value>Gothic 2 Online Launcher</Value>
+  </Entry>
+  <Entry>
+    <!--Message box text for the invalid version error-->
+    <Key>resMessageBoxCanNotJoin</Key>
+    <Value>Cannot join to server! You don't have required version.</Value>
+  </Entry>
+  <Entry>
+    <!--Message box text for general errors-->
+    <Key>resMessageBoxCouldNotStartG2O</Key>
+    <Value>Could not start Gothic 2 Online</Value>
+  </Entry>
+  <Entry>
+    <Key>resMessageBoxGothicInstalled</Key>
+    <Value>
+      Could not find Gothic2.exe.
+      Did you install G2O to a folder with Gothic 2: Night of the Raven!
+    </Value>
+  </Entry>
+  <Entry>
+    <Key>resMessageBoxTitelG2O</Key>
+    <Value>Gothic 2 Online</Value>
+  </Entry>
+  <Entry>
+    <!--Text that is displayed if the news could not be loaded.-->
+    <Key>resNewsNotLoaded</Key>
+    <Value>
+      The news could not be loaded.
+      Please check you internet connection.
+    </Value>
+  </Entry>
+  <Entry>
+    <!--Text for the reload news context menu item.-->
+    <Key>resReloadNews</Key>
+    <Value>Reload</Value>
+  </Entry>
+  <Entry>
+    <!--Text for the add server button-->
+    <Key>resServerAddBoxButtonAdd</Key>
+    <Value>Add</Value>
+  </Entry> 
+  <Entry>
+    <!--Text for chancel button in the add server dialog.-->
+    <Key>resServerAddBoxButtonChancel</Key>
+    <Value>Chancel</Value>
+  </Entry>
+  <Entry>
+    <Key>resServerAddBoxTitle</Key>
+    <Value>Please enter the server address and port</Value>
+  </Entry>
+  <Entry>
+    <Key>resServerAddress</Key>
+    <Value>Server Address</Value>
+  </Entry>
+  <Entry>
+    <Key>resServerName</Key>
+    <Value>Server Name</Value>
+  </Entry>
+  <Entry>
+    <Key>resServerPing</Key>
+    <Value>Ping</Value>
+  </Entry>
+  <Entry>
+    <Key>resServerPlayers</Key>
+    <Value>Players</Value>
+  </Entry>
+  <Entry>
+    <Key>resServerVersion</Key>
+    <Value>Version</Value>
+  </Entry>
+  <Entry>
+    <!--Title of the Favorites tab-->
+    <Key>resTabFavorites</Key>
+    <Value>Favorites</Value>
+  </Entry>
+  <Entry>
+    <!--Text of the favorites tab context menu entry for adding a new server-->
+    <Key>resTabFavoritesAddServer</Key>
+    <Value>Add server</Value>
+  </Entry>
+  <Entry>
+    <!--Text of the favorites tab context menu entry for removing a server-->
+    <Key>resTabFavoritesRemoveServer</Key>
+    <Value>Remove server</Value>
+  </Entry>
+  <Entry>
+    <!--Title of the News tab-->
+    <Key>resTabNews</Key>
+    <Value>News</Value>
+  </Entry>
+  <Entry>
+    <!--Title of the Servers tab-->
+    <Key>resTabServers</Key>
+    <Value>Servers</Value>
+  </Entry>
+  <Entry>
+    <!--Updater Error message box -->
+    <Key>resMsgBoxUpdateError</Key>
+    <Value>An error occured while trying to execute the update.</Value>
+  </Entry>
+</Localization>

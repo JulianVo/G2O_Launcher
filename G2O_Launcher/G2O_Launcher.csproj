@@ -209,6 +209,7 @@
   <ItemGroup>
     <Content Include="lib\ICSharpCode.SharpZipLib.dll" />
     <Content Include="lib\Newtonsoft.Json.dll" />
+    <Resource Include="Localization\pl-PL.xml" />
     <EmbeddedResource Include="Localization\de-DE.xml" />
     <EmbeddedResource Include="Localization\en-US.xml" />
   </ItemGroup>
