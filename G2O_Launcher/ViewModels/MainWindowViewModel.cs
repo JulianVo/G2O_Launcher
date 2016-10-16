@@ -132,6 +132,7 @@ namespace G2O_Launcher.ViewModels
 
             this.config = config;
             this.registry = registry;
+            this.UpdateVersionText();
             this.SelectedTabIndex = config.SelectedTabIndex > 0 ? config.SelectedTabIndex : 0;
             updater.AvailableUpdateDetected += (obj, args) => updater.Update();
             updater.ErrorOccured += this.UpdaterErrorOccured;
@@ -139,6 +140,7 @@ namespace G2O_Launcher.ViewModels
             updater.UpdateCompleted += (obj, args) =>
                 {
                     this.UpdateRunning = false;
+                    this.UpdateVersionText();
                     updater.Check();
                 };
 
@@ -354,5 +356,37 @@ namespace G2O_Launcher.ViewModels
         {
             MessageBox.Show(e.ErrorMessage, this.Res["resMsgBoxUpdateError"].Value);
         }
+
+        /// <summary>
+        /// Gets the current client version and writes it into the <see cref="VersionText"/> property.
+        /// </summary>
+        private void UpdateVersionText()
+        {       
+            using (G2OProxy proxy = new G2OProxy())
+            {
+                this.VersionText = proxy.Version().ToString();
+            }
+        }
+
+        /// <summary>
+        /// Gets a text that describes the current g2o client version.
+        /// </summary>
+        public string VersionText
+        {
+            get
+            {
+                return this.versionText;
+            }
+            private set
+            {
+                this.versionText = value;
+                this.OnPropertyChanged(nameof(this.VersionText));
+            }
+        }
+
+        /// <summary>
+        /// Backing field for the <see cref="VersionText"/> property.
+        /// </summary>
+        private string versionText;
     }
 }

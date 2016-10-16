@@ -78,7 +78,7 @@ namespace G2O_Launcher.Updater
         /// </summary>
         public void Check()
         {
-            G2OProxy.G2OVersion version;
+            G2OVersion version;
             using (G2OProxy proxy = new G2OProxy())
             {
                 version = proxy.Version();
@@ -112,7 +112,7 @@ namespace G2O_Launcher.Updater
         /// </summary>
         public void CheckReset()
         {
-            G2OProxy.G2OVersion version = new G2OProxy.G2OVersion(0, 0, 0, 0);
+            G2OVersion version = new G2OVersion(0, 0, 0, 0);
 
             using (WebClient webClient = new WebClient())
             {

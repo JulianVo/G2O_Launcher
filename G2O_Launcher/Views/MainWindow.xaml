@@ -82,5 +82,6 @@
             <ProgressBar Value="{Binding UpdateProgress}" Grid.Column="1" Grid.ColumnSpan="1" Margin="20,0,20,0" Visibility="{Binding UpdateRunning ,Converter={StaticResource BoolToVis}}" Foreground="#FF460101"/>
             <Label Content="{Binding UpdateProgressText}"  Grid.Column="1" Grid.ColumnSpan="1" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontWeight="Bold" FontSize="14" Visibility="{Binding UpdateRunning ,Converter={StaticResource BoolToVis}}"/>
         </Grid>
+        <Label Grid.Row="3" Content="{Binding VersionText}" Background="{x:Null}" Foreground="White" HorizontalAlignment="Right"/>
     </Grid>
 </Window>

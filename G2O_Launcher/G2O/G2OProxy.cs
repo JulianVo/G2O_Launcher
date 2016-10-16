@@ -190,47 +190,6 @@ namespace G2O_Launcher.G2O
         /// <param name="dllToLoad">Name of the dll thats should be loaded.</param>
         /// <returns></returns>
         [DllImport("kernel32.dll")]
-        private static extern IntPtr LoadLibrary(string dllToLoad);
-
-        /// <summary>
-        ///     Describes the local version of the gothic 2 online multiplayer.
-        /// </summary>
-        public struct G2OVersion
-        {
-            /// <summary>
-            ///     Initializes a new instance of the <see cref="G2OVersion" /> struct.
-            /// </summary>
-            /// <param name="major">The major version number.</param>
-            /// <param name="minor">The minor version number.</param>
-            /// <param name="patch">The patch number.</param>
-            /// <param name="build">The build number.</param>
-            public G2OVersion(int major, int minor, int patch, int build)
-            {
-                this.Major = major;
-                this.Minor = minor;
-                this.Patch = patch;
-                this.Build = build;
-            }
-
-            /// <summary>
-            ///     Gets the major version number.
-            /// </summary>
-            public int Major { get; }
-
-            /// <summary>
-            ///     Gets the minor version number.
-            /// </summary>
-            public int Minor { get; }
-
-            /// <summary>
-            ///     Gets the patch number.
-            /// </summary>
-            public int Patch { get; }
-
-            /// <summary>
-            ///     Gets the Build number.
-            /// </summary>
-            public int Build { get; }
-        }
+        private static extern IntPtr LoadLibrary(string dllToLoad);     
     }
 }

@@ -88,6 +88,7 @@
     <Compile Include="Config\ILauncherConfig.cs" />
     <Compile Include="Config\LauncherConfig.cs" />
     <Compile Include="G2O\G2OStarter.cs" />
+    <Compile Include="G2O\G2OVersion.cs" />
     <Compile Include="G2O\IG2OStarter.cs" />
     <Compile Include="G2O\RegistryConfig.cs" />
     <Compile Include="G2O\G2OProxy.cs" />
