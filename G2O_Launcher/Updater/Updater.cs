@@ -25,9 +25,7 @@ namespace G2O_Launcher.Updater
     using System.IO;
     using System.Net;
     using System.Reflection;
-    using System.Runtime.CompilerServices;
     using System.Text;
-    using System.Windows.Navigation;
 
     using G2O_Launcher.G2O;
 
@@ -46,28 +44,9 @@ namespace G2O_Launcher.Updater
         private const string UpdateUri = "http://gothic-online.com.pl/version/update.php";
 
         /// <summary>
-        ///     The instance of <see cref="G2OProxy" /> used to get the current version.
-        /// </summary>
-        private readonly G2OProxy proxy;
-
-        /// <summary>
         ///     Stores the downloadlink for the next update.
         /// </summary>
         private string downloadLink;
-
-        /// <summary>
-        ///     Initializes a new instance of the <see cref="G2OProxy" /> class.
-        /// </summary>
-        /// <param name="proxy"></param>
-        public Updater(G2OProxy proxy)
-        {
-            if (proxy == null)
-            {
-                throw new ArgumentNullException(nameof(proxy));
-            }
-
-            this.proxy = proxy;
-        }
 
         /// <summary>
         ///     Calls all registered handlers if a available update was found by the <see cref="Check" /> method.
@@ -99,9 +78,11 @@ namespace G2O_Launcher.Updater
         /// </summary>
         public void Check()
         {
-            G2OProxy.G2OVersion version = this.proxy.Version();
-            version = new G2OProxy.G2OVersion(0, 0, 0, 0);
-
+            G2OProxy.G2OVersion version;
+            using (G2OProxy proxy = new G2OProxy())
+            {
+                version = proxy.Version();
+            }
 
             using (WebClient webClient = new WebClient())
             {
@@ -110,12 +91,42 @@ namespace G2O_Launcher.Updater
                 try
                 {
                     var post = new UpdatePost()
-                    {
-                        major = version.Major,
-                        minor = version.Minor,
-                        patch = version.Patch,
-                        build = version.Build
-                    };
+                                   {
+                                       major = version.Major, 
+                                       minor = version.Minor, 
+                                       patch = version.Patch, 
+                                       build = version.Build
+                                   };
+                    string data = JsonConvert.SerializeObject(post);
+                    webClient.UploadStringAsync(new Uri(uriString), "POST", data);
+                }
+                catch (WebException ex)
+                {
+                    this.ErrorOccured?.Invoke(this, new UpdateErrorEventArgs(ex.Message));
+                }
+            }
+        }
+
+        /// <summary>
+        ///     Does executes a update check but sets the current version to 0,0,0,0 which causes a redownload of the all updates.
+        /// </summary>
+        public void CheckReset()
+        {
+            G2OProxy.G2OVersion version = new G2OProxy.G2OVersion(0, 0, 0, 0);
+
+            using (WebClient webClient = new WebClient())
+            {
+                string uriString = UpdateUri;
+                webClient.UploadStringCompleted += this.UpdateUploadStringCompleted;
+                try
+                {
+                    var post = new UpdatePost()
+                                   {
+                                       major = version.Major, 
+                                       minor = version.Minor, 
+                                       patch = version.Patch, 
+                                       build = version.Build
+                                   };
                     string data = JsonConvert.SerializeObject(post);
                     webClient.UploadStringAsync(new Uri(uriString), "POST", data);
                 }
@@ -181,13 +192,12 @@ namespace G2O_Launcher.Updater
 
                     batch.AppendLine("timeout /t 1 /nobreak");
                     batch.AppendLine($"move /y \"{appPath}.update\" \"{appPath}\"");
-                    batch.AppendLine($"\"{appPath}\"");              
+                    batch.AppendLine($"\"{appPath}\"");
                     batch.AppendLine("del /F \"%~f0\"");
                     batch.AppendLine("exit");
 
                     string batchPath = Path.Combine(Path.GetTempPath(), Path.GetRandomFileName() + ".bat");
                     File.WriteAllText(batchPath, batch.ToString());
-
 
                     ProcessStartInfo processStart = new ProcessStartInfo();
                     processStart.WindowStyle = ProcessWindowStyle.Hidden;
@@ -197,23 +207,21 @@ namespace G2O_Launcher.Updater
                     processStart.RedirectStandardError = false;
                     Process.Start(processStart);
 
-
-
                     //// Kill the G2O_Update process if it already exists.
-                    //foreach (var process in Process.GetProcessesByName("G2O_Update.exe"))
-                    //{
-                    //    process.Kill();
-                    //}
+                    // foreach (var process in Process.GetProcessesByName("G2O_Update.exe"))
+                    // {
+                    // process.Kill();
+                    // }
 
-                    //if (Process.Start("G2O_Update.exe") != null)
-                    //{
-                    //    Environment.Exit(0);
-                    //}
-                    //else
-                    //{
-                    //    var args = new UpdateErrorEventArgs($"Cannot start update process!");
-                    //    this.ErrorOccured?.Invoke(this, args);
-                    //}
+                    // if (Process.Start("G2O_Update.exe") != null)
+                    // {
+                    // Environment.Exit(0);
+                    // }
+                    // else
+                    // {
+                    // var args = new UpdateErrorEventArgs($"Cannot start update process!");
+                    // this.ErrorOccured?.Invoke(this, args);
+                    // }
                 }
                 catch (Win32Exception)
                 {
@@ -270,7 +278,7 @@ namespace G2O_Launcher.Updater
             catch (JsonReaderException)
             {
                 this.ErrorOccured?.Invoke(
-                    this,
+                    this, 
                     new UpdateErrorEventArgs($"Could not parse the data that was returned from the update server."));
             }
         }

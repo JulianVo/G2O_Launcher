@@ -11,6 +11,9 @@
         mc:Ignorable="d"
         Title="{Binding Res[resMainWindowTitle].Value}" Height="500" Width="800" WindowStartupLocation="CenterScreen" WindowStyle="None" Background="#FF5F5D5D" ResizeMode="NoResize" BorderBrush="Black" BorderThickness="1,1,1,1" WindowState="{Binding WindowState}" Style="{DynamicResource Gothic2}"
     x:ClassModifier="internal">
+    <Window.InputBindings>
+        <KeyBinding Gesture="Control+Alt+Shift+R"  Command="{Binding ResetCheckUpdateCommand}"/>
+    </Window.InputBindings>
     <Window.Resources>
         <Style x:Key="Gothic2">
             <Setter Property="TextElement.FontFamily" Value="/Resources/#Gothic II - Die Nacht des Raben" />
@@ -77,7 +80,7 @@
             </Grid.ColumnDefinitions>
             <TextBox Text="{Binding Nickname}" HorizontalAlignment="Left" Height="23" Margin="27,10,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="206" Background="#66000000" Foreground="White" VerticalContentAlignment="Center"/>
             <ProgressBar Value="{Binding UpdateProgress}" Grid.Column="1" Grid.ColumnSpan="1" Margin="20,0,20,0" Visibility="{Binding UpdateRunning ,Converter={StaticResource BoolToVis}}" Foreground="#FF460101"/>
-            <Label Content="{Binding UpdateProgressText}"  Grid.Column="1" Grid.ColumnSpan="1" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontWeight="Bold" FontSize="14"/>
+            <Label Content="{Binding UpdateProgressText}"  Grid.Column="1" Grid.ColumnSpan="1" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontWeight="Bold" FontSize="14" Visibility="{Binding UpdateRunning ,Converter={StaticResource BoolToVis}}"/>
         </Grid>
     </Grid>
 </Window>

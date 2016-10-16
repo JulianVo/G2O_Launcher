@@ -112,24 +112,30 @@ namespace G2O_Launcher
                     MessageBoxImage.Warning);
             }
 
+            // Registry
             var registry = new RegistryConfig();
-            var g2oProxy = new G2OProxy();
-            using (var starter = new G2OStarter(g2oProxy, registry))
-            {
-                MainWindowViewModel mainWindowViewModel = new MainWindowViewModel(
-                    this.config, 
-                    registry, 
-                    new Updater.Updater(g2oProxy), 
-                    this.resourceManager);
-                NewsViewViewModel newsViewViewModel =
-                    new NewsViewViewModel(this.resourceManager["resNewsNotLoaded"].Value, this.resourceManager);
-                FavoritesViewViewModel favoritesViewViewModel = new FavoritesViewViewModel(
-                    this.favoritesServerWatcher, 
-                    starter, 
-                    this.resourceManager);
-                MainWindow window = new MainWindow(mainWindowViewModel, newsViewViewModel, favoritesViewViewModel);
-                window.Show();
-            }
+
+            // MainWindowViewModel
+            MainWindowViewModel mainWindowViewModel = new MainWindowViewModel(
+                this.config, 
+                registry, 
+                new Updater.Updater(), 
+                this.resourceManager);
+
+            // NewsViewModel
+            NewsViewViewModel newsViewViewModel = new NewsViewViewModel(
+                this.resourceManager["resNewsNotLoaded"].Value, 
+                this.resourceManager);
+
+            // FavoritesViewModel
+            FavoritesViewViewModel favoritesViewViewModel = new FavoritesViewViewModel(
+                this.favoritesServerWatcher, 
+                new G2OStarter(registry), 
+                this.resourceManager);
+
+            // Main window
+            MainWindow window = new MainWindow(mainWindowViewModel, newsViewViewModel, favoritesViewViewModel);
+            window.Show();
         }
 
         /// <summary>

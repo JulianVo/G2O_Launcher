@@ -26,54 +26,25 @@ namespace G2O_Launcher.G2O
     /// <summary>
     ///     Default implementation of the <see cref="IG2OStarter" /> interface.
     /// </summary>
-    public class G2OStarter : IG2OStarter, IDisposable
+    public class G2OStarter : IG2OStarter
     {
-        /// <summary>
-        ///     Interface to the g2o proxy module.
-        /// </summary>
-        private readonly G2OProxy proxy;
-
         /// <summary>
         ///     Object used to access the g2o registry value.
         /// </summary>
         private readonly RegistryConfig registry;
 
         /// <summary>
-        ///     Indicates whether this object is disposed or not.
-        /// </summary>
-        private bool disposed;
-
-        /// <summary>
         ///     Initializes a new instance of the <see cref="G2OStarter" /> class.
         /// </summary>
-        /// <param name="proxy">The <see cref="G2OProxy" /> instance used to start the client.</param>
         /// <param name="registry">The object used to access the g2o registry values.</param>
-        public G2OStarter(G2OProxy proxy, RegistryConfig registry)
+        public G2OStarter(RegistryConfig registry)
         {
-            if (proxy == null)
-            {
-                throw new ArgumentNullException(nameof(proxy));
-            }
-
             if (registry == null)
             {
                 throw new ArgumentNullException(nameof(registry));
             }
 
-            this.proxy = proxy;
             this.registry = registry;
-        }
-
-        /// <summary>
-        ///     Releases all unmanaged resources related to this object.
-        /// </summary>
-        public void Dispose()
-        {
-            if (!this.disposed)
-            {
-                this.proxy.Dispose();
-                this.disposed = true;
-            }
         }
 
         /// <summary>
@@ -117,7 +88,10 @@ namespace G2O_Launcher.G2O
             }
 
             this.registry.IpPort = ipAndPort;
-            return this.proxy.Run(versionMajor, versionMinor, patchNr);
+            using (G2OProxy proxy = new G2OProxy())
+            {
+                return proxy.Run(versionMajor, versionMinor, patchNr);
+            }
         }
     }
 }

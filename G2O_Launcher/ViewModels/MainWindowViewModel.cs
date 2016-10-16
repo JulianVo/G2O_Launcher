@@ -33,6 +33,9 @@ namespace G2O_Launcher.ViewModels
 
     #endregion
 
+    /// <summary>
+    ///     ViewModel class for the main window view.
+    /// </summary>
     internal class MainWindowViewModel : ViewModelBase
     {
         /// <summary>
@@ -45,6 +48,14 @@ namespace G2O_Launcher.ViewModels
         /// </summary>
         private readonly RegistryConfig registry;
 
+        /// <summary>
+        ///     The used instance of the updater.
+        /// </summary>
+        private readonly Updater updater;
+
+        /// <summary>
+        ///     Backing field for the <see cref="ChangeLanguageCommand" /> property.
+        /// </summary>
         private RelayCommand changeLanguageCommand;
 
         /// <summary>
@@ -58,14 +69,28 @@ namespace G2O_Launcher.ViewModels
         private RelayCommand minimizeCommand;
 
         /// <summary>
+        ///     Backing field for the <see cref="ResetCheckUpdateCommand" /> property.
+        /// </summary>
+        private RelayCommand resetCheckUpdateCommand;
+
+        /// <summary>
         ///     The selected tab index.
         /// </summary>
         private int selectedTabIndex;
 
+        /// <summary>
+        ///     Backing field for the <see cref="UpdateProgress" /> property.
+        /// </summary>
         private int updateProgress;
 
+        /// <summary>
+        ///     Backing field for the <see cref="UpdateProgressText" /> property.
+        /// </summary>
         private string updateProgressText;
 
+        /// <summary>
+        ///     Backing field for the <see cref="UpdateRunning" /> property.
+        /// </summary>
         private bool updateRunning;
 
         /// <summary>
@@ -108,14 +133,18 @@ namespace G2O_Launcher.ViewModels
             this.config = config;
             this.registry = registry;
             this.SelectedTabIndex = config.SelectedTabIndex > 0 ? config.SelectedTabIndex : 0;
-            updater.AvailableUpdateDetected += this.Updater_AvailableUpdateDetected;
+            updater.AvailableUpdateDetected += (obj, args) => updater.Update();
             updater.ErrorOccured += this.UpdaterErrorOccured;
             updater.DownloadStarted += (obj, args) => this.UpdateRunning = true;
-            updater.UpdateCompleted += (obj, args) => this.UpdateRunning = false;
+            updater.UpdateCompleted += (obj, args) =>
+                {
+                    this.UpdateRunning = false;
+                    updater.Check();
+                };
 
             updater.DownloadProgress += this.UpdaterDownloadProgress;
-
             updater.Check();
+            this.updater = updater;
         }
 
         /// <summary>
@@ -157,6 +186,34 @@ namespace G2O_Launcher.ViewModels
 
                 this.registry.Nickname = value;
                 this.OnPropertyChanged(nameof(this.Nickname));
+            }
+        }
+
+        /// <summary>
+        ///     Gets a command that resets all updates and starts the redownload.
+        /// </summary>
+        public RelayCommand ResetCheckUpdateCommand
+        {
+            get
+            {
+                if (this.resetCheckUpdateCommand == null)
+                {
+                    this.resetCheckUpdateCommand = new RelayCommand(
+                        (obj) => !this.updateRunning, 
+                        (obj) =>
+                            {
+                                if (MessageBox.Show(
+                                    "Do you really want to reset the all updates?", 
+                                    "Reset updates?", 
+                                    MessageBoxButton.YesNo, 
+                                    MessageBoxImage.Warning) == MessageBoxResult.Yes)
+                                {
+                                    this.updater.CheckReset();
+                                }
+                            });
+                }
+
+                return this.resetCheckUpdateCommand;
             }
         }
 
@@ -285,14 +342,6 @@ namespace G2O_Launcher.ViewModels
         private void ExecuteMinimizeCommand(object param)
         {
             this.WindowState = WindowState.Minimized;
-        }
-
-        private void Updater_AvailableUpdateDetected(object sender, EventArgs e)
-        {
-            if (MessageBox.Show(string.Empty, string.Empty, MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
-            {
-                (sender as Updater)?.Update();
-            }
         }
 
         private void UpdaterDownloadProgress(object sender, DownloadProgressChangedEventArgs e)
